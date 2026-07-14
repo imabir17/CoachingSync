@@ -117,17 +117,38 @@ export async function getCourseByIdAction(id: string) {
 
   const supabase = await createClient()
   
-  const { data, error } = await supabase
+  const { data: course, error: courseError } = await supabase
     .from('Course')
-    .select('*, inCharge:User(*), batches:Batch(*, instructor:User(*))')
+    .select('*')
     .eq('id', id)
     .eq('companyId', user.companyId)
     .single()
 
-  if (error) {
-    console.error('Error fetching course:', error)
+  if (courseError) {
+    console.error('Error fetching course:', courseError)
     return { error: 'Failed to fetch course' }
   }
 
-  return { data }
+  const { data: batches } = await supabase
+    .from('Batch')
+    .select('*')
+    .eq('courseId', id)
+
+  const { data: staff } = await supabase
+    .from('User')
+    .select('*')
+    .eq('companyId', user.companyId)
+
+  const staffMap = new Map(staff?.map(s => [s.id, s]) || [])
+
+  const result = {
+    ...course,
+    inCharge: course.inChargeId ? staffMap.get(course.inChargeId) || null : null,
+    batches: (batches || []).map(b => ({
+      ...b,
+      instructor: b.instructorId ? staffMap.get(b.instructorId) || null : null
+    }))
+  }
+
+  return { data: result }
 }
