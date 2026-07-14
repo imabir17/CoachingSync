@@ -153,38 +153,15 @@ export function LeadForm({ counselors, isAdminOrManager, stages = [] }: { counse
               className={selectClass}
             >
               <option value="">Select Level</option>
+              <option value="Class 5">Class 5</option>
+              <option value="Class 6">Class 6</option>
+              <option value="Class 7">Class 7</option>
+              <option value="Class 8">Class 8</option>
+              <option value="Class 9">Class 9</option>
               <option value="SSC">SSC / O-Levels</option>
               <option value="HSC">HSC / A-Levels</option>
               <option value="Bachelors">Bachelor's Degree</option>
               <option value="Masters">Master's Degree</option>
-            </select>
-          </div>
-          <div>
-            <label htmlFor="preferredStudyLevel" className="block text-[10px] font-bold text-[#CCCCCC] uppercase tracking-wider mb-2">Preferred Study Level</label>
-            <select 
-              name="preferredStudyLevel" 
-              id="preferredStudyLevel"
-              className={selectClass}
-            >
-              <option value="">Select Level</option>
-              <option value="Language Course">Language Course</option>
-              <option value="Language Program">Language Program</option>
-              <option value="Bachelors">Bachelor's Degree</option>
-              <option value="Masters">Master's Degree</option>
-              <option value="PhD">PhD</option>
-            </select>
-          </div>
-          <div>
-            <label htmlFor="preferredCountry" className="block text-[10px] font-bold text-[#CCCCCC] uppercase tracking-wider mb-2">Preferred Country</label>
-            <select 
-              name="preferredCountry" 
-              id="preferredCountry"
-              className={selectClass}
-            >
-              <option value="">Select Country</option>
-              {COUNTRIES.map(country => (
-                <option key={country} value={country}>{country}</option>
-              ))}
             </select>
           </div>
           <div>
@@ -194,7 +171,7 @@ export function LeadForm({ counselors, isAdminOrManager, stages = [] }: { counse
               name="preferredCourse" 
               id="preferredCourse"
               className={inputClass}
-              placeholder="e.g. Computer Science" 
+              placeholder="e.g. IELTS" 
             />
           </div>
 
