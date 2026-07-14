@@ -47,7 +47,7 @@ export default function LeadDetailClient({ lead, canEdit = true, courses = [] }:
     setLocalInteractions(lead.interactions || [])
   }, [lead.interactions])
 
-  // File Opened State
+  // Enrolled State
   const [isFileOpened, setIsFileOpened] = useState(lead.isFileOpened || false)
   const [isPendingFileOpened, setIsPendingFileOpened] = useState(false)
 
@@ -191,13 +191,13 @@ export default function LeadDetailClient({ lead, canEdit = true, courses = [] }:
         {/* Left Column - Academic & Preferences */}
         <div className="lg:col-span-1 space-y-8">
           
-          {/* File Opened Status Card */}
+          {/* Enrolled Status Card */}
           <div className={`neo-raised p-5 flex items-center justify-between transition-colors duration-300 ${
             isFileOpened ? 'bg-emerald-500/5 border border-[#3E3E42]' : ''
           }`}>
             <h3 className="text-sm font-bold text-[#D4D4D4] flex items-center gap-2">
               <FolderOpen className={`h-4.5 w-4.5 ${isFileOpened ? 'text-emerald-500' : 'text-[#858585]'}`} />
-              File Opened Status
+              Enrolled
             </h3>
             <label className="flex items-center cursor-pointer gap-2">
               {isPendingFileOpened && <span className="text-[10px] text-[#858585] animate-pulse font-bold">Saving...</span>}

@@ -105,9 +105,9 @@ export default async function ReportsPage({
                   </div>
 
                   <div className="bg-[#1E1E1E] border border-[#3E3E42] border border-[#111317]/10 rounded-sm p-5 flex flex-col justify-center items-center text-center">
-                    <span className="text-[#858585] text-[10px] font-bold mb-1 uppercase tracking-wider">Files Opened</span>
+                    <span className="text-[#858585] text-[10px] font-bold mb-1 uppercase tracking-wider">Enrolled</span>
                     <span className="text-2xl font-black text-[#21C285] font-display">{report.filesOpened}</span>
-                    <span className="text-[9px] text-[#858585] font-semibold mt-1.5 leading-tight">Opened in period</span>
+                    <span className="text-[9px] text-[#858585] font-semibold mt-1.5 leading-tight">Enrolled in period</span>
                   </div>
                   
                   <div className="bg-[#1E1E1E] border border-[#3E3E42] border border-[#111317]/10 rounded-sm p-5 flex flex-col justify-center items-center text-center">
