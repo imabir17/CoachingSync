@@ -50,71 +50,56 @@ body {
 }
  
 ::-webkit-scrollbar-thumb {
-  background: var(--bg);
-  box-shadow: 2px 2px 5px var(--shadow-dark), -2px -2px 5px var(--shadow-light);
+  background: var(--bg-deep);
+  border: 1px solid #3E3E42;
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--bg-deep);
-  box-shadow: 1px 1px 3px var(--shadow-dark), -1px -1px 3px var(--shadow-light);
+  background: #3E3E42;
 }
 
-/* Neomorphic helper utility classes */
+/* Flat UI helper utility classes (formerly Neomorphic) */
 .neo-raised {
   background: var(--bg);
-  border-radius: var(--radius-md);
-  box-shadow:
-    var(--dist) var(--dist) var(--blur) var(--shadow-dark),
-    calc(var(--dist) * -1) calc(var(--dist) * -1) var(--blur) var(--shadow-light);
+  border-radius: var(--radius-sm);
+  border: 1px solid #3E3E42;
 }
 
 .neo-raised-lg {
   background: var(--bg);
-  border-radius: var(--radius-lg);
-  box-shadow:
-    12px 12px 24px var(--shadow-dark),
-    -12px -12px 24px var(--shadow-light);
+  border-radius: var(--radius-md);
+  border: 1px solid #3E3E42;
 }
 
 .neo-pressed {
-  background: var(--bg);
+  background: var(--bg-deep);
   border-radius: var(--radius-sm);
-  box-shadow:
-    inset 4px 4px 8px var(--shadow-dark),
-    inset -4px -4px 8px var(--shadow-light);
+  border: 1px solid #3E3E42;
 }
 
 .neo-pressed-input {
-  background: var(--bg);
-  border-radius: 12px;
-  box-shadow:
-    inset 3px 3px 6px var(--shadow-dark),
-    inset -3px -3px 6px var(--shadow-light);
+  background: var(--bg-deep);
+  border-radius: var(--radius-sm);
+  border: 1px solid #3E3E42;
 }
 
 .neo-flat {
   background: var(--bg);
   border-radius: var(--radius-sm);
-  box-shadow:
-    4px 4px 8px var(--shadow-dark),
-    -4px -4px 8px var(--shadow-light);
+  border: 1px solid #3E3E42;
 }
 
 .neo-inline {
   background: var(--bg);
   border-radius: 999px;
-  box-shadow:
-    3px 3px 6px var(--shadow-dark),
-    -3px -3px 6px var(--shadow-light);
+  border: 1px solid #3E3E42;
 }
 
 .neo-inline-pressed {
-  background: var(--bg);
+  background: var(--bg-deep);
   border-radius: 999px;
-  box-shadow:
-    inset 3px 3px 6px var(--shadow-dark),
-    inset -3px -3px 6px var(--shadow-light);
+  border: 1px solid #3E3E42;
 }
 
 @keyframes slide-in-from-bottom-4 {
