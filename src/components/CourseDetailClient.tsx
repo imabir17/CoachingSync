@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Plus, X, Users, Calendar, AlertTriangle, BookOpen, Clock, User, CheckCircle } from 'lucide-react'
 import { createBatchAction } from '@/app/actions/courses'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 export default function CourseDetailClient({ course, staff }: { course: any, staff: any[] }) {
   const router = useRouter()
@@ -205,15 +206,53 @@ export default function CourseDetailClient({ course, staff }: { course: any, sta
                   </div>
                   
                   <div>
-                    <button className="px-3 py-1.5 border border-[#3E3E42] text-[#CCCCCC] hover:text-white hover:bg-[#333333] rounded-sm text-[10px] font-medium transition-colors">
-                      Edit
-                    </button>
+                    <Link 
+                      href={`/dashboard/batches/${batch.id}`} 
+                      className="px-3 py-1.5 border border-[#3E3E42] text-[#CCCCCC] hover:text-white hover:bg-[#333333] rounded-sm text-[10px] font-medium transition-colors inline-block"
+                    >
+                      Manage Batch →
+                    </Link>
                   </div>
                 </div>
               ))
             )}
           </div>
 
+        </div>
+
+        {/* Enrolled Students Card */}
+        <div className="bg-[#252526] border border-[#3E3E42] rounded-md overflow-hidden">
+          <div className="p-5 border-b border-[#3E3E42]">
+            <h3 className="text-sm font-semibold text-[#D4D4D4] flex items-center gap-2">
+              <Users className="w-4 h-4 text-[#21C285]" /> Enrolled Students ({course.enrolledStudents?.length || 0})
+            </h3>
+          </div>
+          <div className="divide-y divide-[#3E3E42]">
+            {!course.enrolledStudents || course.enrolledStudents.length === 0 ? (
+              <div className="p-8 text-center text-xs text-[#858585]">
+                No students enrolled in this course yet.
+              </div>
+            ) : (
+              course.enrolledStudents.map((student: any) => (
+                <div key={student.id} className="p-5 hover:bg-[#1E1E1E] transition-colors flex items-center justify-between gap-4">
+                  <div>
+                    <h4 className="text-sm font-medium text-[#D4D4D4]">{student.fullName}</h4>
+                    <div className="flex items-center gap-3 mt-1 text-[10px] text-[#858585]">
+                      <span>{student.email || 'No email'}</span>
+                      <span>•</span>
+                      <span>{student.phone || 'No phone'}</span>
+                    </div>
+                  </div>
+                  <Link 
+                    href={`/dashboard/leads/${student.id}`}
+                    className="px-3 py-1.5 border border-[#3E3E42] text-[#CCCCCC] hover:text-white hover:bg-[#333333] rounded-sm text-[10px] font-medium transition-colors"
+                  >
+                    View Profile
+                  </Link>
+                </div>
+              ))
+            )}
+          </div>
         </div>
       </div>
     </div>
