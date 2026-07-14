@@ -12,7 +12,7 @@ export type PipelineStage = {
   createdAt: string
 }
 
-const DEFAULT_STAGES = ['New', 'Contacted', 'Applied', 'Offer', 'Visa']
+const DEFAULT_STAGES = ['New', 'Future Interest', 'In Progress', 'Course Completed', 'Dead']
 
 /**
  * Fetches stages for the company, dynamically seeding them if they do not exist.
