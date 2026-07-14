@@ -19,9 +19,9 @@ export default async function LeadsPage({
   const stage = resolvedSearchParams.stage as string | undefined
   const rating = resolvedSearchParams.rating as string | undefined
   const counselorId = resolvedSearchParams.counselorId as string | undefined
-  const country = resolvedSearchParams.country as string | undefined
-  const englishTest = resolvedSearchParams.englishTest as string | undefined
   const source = resolvedSearchParams.source as string | undefined
+  const courseId = resolvedSearchParams.courseId as string | undefined
+  const batchId = resolvedSearchParams.batchId as string | undefined
 
   const isAdminOrManager = user.role === 'Super Admin' || user.role === 'Manager'
   const supabase = await createClient()
@@ -44,6 +44,21 @@ export default async function LeadsPage({
   const dbSources = rawSources ? (rawSources.map(s => s.source).filter(Boolean) as string[]) : []
   const predefinedSources = ['Facebook', 'Google', 'Instagram', 'Word of Mouth', 'Walk-in', 'Agent', 'Event/Seminar', 'Other']
   const allSources = Array.from(new Set([...predefinedSources, ...dbSources])).sort()
+
+  // 3. Fetch courses and batches for filtering
+  const { data: coursesData } = await supabase
+    .from('Course')
+    .select('id, name')
+    .eq('companyId', user.companyId)
+    .order('name', { ascending: true })
+
+  const courseIds = coursesData?.map(c => c.id) || []
+
+  const { data: batchesData } = await supabase
+    .from('Batch')
+    .select('id, name, courseId')
+    .in('courseId', courseIds)
+    .order('name', { ascending: true })
 
   // 3. Build the Supabase query based on search and filters
   let query = supabase
@@ -68,16 +83,37 @@ export default async function LeadsPage({
     query = query.eq('rating', rating)
   }
 
-  if (country) {
-    query = query.eq('preferredCountry', country)
-  }
-
-  if (englishTest) {
-    query = query.eq('englishTestType', englishTest)
-  }
-
   if (source) {
     query = query.eq('source', source)
+  }
+
+  if (batchId) {
+    const { data: enrollments } = await supabase
+      .from('BatchEnrollment')
+      .select('leadId')
+      .eq('batchId', batchId)
+    
+    const leadIds = enrollments?.map(e => e.leadId) || []
+    query = query.in('id', leadIds.length > 0 ? leadIds : ['none-found-matching-batch'])
+  } else if (courseId) {
+    const { data: courseBatches } = await supabase
+      .from('Batch')
+      .select('id')
+      .eq('courseId', courseId)
+    
+    const batchIds = courseBatches?.map(b => b.id) || []
+    
+    if (batchIds.length > 0) {
+      const { data: enrollments } = await supabase
+        .from('BatchEnrollment')
+        .select('leadId')
+        .in('batchId', batchIds)
+      
+      const leadIds = enrollments?.map(e => e.leadId) || []
+      query = query.in('id', leadIds.length > 0 ? leadIds : ['none-found-matching-course'])
+    } else {
+      query = query.in('id', ['none-found-matching-course'])
+    }
   }
 
   const { data: leadsData, error: queryError } = await query
@@ -118,7 +154,14 @@ export default async function LeadsPage({
       </div>
 
       <div className="space-y-6">
-        <LeadFilters isAdminOrManager={true} counselors={counselors} sources={allSources} stages={stages} />
+        <LeadFilters 
+          isAdminOrManager={isAdminOrManager} 
+          counselors={counselors} 
+          sources={allSources} 
+          stages={stages}
+          courses={coursesData || []}
+          batches={batchesData || []}
+        />
         <LeadsTableClient leads={leads} isAdminOrManager={isAdminOrManager} counselors={counselors} />
       </div>
     </div>

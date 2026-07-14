@@ -1,28 +1,40 @@
 'use client'
 
-import { Search, Filter, Users } from 'lucide-react'
+import { Search, Filter, Users, GraduationCap, ClipboardList } from 'lucide-react'
 import { useRouter, useSearchParams, usePathname } from 'next/navigation'
-import { useTransition } from 'react'
-import { LEAD_STAGES, LEAD_RATINGS } from '@/lib/constants'
-import { COUNTRIES } from '@/lib/countries'
+import { useTransition, useState, useEffect } from 'react'
+import { LEAD_STAGES } from '@/lib/constants'
 
 type Counselor = { id: string; fullName: string }
+type Course = { id: string; name: string }
+type Batch = { id: string; name: string; courseId: string }
 
 export function LeadFilters({ 
   isAdminOrManager, 
   counselors, 
   sources = [],
-  stages = []
+  stages = [],
+  courses = [],
+  batches = []
 }: { 
   isAdminOrManager: boolean
   counselors: Counselor[]
   sources?: string[] 
   stages?: any[]
+  courses?: Course[]
+  batches?: Batch[]
 }) {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const [isPending, startTransition] = useTransition()
+
+  // Keep track of the selected course so we can filter the batches dropdown locally
+  const [selectedCourseId, setSelectedCourseId] = useState(searchParams.get('courseId') || '')
+
+  useEffect(() => {
+    setSelectedCourseId(searchParams.get('courseId') || '')
+  }, [searchParams])
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const term = e.target.value
@@ -65,6 +77,42 @@ export function LeadFilters({
       router.replace(`${pathname}?${params.toString()}`)
     })
   }
+
+  const handleCourseFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const courseId = e.target.value
+    setSelectedCourseId(courseId)
+    const params = new URLSearchParams(searchParams.toString())
+    
+    if (courseId) {
+      params.set('courseId', courseId)
+    } else {
+      params.delete('courseId')
+    }
+    // Reset batch filter if course changes
+    params.delete('batchId')
+    
+    startTransition(() => {
+      router.replace(`${pathname}?${params.toString()}`)
+    })
+  }
+
+  const handleBatchFilter = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const batchId = e.target.value
+    const params = new URLSearchParams(searchParams.toString())
+    if (batchId) {
+      params.set('batchId', batchId)
+    } else {
+      params.delete('batchId')
+    }
+    
+    startTransition(() => {
+      router.replace(`${pathname}?${params.toString()}`)
+    })
+  }
+
+  const filteredBatches = selectedCourseId 
+    ? batches.filter(b => b.courseId === selectedCourseId)
+    : batches
 
   const selectClass = "px-3 py-2 bg-[#1E1E1E] border border-[#3E3E42] text-xs font-bold text-[#CCCCCC] hover:text-[#D4D4D4] rounded-sm outline-none focus:border border-[#3E3E42] transition-all cursor-pointer"
 
@@ -153,52 +201,6 @@ export function LeadFilters({
 
           <select 
             onChange={(e) => {
-              const country = e.target.value
-              const params = new URLSearchParams(searchParams.toString())
-              if (country) {
-                params.set('country', country)
-              } else {
-                params.delete('country')
-              }
-              startTransition(() => {
-                router.replace(`${pathname}?${params.toString()}`)
-              })
-            }}
-            defaultValue={searchParams.get('country') || ''}
-            className={`${selectClass} max-w-[150px] truncate`}
-          >
-            <option value="">All Countries</option>
-            {COUNTRIES.map(c => (
-              <option key={c} value={c}>{c}</option>
-            ))}
-          </select>
-
-          <select 
-            onChange={(e) => {
-              const test = e.target.value
-              const params = new URLSearchParams(searchParams.toString())
-              if (test) {
-                params.set('englishTest', test)
-              } else {
-                params.delete('englishTest')
-              }
-              startTransition(() => {
-                router.replace(`${pathname}?${params.toString()}`)
-              })
-            }}
-            defaultValue={searchParams.get('englishTest') || ''}
-            className={selectClass}
-          >
-            <option value="">All English Tests</option>
-            <option value="IELTS">IELTS</option>
-            <option value="PTE">PTE</option>
-            <option value="TOEFL">TOEFL</option>
-            <option value="Duolingo">Duolingo</option>
-            <option value="Other">Other</option>
-          </select>
-
-          <select 
-            onChange={(e) => {
               const source = e.target.value
               const params = new URLSearchParams(searchParams.toString())
               if (source) {
@@ -218,6 +220,36 @@ export function LeadFilters({
               <option key={s} value={s}>{s}</option>
             ))}
           </select>
+
+          {/* New Course Filter */}
+          <div className="flex items-center gap-2">
+            <GraduationCap className="h-4 w-4 text-[#858585] shrink-0" />
+            <select 
+              onChange={handleCourseFilter}
+              value={selectedCourseId}
+              className={selectClass}
+            >
+              <option value="">All Courses</option>
+              {courses.map(course => (
+                <option key={course.id} value={course.id}>{course.name}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* New Batch Filter */}
+          <div className="flex items-center gap-2">
+            <ClipboardList className="h-4 w-4 text-[#858585] shrink-0" />
+            <select 
+              onChange={handleBatchFilter}
+              defaultValue={searchParams.get('batchId') || ''}
+              className={selectClass}
+            >
+              <option value="">All Batches</option>
+              {filteredBatches.map(batch => (
+                <option key={batch.id} value={batch.id}>{batch.name}</option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
     </div>
