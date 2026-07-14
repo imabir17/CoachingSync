@@ -137,6 +137,8 @@ CREATE TABLE IF NOT EXISTS "Course" (
     "id" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,
     "companyId" TEXT NOT NULL REFERENCES "Company"("id") ON DELETE CASCADE,
     "name" TEXT NOT NULL,
+    "fee" TEXT,
+    "inChargeId" TEXT REFERENCES "User"("id") ON DELETE SET NULL,
     "description" TEXT,
     "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
     "updatedAt" TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL

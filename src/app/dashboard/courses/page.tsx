@@ -1,5 +1,6 @@
-﻿import { getUserSession } from '@/lib/auth'
+import { getUserSession } from '@/lib/auth'
 import { redirect } from 'next/navigation'
+import { createClient } from '@/utils/supabase/server'
 import CoursesClient from '@/components/CoursesClient'
 import { getCoursesAction } from '@/app/actions/courses'
 
@@ -11,8 +12,15 @@ export default async function CoursesPage() {
   const user = await getUserSession()
   if (!user) redirect('/login')
 
-
   const { data: courses } = await getCoursesAction()
+
+  const supabase = await createClient()
+  const { data: staffData } = await supabase
+    .from('User')
+    .select('id, fullName, role')
+    .eq('companyId', user.companyId)
+
+  const staff = staffData || []
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 ease-out pb-12">
@@ -21,7 +29,7 @@ export default async function CoursesPage() {
         <p className="text-xs text-gray-400">Manage courses and schedule batches for your students.</p>
       </div>
 
-      <CoursesClient initialCourses={courses || []} />
+      <CoursesClient initialCourses={courses || []} staff={staff} />
     </div>
   )
 }

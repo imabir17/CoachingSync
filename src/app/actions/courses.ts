@@ -1,4 +1,4 @@
-﻿'use server'
+'use server'
 
 import { createClient } from '@/utils/supabase/server'
 import { getUserSession } from '@/lib/auth'
@@ -27,8 +27,9 @@ export async function createCourseAction(formData: FormData) {
   const user = await getUserSession()
   if (!user) return { error: 'Unauthorized' }
 
-  const title = formData.get('title') as string
+  const name = formData.get('name') as string
   const fee = formData.get('fee') as string
+  const inChargeId = formData.get('inChargeId') as string
   const description = formData.get('description') as string
 
   const supabase = await createClient()
@@ -37,8 +38,9 @@ export async function createCourseAction(formData: FormData) {
     .from('Course')
     .insert({
       companyId: user.companyId,
-      title,
+      name,
       fee,
+      inChargeId: inChargeId || null,
       description
     })
     .select()
@@ -58,10 +60,12 @@ export async function createBatchAction(formData: FormData) {
 
   const courseId = formData.get('courseId') as string
   const name = formData.get('name') as string
-  const schedule = formData.get('schedule') as string
-  const capacity = formData.get('capacity') as string
+  const capacityStr = formData.get('capacity') as string
   const startDateStr = formData.get('startDate') as string
   const endDateStr = formData.get('endDate') as string
+  const instructorId = formData.get('instructorId') as string
+
+  const capacity = capacityStr ? parseInt(capacityStr, 10) : null
 
   const supabase = await createClient()
 
@@ -69,10 +73,9 @@ export async function createBatchAction(formData: FormData) {
     .from('Batch')
     .insert({
       courseId,
-      companyId: user.companyId,
       name,
-      schedule,
       capacity,
+      instructorId: instructorId || null,
       startDate: startDateStr ? new Date(startDateStr).toISOString() : null,
       endDate: endDateStr ? new Date(endDateStr).toISOString() : null,
     })
@@ -81,7 +84,7 @@ export async function createBatchAction(formData: FormData) {
 
   if (error) {
     console.error('Error creating batch:', error)
-    return { error: 'Failed to create batch' }
+    return { error: `Failed to create batch: ${error.message || JSON.stringify(error)}` }
   }
 
   return { success: true, batch: data }
@@ -106,4 +109,25 @@ export async function addLeadToBatchAction(batchId: string, leadId: string) {
   }
 
   return { success: true }
+}
+
+export async function getCourseByIdAction(id: string) {
+  const user = await getUserSession()
+  if (!user) return { error: 'Unauthorized' }
+
+  const supabase = await createClient()
+  
+  const { data, error } = await supabase
+    .from('Course')
+    .select('*, inCharge:User!Course_inChargeId_fkey(*), batches:Batch(*, instructor:User!Batch_instructorId_fkey(*))')
+    .eq('id', id)
+    .eq('companyId', user.companyId)
+    .single()
+
+  if (error) {
+    console.error('Error fetching course:', error)
+    return { error: 'Failed to fetch course' }
+  }
+
+  return { data }
 }
