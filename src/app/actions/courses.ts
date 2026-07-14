@@ -119,7 +119,7 @@ export async function getCourseByIdAction(id: string) {
   
   const { data, error } = await supabase
     .from('Course')
-    .select('*, inCharge:User!Course_inChargeId_fkey(*), batches:Batch(*, instructor:User!Batch_instructorId_fkey(*))')
+    .select('*, inCharge:User(*), batches:Batch(*, instructor:User(*))')
     .eq('id', id)
     .eq('companyId', user.companyId)
     .single()
