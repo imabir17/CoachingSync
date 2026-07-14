@@ -2,13 +2,25 @@
 
 import { useState, useTransition } from 'react'
 import { Plus, X, Users, Calendar, AlertTriangle, Clock, User, CheckCircle, GraduationCap, ArrowLeft, CheckCircle2 } from 'lucide-react'
-import { createClassScheduleAction, toggleClassStatusAction } from '@/app/actions/courses'
+import { createClassScheduleAction, toggleClassStatusAction, removeLeadFromBatchAction } from '@/app/actions/courses'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 export default function BatchDetailClient({ batch }: { batch: any }) {
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
+
+  const handleRemoveStudent = async (studentId: string) => {
+    if (!confirm('Are you sure you want to remove this student from the batch?')) return
+    startTransition(async () => {
+      const result = await removeLeadFromBatchAction(batch.id, studentId)
+      if (result.error) {
+        console.error(result.error)
+      } else {
+        router.refresh()
+      }
+    })
+  }
   
   // Local state for Schedule
   const [schedules, setSchedules] = useState<any[]>(batch.schedules || [])
@@ -262,12 +274,20 @@ export default function BatchDetailClient({ batch }: { batch: any }) {
                       <span>{student.phone || 'No phone'}</span>
                     </div>
                   </div>
-                  <Link 
-                    href={`/dashboard/leads/${student.id}`}
-                    className="px-3 py-1.5 border border-[#3E3E42] text-[#CCCCCC] hover:text-white hover:bg-[#333333] rounded-sm text-[10px] font-medium transition-colors"
-                  >
-                    View Profile
-                  </Link>
+                  <div className="flex items-center gap-2">
+                    <Link 
+                      href={`/dashboard/leads/${student.id}`}
+                      className="px-3 py-1.5 border border-[#3E3E42] text-[#CCCCCC] hover:text-white hover:bg-[#333333] rounded-sm text-[10px] font-medium transition-colors"
+                    >
+                      View Profile
+                    </Link>
+                    <button 
+                      onClick={() => handleRemoveStudent(student.id)}
+                      className="px-3 py-1.5 border border-[#3E3E42] hover:border-red-500/50 text-[#858585] hover:text-red-500 hover:bg-[#E5484D]/10 rounded-sm text-[10px] font-medium transition-colors"
+                    >
+                      Remove
+                    </button>
+                  </div>
                 </div>
               ))
             )}

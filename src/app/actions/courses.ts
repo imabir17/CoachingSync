@@ -327,3 +327,25 @@ export async function toggleClassStatusAction(scheduleId: string, isCompleted: b
   revalidatePath(`/dashboard/batches/${schedule.batchId}`)
   return { success: true }
 }
+
+export async function removeLeadFromBatchAction(batchId: string, leadId: string) {
+  const user = await getUserSession()
+  if (!user) return { error: 'Unauthorized' }
+
+  const supabase = await createClient()
+
+  const { error } = await supabase
+    .from('BatchEnrollment')
+    .delete()
+    .eq('batchId', batchId)
+    .eq('leadId', leadId)
+
+  if (error) {
+    console.error('Error removing lead from batch:', error)
+    return { error: 'Failed to remove enrollment' }
+  }
+
+  revalidatePath(`/dashboard/batches/${batchId}`)
+  revalidatePath(`/dashboard/leads/${leadId}`)
+  return { success: true }
+}

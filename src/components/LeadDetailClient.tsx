@@ -1,12 +1,14 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { GraduationCap, Globe, CheckCircle2, MessageSquare, Clock, Building, Save, X, Wallet, FolderOpen, Send, Plus, Check } from 'lucide-react'
+import { GraduationCap, Globe, CheckCircle2, MessageSquare, Clock, Building, Save, X, Wallet, FolderOpen, Send, Plus, Check, Trash2 } from 'lucide-react'
 import { updateLeadDetails, createInteraction, toggleFileOpened } from '@/app/actions/leads'
 import { createTask, updateTaskStatus } from '@/app/actions/tasks'
-import { addLeadToBatchAction } from '@/app/actions/courses'
+import { addLeadToBatchAction, removeLeadFromBatchAction } from '@/app/actions/courses'
+import { useRouter } from 'next/navigation'
 
 export default function LeadDetailClient({ lead, canEdit = true, courses = [] }: { lead: any, canEdit?: boolean, courses?: any[] }) {
+  const router = useRouter()
   const [isEditing, setIsEditing] = useState(false)
   const [formData, setFormData] = useState({
     sscGroup: lead.sscGroup || '',
@@ -149,6 +151,17 @@ export default function LeadDetailClient({ lead, canEdit = true, courses = [] }:
       setSelectedCourse('')
       setSelectedBatch('')
       setIsAddingApp(false)
+      router.refresh()
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const handleRemoveApp = async (batchId: string) => {
+    if (!confirm('Are you sure you want to remove this student from the batch?')) return
+    try {
+      await removeLeadFromBatchAction(batchId, lead.id)
+      router.refresh()
     } catch (err) {
       console.error(err)
     }
@@ -727,9 +740,20 @@ export default function LeadDetailClient({ lead, canEdit = true, courses = [] }:
                     <span className="text-[10px] font-bold px-2.5 py-0.5 bg-[#1E1E1E] border border-[#3E3E42] text-[#4EC9B0] rounded-full">
                       {enr.batch?.course?.name}
                     </span>
-                    <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full border bg-emerald-500/10 text-emerald-600 border-emerald-500/20">
-                      {enr.status}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full border bg-emerald-500/10 text-emerald-600 border-emerald-500/20">
+                        {enr.status}
+                      </span>
+                      {canEdit && (
+                        <button 
+                          onClick={() => handleRemoveApp(enr.batchId)}
+                          className="p-1 hover:bg-[#3E3E42] text-[#858585] hover:text-red-500 rounded transition-colors"
+                          title="Remove enrollment"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      )}
+                    </div>
                   </div>
                   <div>
                     <h4 className="text-xs font-bold text-[#D4D4D4] mb-1 font-display">{enr.batch?.name}</h4>
