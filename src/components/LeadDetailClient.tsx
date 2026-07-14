@@ -367,15 +367,6 @@ export default function LeadDetailClient({ lead, canEdit = true, courses = [] }:
             </div>
 
             <div className="space-y-4">
-
-              <div>
-                <p className="text-[10px] font-bold text-[#858585] mb-1">Preferred Level</p>
-                {isEditing ? <input name="preferredStudyLevel" value={formData.preferredStudyLevel} onChange={handleEditChange} className={inputClass} /> : <p className="text-xs text-[#D4D4D4] font-bold bg-[#252526]/30 p-2.5 rounded-sm">{formData.preferredStudyLevel || 'Not specified'}</p>}
-              </div>
-              <div>
-                <p className="text-[10px] font-bold text-[#858585] mb-1">Preferred Country</p>
-                {isEditing ? <input name="preferredCountry" value={formData.preferredCountry} onChange={handleEditChange} className={inputClass} /> : <p className="text-xs text-[#D4D4D4] font-bold bg-[#252526]/30 p-2.5 rounded-sm">{formData.preferredCountry || 'Not specified'}</p>}
-              </div>
               <div>
                 <p className="text-[10px] font-bold text-[#858585] mb-1">Preferred Course</p>
                 {isEditing ? <input name="preferredCourse" value={formData.preferredCourse} onChange={handleEditChange} className={inputClass} /> : <p className="text-xs text-[#D4D4D4] font-bold bg-[#252526]/30 p-2.5 rounded-sm">{formData.preferredCourse || 'Not specified'}</p>}
