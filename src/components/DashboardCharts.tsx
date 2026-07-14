@@ -7,7 +7,7 @@ export default function DashboardCharts({ ratingsData, stagesData }: { ratingsDa
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-neutral-900 border border-neutral-700 p-3 rounded-lg shadow-lg z-50">
+        <div className="bg-neutral-900 border border-neutral-700 p-3 rounded-sm border border-[#3E3E42] z-50">
           <p className="text-white font-medium flex items-center">
             <span 
               className="w-3 h-3 rounded-full mr-2 inline-block" 
@@ -41,7 +41,7 @@ export default function DashboardCharts({ ratingsData, stagesData }: { ratingsDa
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 shadow-sm shadow-black/20 hover:border-neutral-700 transition-colors">
+      <div className="bg-neutral-900 border border-neutral-800 rounded-sm p-6 shadow-sm shadow-black/20 hover:border-neutral-700 transition-colors">
         <h3 className="text-lg font-semibold text-white mb-6">Lead Ratings Breakdown</h3>
         <div className="h-72 w-full">
           <ResponsiveContainer width="100%" height="100%">
@@ -69,7 +69,7 @@ export default function DashboardCharts({ ratingsData, stagesData }: { ratingsDa
         </div>
       </div>
 
-      <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 shadow-sm shadow-black/20 hover:border-neutral-700 transition-colors">
+      <div className="bg-neutral-900 border border-neutral-800 rounded-sm p-6 shadow-sm shadow-black/20 hover:border-neutral-700 transition-colors">
         <h3 className="text-lg font-semibold text-white mb-6">Pipeline Stages Breakdown</h3>
         <div className="h-72 w-full">
           <ResponsiveContainer width="100%" height="100%">

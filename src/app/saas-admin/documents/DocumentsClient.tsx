@@ -8,9 +8,9 @@ import dynamic from 'next/dynamic'
 const PDFPreview = dynamic(() => import('./PDFPreview'), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-full flex items-center justify-center bg-white rounded-xl shadow-inner border border-[#D1D5DB]">
+    <div className="w-full h-full flex items-center justify-center bg-white rounded-sm shadow-inner border border-[#D1D5DB]">
       <div className="flex flex-col items-center gap-4 text-[#6B7280]">
-        <div className="w-8 h-8 border-4 border-[#333FC2] border-t-transparent rounded-full animate-spin"></div>
+        <div className="w-8 h-8 border-4 border-[#0062A3] border-t-transparent rounded-full animate-spin"></div>
         <p>Loading PDF engine...</p>
       </div>
     </div>
@@ -51,19 +51,19 @@ export default function DocumentsClient() {
     <div className="flex flex-col lg:flex-row gap-8 h-[calc(100vh-120px)]">
       {/* Left Column - Controls */}
       <div className="w-full lg:w-[400px] flex flex-col gap-6 overflow-y-auto pr-2">
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-[#E5E7EB]">
-          <h2 className="text-xl font-bold mb-6 text-[#F0F3F8]">Document Details</h2>
+        <div className="bg-white p-6 rounded-md shadow-sm border border-[#E5E7EB]">
+          <h2 className="text-xl font-bold mb-6 text-[#D4D4D4]">Document Details</h2>
           
-          <div className="flex gap-2 mb-6 p-1 bg-[#F3F4F6] rounded-xl">
+          <div className="flex gap-2 mb-6 p-1 bg-[#F3F4F6] rounded-sm">
             <button
               onClick={() => setActiveTab('contract')}
-              className={`flex-1 py-2 px-3 flex items-center justify-center gap-2 rounded-lg font-medium transition-all ${activeTab === 'contract' ? 'bg-white text-[#333FC2] shadow-sm' : 'text-[#6B7280] hover:text-[#374151]'}`}
+              className={`flex-1 py-2 px-3 flex items-center justify-center gap-2 rounded-sm font-medium transition-all ${activeTab === 'contract' ? 'bg-white text-[#0062A3] shadow-sm' : 'text-[#6B7280] hover:text-[#374151]'}`}
             >
               <FileText className="w-4 h-4" /> Contract
             </button>
             <button
               onClick={() => setActiveTab('invoice')}
-              className={`flex-1 py-2 px-3 flex items-center justify-center gap-2 rounded-lg font-medium transition-all ${activeTab === 'invoice' ? 'bg-white text-[#333FC2] shadow-sm' : 'text-[#6B7280] hover:text-[#374151]'}`}
+              className={`flex-1 py-2 px-3 flex items-center justify-center gap-2 rounded-sm font-medium transition-all ${activeTab === 'invoice' ? 'bg-white text-[#0062A3] shadow-sm' : 'text-[#6B7280] hover:text-[#374151]'}`}
             >
               <Receipt className="w-4 h-4" /> Invoice
             </button>
@@ -78,7 +78,7 @@ export default function DocumentsClient() {
                   type="text"
                   value={agencyName}
                   onChange={(e) => setAgencyName(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 border border-[#D1D5DB] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#6E79F2] focus:border-transparent"
+                  className="w-full pl-9 pr-3 py-2 border border-[#D1D5DB] rounded-sm focus:outline-none focus:ring-2 focus:ring-[#007ACC] focus:border-transparent"
                 />
               </div>
             </div>
@@ -91,7 +91,7 @@ export default function DocumentsClient() {
                   value={buyerAddress}
                   onChange={(e) => setBuyerAddress(e.target.value)}
                   rows={2}
-                  className="w-full pl-9 pr-3 py-2 border border-[#D1D5DB] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#6E79F2] focus:border-transparent resize-none"
+                  className="w-full pl-9 pr-3 py-2 border border-[#D1D5DB] rounded-sm focus:outline-none focus:ring-2 focus:ring-[#007ACC] focus:border-transparent resize-none"
                 />
               </div>
             </div>
@@ -105,7 +105,7 @@ export default function DocumentsClient() {
                     type="date"
                     value={date}
                     onChange={(e) => setDate(e.target.value)}
-                    className="w-full pl-9 pr-3 py-2 border border-[#D1D5DB] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#6E79F2]"
+                    className="w-full pl-9 pr-3 py-2 border border-[#D1D5DB] rounded-sm text-sm focus:outline-none focus:ring-2 focus:ring-[#007ACC]"
                   />
                 </div>
               </div>
@@ -119,7 +119,7 @@ export default function DocumentsClient() {
                       type="date"
                       value={invoiceDueDate}
                       onChange={(e) => setInvoiceDueDate(e.target.value)}
-                      className="w-full pl-9 pr-3 py-2 border border-[#D1D5DB] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#6E79F2]"
+                      className="w-full pl-9 pr-3 py-2 border border-[#D1D5DB] rounded-sm text-sm focus:outline-none focus:ring-2 focus:ring-[#007ACC]"
                     />
                   </div>
                 </div>
@@ -135,7 +135,7 @@ export default function DocumentsClient() {
                     type="number"
                     value={subscriptionFee}
                     onChange={(e) => setSubscriptionFee(e.target.value)}
-                    className="w-full pl-9 pr-3 py-2 border border-[#D1D5DB] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#6E79F2]"
+                    className="w-full pl-9 pr-3 py-2 border border-[#D1D5DB] rounded-sm focus:outline-none focus:ring-2 focus:ring-[#007ACC]"
                   />
                 </div>
               </div>
@@ -148,7 +148,7 @@ export default function DocumentsClient() {
                     type="number"
                     value={setupFee}
                     onChange={(e) => setSetupFee(e.target.value)}
-                    className="w-full pl-9 pr-3 py-2 border border-[#D1D5DB] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#6E79F2]"
+                    className="w-full pl-9 pr-3 py-2 border border-[#D1D5DB] rounded-sm focus:outline-none focus:ring-2 focus:ring-[#007ACC]"
                   />
                 </div>
               </div>
@@ -164,7 +164,7 @@ export default function DocumentsClient() {
                       type="number"
                       value={discountAmount}
                       onChange={(e) => setDiscountAmount(e.target.value)}
-                      className="w-full pl-9 pr-3 py-2 border border-[#D1D5DB] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#6E79F2]"
+                      className="w-full pl-9 pr-3 py-2 border border-[#D1D5DB] rounded-sm focus:outline-none focus:ring-2 focus:ring-[#007ACC]"
                     />
                   </div>
                 </div>
@@ -174,7 +174,7 @@ export default function DocumentsClient() {
                     type="number"
                     value={taxRate}
                     onChange={(e) => setTaxRate(e.target.value)}
-                    className="w-full px-3 py-2 border border-[#D1D5DB] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#6E79F2]"
+                    className="w-full px-3 py-2 border border-[#D1D5DB] rounded-sm focus:outline-none focus:ring-2 focus:ring-[#007ACC]"
                   />
                 </div>
               </div>
@@ -184,7 +184,7 @@ export default function DocumentsClient() {
       </div>
 
       {/* Right Column - PDF Viewer */}
-      <div className="flex-1 bg-[#E5E7EB] p-4 lg:p-8 rounded-2xl flex flex-col">
+      <div className="flex-1 bg-[#E5E7EB] p-4 lg:p-8 rounded-md flex flex-col">
         <PDFPreview activeTab={activeTab} data={documentData} />
       </div>
     </div>

@@ -64,20 +64,20 @@ export default function StaffClient({ initialUsers }: { initialUsers: any[] }) {
     }
   }
 
-  const inputClass = "w-full bg-[#1B1E23] shadow-[inset_2.5px_2.5px_5px_#111317,inset_-2.5px_-2.5px_5px_#252A31] border-none rounded-xl py-2.5 px-3 text-xs font-semibold text-[#F0F3F8] placeholder-[#707C91] focus:outline-none transition-all"
-  const selectClass = "w-full bg-[#1B1E23] shadow-[3px_3px_6px_#111317,-3px_-3px_6px_#252A31] text-xs font-bold text-[#AAB4C4] rounded-xl py-2.5 px-3 outline-none focus:shadow-[inset_2px_2px_4px_#111317,inset_-2px_-2px_4px_#252A31] transition-all cursor-pointer"
+  const inputClass = "w-full bg-[#1E1E1E] border border-[#3E3E42] border-none rounded-sm py-2.5 px-3 text-xs font-semibold text-[#D4D4D4] placeholder-[#858585] focus:outline-none transition-all"
+  const selectClass = "w-full bg-[#1E1E1E] border border-[#3E3E42] text-xs font-bold text-[#CCCCCC] rounded-sm py-2.5 px-3 outline-none focus:border border-[#3E3E42] transition-all cursor-pointer"
 
   return (
     <>
       <div className="space-y-8 pb-12">
         <div className="flex justify-between items-center">
           <div>
-            <h2 className="text-2xl font-bold text-[#F0F3F8] font-display">Staff Management</h2>
-            <p className="text-xs text-[#AAB4C4]">Manage counselor accounts, administrative permissions, and roles.</p>
+            <h2 className="text-2xl font-bold text-[#D4D4D4] font-display">Staff Management</h2>
+            <p className="text-xs text-[#CCCCCC]">Manage counselor accounts, administrative permissions, and roles.</p>
           </div>
           <button 
             onClick={() => openModal()} 
-            className="flex items-center gap-1.5 px-5 py-3 bg-gradient-to-br from-[#6E79F2] to-[#333FC2] text-white text-xs font-bold rounded-xl shadow-md hover:shadow-[9px_9px_20px_rgba(51,63,194,0.35)] active:translate-y-0.5 transition-all duration-150"
+            className="flex items-center gap-1.5 px-5 py-3 bg-gradient-to-br from-[#007ACC] to-[#0062A3] text-white text-xs font-bold rounded-sm border border-[#3E3E42] hover:border-[#555555] active:translate-y-0.5 transition-all duration-150"
           >
             <Plus className="h-4.5 w-4.5" /> Add Staff
           </button>
@@ -87,19 +87,19 @@ export default function StaffClient({ initialUsers }: { initialUsers: any[] }) {
         <div className="neo-raised overflow-hidden">
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-[#111317]/20">
-              <thead className="bg-[#14161A]">
-                <tr className="text-[#AAB4C4] text-[10px] font-bold uppercase tracking-wider">
+              <thead className="bg-[#252526]">
+                <tr className="text-[#CCCCCC] text-[10px] font-bold uppercase tracking-wider">
                   <th className="px-6 py-4 text-left">Name</th>
                   <th className="px-6 py-4 text-left">Email</th>
                   <th className="px-6 py-4 text-left">Role</th>
                   <th className="px-6 py-4 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#111317]/20 bg-[#1B1E23]">
+              <tbody className="divide-y divide-[#111317]/20 bg-[#1E1E1E]">
                 {users.map((user) => (
-                  <tr key={user.id} className="hover:bg-[#14161A]/25 transition-colors group">
-                    <td className="px-6 py-4 whitespace-nowrap text-xs font-bold text-[#F0F3F8]">{user.fullName}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-xs font-semibold text-[#AAB4C4]">{user.email}</td>
+                  <tr key={user.id} className="hover:bg-[#252526]/25 transition-colors group">
+                    <td className="px-6 py-4 whitespace-nowrap text-xs font-bold text-[#D4D4D4]">{user.fullName}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-xs font-semibold text-[#CCCCCC]">{user.email}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-xs font-semibold">
                       <span className={`px-2.5 py-0.5 inline-flex text-[10px] font-bold leading-5 rounded-full border ${
                         user.role === 'Super Admin' 
@@ -114,14 +114,14 @@ export default function StaffClient({ initialUsers }: { initialUsers: any[] }) {
                     <td className="px-6 py-4 whitespace-nowrap text-right text-xs font-bold space-x-2">
                       <button 
                         onClick={() => openModal(user)} 
-                        className="inline-flex p-2 rounded-xl bg-[#1B1E23] shadow-[3px_3px_6px_#111317,-3px_-3px_6px_#252A31] text-[#4855E4] hover:shadow-[inset_2px_2px_4px_#111317,inset_-2px_-2px_4px_#252A31] transition-all"
+                        className="inline-flex p-2 rounded-sm bg-[#1E1E1E] border border-[#3E3E42] text-[#007ACC] hover:border-[#555555] transition-all"
                         aria-label="Edit staff member details"
                       >
                         <Edit2 className="h-3.5 w-3.5" />
                       </button>
                       <button 
                         onClick={() => handleDelete(user.id)} 
-                        className="inline-flex p-2 rounded-xl bg-[#1B1E23] shadow-[3px_3px_6px_#111317,-3px_-3px_6px_#252A31] text-red-500 hover:shadow-[inset_2px_2px_4px_#111317,inset_-2px_-2px_4px_#252A31] transition-all"
+                        className="inline-flex p-2 rounded-sm bg-[#1E1E1E] border border-[#3E3E42] text-red-500 hover:border-[#555555] transition-all"
                         aria-label="Delete staff member"
                       >
                         <Trash2 className="h-3.5 w-3.5" />
@@ -140,10 +140,10 @@ export default function StaffClient({ initialUsers }: { initialUsers: any[] }) {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-sm animate-in fade-in duration-200">
           <div className="neo-raised-lg max-w-md w-full p-8 animate-in zoom-in-95 duration-200">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-base font-bold text-[#F0F3F8]">{editingUser ? 'Edit Staff Details' : 'Add New Counselor'}</h3>
+              <h3 className="text-base font-bold text-[#D4D4D4]">{editingUser ? 'Edit Staff Details' : 'Add New Counselor'}</h3>
               <button 
                 onClick={closeModal} 
-                className="p-1.5 rounded-xl bg-[#1B1E23] shadow-[3px_3px_6px_#111317,-3px_-3px_6px_#252A31] hover:shadow-[inset_2px_2px_4px_#111317,inset_-2px_-2px_4px_#252A31] text-[#AAB4C4] transition-all"
+                className="p-1.5 rounded-sm bg-[#1E1E1E] border border-[#3E3E42] hover:border-[#555555] text-[#CCCCCC] transition-all"
                 aria-label="Close editing details dialog"
               >
                 <X className="h-4 w-4" />
@@ -151,22 +151,22 @@ export default function StaffClient({ initialUsers }: { initialUsers: any[] }) {
             </div>
             
             {error && (
-              <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 text-red-600 text-xs font-bold rounded-xl shadow-sm">
+              <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 text-red-600 text-xs font-bold rounded-sm shadow-sm">
                 {error}
               </div>
             )}
             
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-[#AAB4C4] mb-2">Full Name</label>
+                <label className="block text-xs font-bold text-[#CCCCCC] mb-2">Full Name</label>
                 <input required type="text" value={formData.fullName} onChange={e => setFormData({...formData, fullName: e.target.value})} className={inputClass} placeholder="E.g. Tanvir Ahmed" />
               </div>
               <div>
-                <label className="block text-xs font-bold text-[#AAB4C4] mb-2">Email</label>
+                <label className="block text-xs font-bold text-[#CCCCCC] mb-2">Email</label>
                 <input required type="email" value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} className={inputClass} placeholder="tanvir@agency.com" />
               </div>
               <div>
-                <label className="block text-xs font-bold text-[#AAB4C4] mb-2">Role</label>
+                <label className="block text-xs font-bold text-[#CCCCCC] mb-2">Role</label>
                 <select value={formData.role} onChange={e => setFormData({...formData, role: e.target.value})} className={selectClass}>
                   <option value="Counselor">Counselor</option>
                   <option value="Manager">Manager</option>
@@ -178,14 +178,14 @@ export default function StaffClient({ initialUsers }: { initialUsers: any[] }) {
                 <button 
                   type="button" 
                   onClick={closeModal} 
-                  className="px-5 py-2.5 rounded-xl bg-[#1B1E23] shadow-[3px_3px_6px_#111317,-3px_-3px_6px_#252A31] text-xs font-bold text-[#AAB4C4] hover:shadow-[inset_2px_2px_4px_#111317,inset_-2px_-2px_4px_#252A31] transition-all"
+                  className="px-5 py-2.5 rounded-sm bg-[#1E1E1E] border border-[#3E3E42] text-xs font-bold text-[#CCCCCC] hover:border-[#555555] transition-all"
                 >
                   Cancel
                 </button>
                 <button 
                   type="submit" 
                   disabled={isLoading} 
-                  className="px-5 py-2.5 rounded-xl bg-gradient-to-br from-[#6E79F2] to-[#333FC2] text-white text-xs font-bold shadow-md hover:shadow-lg disabled:opacity-50 transition-all"
+                  className="px-5 py-2.5 rounded-sm bg-gradient-to-br from-[#007ACC] to-[#0062A3] text-white text-xs font-bold border border-[#3E3E42] hover:border border-[#3E3E42] disabled:opacity-50 transition-all"
                 >
                   {isLoading ? 'Saving...' : 'Save'}
                 </button>

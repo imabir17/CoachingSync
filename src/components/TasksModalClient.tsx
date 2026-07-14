@@ -37,13 +37,13 @@ export default function TasksModalClient({
         className="neo-raised p-6 hover:-translate-y-1.5 transition-all duration-300 cursor-pointer"
       >
         <div className="flex items-center justify-between">
-          <h3 className="text-xs font-bold text-[#AAB4C4]">Pending Tasks</h3>
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#FF987A] to-[#FF542B] shadow-[3px_3px_6px_#111317,-3px_3px_6px_#252A31] flex items-center justify-center text-white">
+          <h3 className="text-xs font-bold text-[#CCCCCC]">Pending Tasks</h3>
+          <div className="w-8 h-8 rounded-sm bg-gradient-to-br from-[#FF987A] to-[#FF542B] border border-[#3E3E42] flex items-center justify-center text-white">
             <Clock className="h-4.5 w-4.5" />
           </div>
         </div>
-        <p className="text-3xl font-black text-[#F0F3F8] font-display mt-4">{pendingCount}</p>
-        <p className="text-[10px] text-[#FF7A52] font-bold mt-2 flex items-center gap-1">
+        <p className="text-3xl font-black text-[#D4D4D4] font-display mt-4">{pendingCount}</p>
+        <p className="text-[10px] text-[#CE9178] font-bold mt-2 flex items-center gap-1">
           <AlertCircle className="h-3.5 w-3.5" /> Click to view and manage tasks
         </p>
       </div>
@@ -55,10 +55,10 @@ export default function TasksModalClient({
             
             {/* Header */}
             <div className="flex items-center justify-between pb-5 border-b border-[#111317]/20">
-              <h2 className="text-base font-bold text-[#F0F3F8] font-display">Task Management</h2>
+              <h2 className="text-base font-bold text-[#D4D4D4] font-display">Task Management</h2>
               <button 
                 onClick={() => setIsOpen(false)}
-                className="p-1.5 rounded-xl bg-[#1B1E23] shadow-[3px_3px_6px_#111317,-3px_-3px_6px_#252A31] hover:shadow-[inset_2px_2px_4px_#111317,inset_-2px_-2px_4px_#252A31] text-[#AAB4C4] transition-all"
+                className="p-1.5 rounded-sm bg-[#1E1E1E] border border-[#3E3E42] hover:border-[#555555] text-[#CCCCCC] transition-all"
                 aria-label="Close tasks dialog"
               >
                 <X className="h-4.5 w-4.5" />
@@ -66,23 +66,23 @@ export default function TasksModalClient({
             </div>
 
             {/* Tab controls */}
-            <div className="flex gap-4 my-5 bg-[#1B1E23] shadow-[inset_2px_2px_5px_#111317,inset_-2px_-2px_5px_#252A31] p-1.5 rounded-xl">
+            <div className="flex gap-4 my-5 bg-[#1E1E1E] border border-[#3E3E42] p-1.5 rounded-sm">
               <button 
                 onClick={() => setActiveTab('pending')}
-                className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
+                className={`flex-1 py-2 text-xs font-bold rounded-sm transition-all ${
                   activeTab === 'pending'
-                    ? 'text-[#F0F3F8] bg-[#1B1E23] shadow-[2px_2px_5px_#111317,-2px_-2px_5px_#252A31]'
-                    : 'text-[#707C91] hover:text-[#F0F3F8]'
+                    ? 'text-[#D4D4D4] bg-[#1E1E1E] border border-[#3E3E42]'
+                    : 'text-[#858585] hover:text-[#D4D4D4]'
                 }`}
               >
                 Pending ({pendingTasks.length})
               </button>
               <button 
                 onClick={() => setActiveTab('completed')}
-                className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
+                className={`flex-1 py-2 text-xs font-bold rounded-sm transition-all ${
                   activeTab === 'completed'
-                    ? 'text-[#F0F3F8] bg-[#1B1E23] shadow-[2px_2px_5px_#111317,-2px_-2px_5px_#252A31]'
-                    : 'text-[#707C91] hover:text-[#F0F3F8]'
+                    ? 'text-[#D4D4D4] bg-[#1E1E1E] border border-[#3E3E42]'
+                    : 'text-[#858585] hover:text-[#D4D4D4]'
                 }`}
               >
                 History ({completedTasks.length})
@@ -94,26 +94,26 @@ export default function TasksModalClient({
               {activeTab === 'pending' && (
                 <div className="space-y-4">
                   {pendingTasks.length === 0 ? (
-                    <p className="text-[#707C91] text-xs font-bold text-center py-8">No pending tasks!</p>
+                    <p className="text-[#858585] text-xs font-bold text-center py-8">No pending tasks!</p>
                   ) : (
                     pendingTasks.map(task => (
-                      <div key={task.id} className="bg-[#1B1E23] p-4 rounded-xl shadow-[inset_2px_2px_4px_#111317,inset_-2px_-2px_4px_#252A31] flex items-start gap-3 transition-all">
+                      <div key={task.id} className="bg-[#1E1E1E] p-4 rounded-sm border border-[#3E3E42] flex items-start gap-3 transition-all">
                         <input 
                           type="checkbox" 
                           onChange={() => handleTaskComplete(task.id)}
-                          className="mt-1 w-4 h-4 rounded cursor-pointer accent-[#4855E4] shrink-0" 
+                          className="mt-1 w-4 h-4 rounded cursor-pointer accent-[#007ACC] shrink-0" 
                         />
                         <div className="flex-1 min-w-0">
-                          <p className="text-xs font-bold text-[#F0F3F8] leading-normal">
+                          <p className="text-xs font-bold text-[#D4D4D4] leading-normal">
                             {task.leadId ? (
-                              <Link href={`/dashboard/leads/${task.leadId}`} onClick={() => setIsOpen(false)} className="hover:text-[#4855E4] hover:underline font-bold">
+                              <Link href={`/dashboard/leads/${task.leadId}`} onClick={() => setIsOpen(false)} className="hover:text-[#007ACC] hover:underline font-bold">
                                 {task.description}
                               </Link>
                             ) : (
                               <span>{task.description}</span>
                             )}
                           </p>
-                          <p className="text-[10px] text-[#FF7A52] font-bold mt-1.5 flex items-center gap-1">
+                          <p className="text-[10px] text-[#CE9178] font-bold mt-1.5 flex items-center gap-1">
                             <Clock className="h-3.5 w-3.5" /> Due: {new Date(task.dueDate).toLocaleString()}{task.lead ? ` - ${task.lead.fullName}` : ''}
                           </p>
                         </div>
@@ -126,13 +126,13 @@ export default function TasksModalClient({
               {activeTab === 'completed' && (
                 <div className="space-y-4">
                   {completedTasks.length === 0 ? (
-                    <p className="text-[#707C91] text-xs font-bold text-center py-8">No task history yet.</p>
+                    <p className="text-[#858585] text-xs font-bold text-center py-8">No task history yet.</p>
                   ) : (
                     completedTasks.map(task => (
-                      <div key={task.id} className="bg-[#1B1E23] p-4 rounded-xl shadow-[4px_4px_8px_#111317,-4px_-4px_8px_#252A31] flex items-start gap-3 opacity-80">
+                      <div key={task.id} className="bg-[#1E1E1E] p-4 rounded-sm border border-[#3E3E42] flex items-start gap-3 opacity-80">
                         <Check className="mt-0.5 h-4.5 w-4.5 text-[#21C285] shrink-0" />
                         <div className="flex-1 min-w-0">
-                          <p className="text-xs font-bold text-[#707C91] line-through leading-normal">
+                          <p className="text-xs font-bold text-[#858585] line-through leading-normal">
                             {task.leadId ? (
                               <Link href={`/dashboard/leads/${task.leadId}`} onClick={() => setIsOpen(false)} className="hover:text-[#21C285] hover:underline">
                                 {task.description}
@@ -141,7 +141,7 @@ export default function TasksModalClient({
                               <span>{task.description}</span>
                             )}
                           </p>
-                          <p className="text-[10px] text-[#707C91] font-semibold mt-1">
+                          <p className="text-[10px] text-[#858585] font-semibold mt-1">
                             Completed: {new Date(task.updatedAt).toLocaleString()}{task.lead ? ` - ${task.lead.fullName}` : ''}
                           </p>
                         </div>

@@ -35,13 +35,13 @@ export function ReportFilters({
     router.push(`/dashboard/reports?${params.toString()}`)
   }
 
-  const selectClass = "px-3 py-2.5 bg-[#1B1E23] shadow-[3px_3px_6px_#111317,-3px_-3px_6px_#252A31] text-xs font-bold text-[#AAB4C4] hover:text-[#F0F3F8] rounded-xl outline-none focus:shadow-[inset_2px_2px_4px_#111317,inset_-2px_-2px_4px_#252A31] transition-all cursor-pointer"
-  const inputClass = "px-3 py-2 bg-[#1B1E23] shadow-[inset_2px_2px_5px_#111317,inset_-2px_-2px_5px_#252A31] border-none rounded-xl text-xs font-semibold text-[#F0F3F8] placeholder-[#707C91] focus:outline-none transition-all"
+  const selectClass = "px-3 py-2.5 bg-[#1E1E1E] border border-[#3E3E42] text-xs font-bold text-[#CCCCCC] hover:text-[#D4D4D4] rounded-sm outline-none focus:border border-[#3E3E42] transition-all cursor-pointer"
+  const inputClass = "px-3 py-2 bg-[#1E1E1E] border border-[#3E3E42] border-none rounded-sm text-xs font-semibold text-[#D4D4D4] placeholder-[#858585] focus:outline-none transition-all"
 
   return (
     <div className="neo-raised p-5 mb-8 flex flex-wrap gap-5 items-end">
       <div className="flex flex-col gap-2">
-        <label className="text-[10px] font-bold text-[#707C91] uppercase tracking-wider">Time Range</label>
+        <label className="text-[10px] font-bold text-[#858585] uppercase tracking-wider">Time Range</label>
         <select 
           value={dateRange}
           onChange={(e) => setDateRange(e.target.value)}
@@ -57,7 +57,7 @@ export function ReportFilters({
       {dateRange === 'custom' && (
         <>
           <div className="flex flex-col gap-2">
-            <label className="text-[10px] font-bold text-[#707C91] uppercase tracking-wider">Start Date</label>
+            <label className="text-[10px] font-bold text-[#858585] uppercase tracking-wider">Start Date</label>
             <input 
               type="date"
               value={customStart}
@@ -66,7 +66,7 @@ export function ReportFilters({
             />
           </div>
           <div className="flex flex-col gap-2">
-            <label className="text-[10px] font-bold text-[#707C91] uppercase tracking-wider">End Date</label>
+            <label className="text-[10px] font-bold text-[#858585] uppercase tracking-wider">End Date</label>
             <input 
               type="date"
               value={customEnd}
@@ -79,7 +79,7 @@ export function ReportFilters({
 
       {isAdmin && (
         <div className="flex flex-col gap-2 min-w-[200px]">
-          <label className="text-[10px] font-bold text-[#707C91] uppercase tracking-wider">Counselor</label>
+          <label className="text-[10px] font-bold text-[#858585] uppercase tracking-wider">Counselor</label>
           <select 
             value={selectedCounselor}
             onChange={(e) => setSelectedCounselor(e.target.value)}
@@ -95,7 +95,7 @@ export function ReportFilters({
 
       <button 
         onClick={applyFilters}
-        className="px-5 py-3 bg-gradient-to-br from-[#6E79F2] to-[#333FC2] text-white text-xs font-bold rounded-xl shadow-md hover:shadow-[5px_5px_12px_rgba(51,63,194,0.35)] active:translate-y-0.5 transition-all duration-150 cursor-pointer"
+        className="px-5 py-3 bg-gradient-to-br from-[#007ACC] to-[#0062A3] text-white text-xs font-bold rounded-sm border border-[#3E3E42] hover:border-[#555555] active:translate-y-0.5 transition-all duration-150 cursor-pointer"
       >
         Apply Filters
       </button>

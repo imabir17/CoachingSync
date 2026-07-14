@@ -79,20 +79,20 @@ export default function DashboardNavClient({
 
   // Render function to avoid unmounting/remounting subtree performance issues
   const renderSidebarContent = () => (
-    <div className="flex flex-col h-full bg-[#1B1E23] text-[#F0F3F8]">
+    <div className="flex flex-col h-full bg-[#1E1E1E] text-[#D4D4D4]">
       {/* Brand area */}
       <div className="h-20 flex items-center justify-between px-6 border-b border-[#111317]/20 shrink-0">
         <div className="flex items-center gap-2.5 font-bold text-base">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#6E79F2] to-[#333FC2] shadow-[3px_3px_6px_#111317,-3px_3px_6px_#252A31] flex items-center justify-center">
+          <div className="w-8 h-8 rounded-sm bg-gradient-to-br from-[#007ACC] to-[#0062A3] border border-[#3E3E42] flex items-center justify-center">
             <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
               <path d="M2 12L22 4L14 22L11 14L2 12Z" fill="white"/>
             </svg>
           </div>
-          <span className="font-bold tracking-tight text-lg text-[#F0F3F8] font-display">CoachingSync</span>
+          <span className="font-bold tracking-tight text-lg text-[#D4D4D4] font-display">CoachingSync</span>
         </div>
         <button
           onClick={() => setIsMobileOpen(false)}
-          className="lg:hidden p-2 rounded-xl bg-[#1B1E23] shadow-[3px_3px_6px_#111317,-3px_-3px_6px_#252A31] active:shadow-[inset_2px_2px_4px_#111317,inset_-2px_-2px_4px_#252A31] text-[#AAB4C4] hover:text-[#F0F3F8] transition-all"
+          className="lg:hidden p-2 rounded-sm bg-[#1E1E1E] border border-[#3E3E42] active:border border-[#3E3E42] text-[#CCCCCC] hover:text-[#D4D4D4] transition-all"
           aria-label="Close sidebar menu"
         >
           <X className="w-4 h-4" />
@@ -112,15 +112,15 @@ export default function DashboardNavClient({
                   key={item.href}
                   href={item.href}
                   onClick={() => setIsMobileOpen(false)}
-                  className={`flex items-center px-4 py-3 text-xs font-bold rounded-xl transition-all duration-200 group ${
+                  className={`flex items-center px-4 py-3 text-xs font-bold rounded-sm transition-all duration-200 group ${
                     isActive
-                      ? 'text-[#F0F3F8] bg-[#1B1E23] shadow-[inset_4px_4px_8px_#111317,inset_-4px_-4px_8px_#252A31]'
-                      : 'text-[#AAB4C4] hover:text-[#F0F3F8] hover:shadow-[4px_4px_8px_#111317,-4px_-4px_8px_#252A31]'
+                      ? 'text-[#D4D4D4] bg-[#1E1E1E] border border-[#3E3E42]'
+                      : 'text-[#CCCCCC] hover:text-[#D4D4D4] hover:border-[#555555]'
                   }`}
                 >
                   <Icon
                     className={`mr-3 h-4.5 w-4.5 transition-colors ${
-                      isActive ? 'text-[#4855E4]' : 'text-[#707C91] group-hover:text-[#4855E4]'
+                      isActive ? 'text-[#007ACC]' : 'text-[#858585] group-hover:text-[#007ACC]'
                     }`}
                   />
                   {item.label}
@@ -132,21 +132,21 @@ export default function DashboardNavClient({
       
       {/* Profile & Logout card */}
       <div className="p-4 border-t border-[#111317]/20 shrink-0">
-        <div className="flex items-center p-3 rounded-2xl bg-[#1B1E23] shadow-[inset_3px_3px_6px_#111317,inset_-3px_-3px_6px_#252A31] mb-4">
+        <div className="flex items-center p-3 rounded-md bg-[#1E1E1E] border border-[#3E3E42] mb-4">
           <div className="flex-shrink-0">
-            <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-[#6E79F2] to-[#333FC2] shadow-sm flex items-center justify-center text-white font-bold text-sm">
+            <div className="h-9 w-9 rounded-sm bg-gradient-to-br from-[#007ACC] to-[#0062A3] shadow-sm flex items-center justify-center text-white font-bold text-sm">
               {user.fullName.charAt(0)}
             </div>
           </div>
           <div className="ml-3 min-w-0">
-            <p className="text-xs font-bold text-[#F0F3F8] truncate">{user.fullName}</p>
-            <p className="text-[10px] font-semibold text-[#707C91] truncate">{user.role}</p>
+            <p className="text-xs font-bold text-[#D4D4D4] truncate">{user.fullName}</p>
+            <p className="text-[10px] font-semibold text-[#858585] truncate">{user.role}</p>
           </div>
         </div>
         <form action={logoutAction}>
           <button
             type="submit"
-            className="flex w-full items-center justify-center gap-2 px-4 py-3 text-xs font-bold rounded-xl text-red-500 bg-[#1B1E23] shadow-[4px_4px_8px_#111317,-4px_-4px_8px_#252A31] hover:shadow-[inset_2px_2px_4px_#111317,inset_-2px_-2px_4px_#252A31] active:translate-y-0.5 transition-all duration-150"
+            className="flex w-full items-center justify-center gap-2 px-4 py-3 text-xs font-bold rounded-sm text-red-500 bg-[#1E1E1E] border border-[#3E3E42] hover:border-[#555555] active:translate-y-0.5 transition-all duration-150"
           >
             <LogOut className="h-4.5 w-4.5" />
             Sign out
@@ -157,9 +157,9 @@ export default function DashboardNavClient({
   )
 
   return (
-    <div className="flex h-screen bg-[#1B1E23] text-[#F0F3F8] overflow-hidden w-full">
+    <div className="flex h-screen bg-[#1E1E1E] text-[#D4D4D4] overflow-hidden w-full">
       {/* Desktop Sidebar */}
-      <aside className="hidden lg:block w-64 shrink-0 border-r border-[#111317]/20 bg-[#1B1E23] shadow-[8px_0_16px_-8px_rgba(32,38,56,0.08)]">
+      <aside className="hidden lg:block w-64 shrink-0 border-r border-[#111317]/20 bg-[#1E1E1E] border border-[#3E3E42]">
         {renderSidebarContent()}
       </aside>
 
@@ -172,26 +172,26 @@ export default function DashboardNavClient({
             className="fixed inset-0 bg-black/30 backdrop-blur-sm transition-opacity"
           />
           {/* Drawer Panel */}
-          <aside className="relative w-64 max-w-xs flex flex-col bg-[#1B1E23] border-r border-[#111317]/20 shadow-2xl animate-in slide-in-from-left duration-200">
+          <aside className="relative w-64 max-w-xs flex flex-col bg-[#1E1E1E] border-r border-[#111317]/20 shadow-2xl animate-in slide-in-from-left duration-200">
             {renderSidebarContent()}
           </aside>
         </div>
       )}
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden bg-[#1B1E23]">
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden bg-[#1E1E1E]">
         {/* Header */}
-        <header className="h-16 border-b border-[#111317]/20 flex items-center justify-between px-4 sm:px-6 lg:px-8 bg-[#1B1E23]/80 backdrop-blur-md shrink-0">
+        <header className="h-16 border-b border-[#111317]/20 flex items-center justify-between px-4 sm:px-6 lg:px-8 bg-[#1E1E1E]/80 backdrop-blur-md shrink-0">
           <div className="flex items-center gap-3">
             <button
               onClick={() => setIsMobileOpen(true)}
-              className="lg:hidden p-2.5 rounded-xl bg-[#1B1E23] shadow-[3px_3px_6px_#111317,-3px_-3px_6px_#252A31] active:shadow-[inset_2px_2px_4px_#111317,inset_-2px_-2px_4px_#252A31] text-[#AAB4C4] hover:text-[#F0F3F8] transition-all"
+              className="lg:hidden p-2.5 rounded-sm bg-[#1E1E1E] border border-[#3E3E42] active:border border-[#3E3E42] text-[#CCCCCC] hover:text-[#D4D4D4] transition-all"
               aria-label="Open sidebar menu"
             >
               <Menu className="w-5 h-5" />
             </button>
-            <h2 className="text-sm sm:text-base font-bold text-[#AAB4C4] truncate">
-              Welcome back, <span className="text-[#F0F3F8]">{user.fullName.split(' ')[0]}</span>
+            <h2 className="text-sm sm:text-base font-bold text-[#CCCCCC] truncate">
+              Welcome back, <span className="text-[#D4D4D4]">{user.fullName.split(' ')[0]}</span>
             </h2>
           </div>
         </header>

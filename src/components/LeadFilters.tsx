@@ -66,12 +66,12 @@ export function LeadFilters({
     })
   }
 
-  const selectClass = "px-3 py-2 bg-[#1B1E23] shadow-[3px_3px_6px_#111317,-3px_-3px_6px_#252A31] text-xs font-bold text-[#AAB4C4] hover:text-[#F0F3F8] rounded-xl outline-none focus:shadow-[inset_2px_2px_4px_#111317,inset_-2px_-2px_4px_#252A31] transition-all cursor-pointer"
+  const selectClass = "px-3 py-2 bg-[#1E1E1E] border border-[#3E3E42] text-xs font-bold text-[#CCCCCC] hover:text-[#D4D4D4] rounded-sm outline-none focus:border border-[#3E3E42] transition-all cursor-pointer"
 
   return (
     <div className="neo-raised p-6 flex flex-col gap-4 relative">
       {isPending && (
-        <span className="absolute top-3 right-4 text-[10px] font-bold text-[#12A8B5] bg-[#12A8B5]/10 px-2 py-0.5 rounded-full">
+        <span className="absolute top-3 right-4 text-[10px] font-bold text-[#4EC9B0] bg-[#4EC9B0]/10 px-2 py-0.5 rounded-full">
           Updating...
         </span>
       )}
@@ -79,13 +79,13 @@ export function LeadFilters({
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         {/* Search Input */}
         <div className="relative w-full lg:w-80">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#707C91]" />
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#858585]" />
           <input
             type="text"
             placeholder="Search by name, email, or phone..."
             defaultValue={searchParams.get('q') || ''}
             onChange={handleSearch}
-            className="w-full pl-10 pr-4 py-3 bg-[#1B1E23] shadow-[inset_3px_3px_6px_#111317,inset_-3px_-3px_6px_#252A31] rounded-xl text-xs font-semibold text-[#F0F3F8] placeholder-[#707C91] focus:outline-none focus:shadow-[inset_4px_4px_8px_#111317,inset_-4px_-4px_8px_#252A31] transition-all"
+            className="w-full pl-10 pr-4 py-3 bg-[#1E1E1E] border border-[#3E3E42] rounded-sm text-xs font-semibold text-[#D4D4D4] placeholder-[#858585] focus:outline-none focus:border border-[#3E3E42] transition-all"
           />
         </div>
 
@@ -93,7 +93,7 @@ export function LeadFilters({
         <div className="flex flex-wrap items-center gap-3">
           {isAdminOrManager && (
             <div className="flex items-center gap-2">
-              <Users className="h-4 w-4 text-[#707C91] shrink-0" />
+              <Users className="h-4 w-4 text-[#858585] shrink-0" />
               <select 
                 onChange={handleCounselorFilter}
                 defaultValue={searchParams.get('counselorId') || ''}
@@ -108,7 +108,7 @@ export function LeadFilters({
           )}
 
           <div className="flex items-center gap-2">
-            <Filter className="h-4 w-4 text-[#707C91] shrink-0" />
+            <Filter className="h-4 w-4 text-[#858585] shrink-0" />
             <select 
               onChange={handleStageFilter}
               defaultValue={searchParams.get('stage') || ''}

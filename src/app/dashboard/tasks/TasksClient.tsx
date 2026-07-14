@@ -184,8 +184,8 @@ export default function TasksClient({
     }
   })
 
-  const inputClass = "w-full bg-[#1B1E23] shadow-[inset_2.5px_2.5px_5px_#111317,inset_-2.5px_-2.5px_5px_#252A31] border-none rounded-xl py-2.5 px-4 text-xs font-semibold text-[#F0F3F8] placeholder-[#707C91] focus:outline-none transition-all"
-  const selectClass = "w-full bg-[#1B1E23] shadow-[3px_3px_6px_#111317,-3px_-3px_6px_#252A31] text-xs font-bold text-[#AAB4C4] rounded-xl py-2.5 px-4 outline-none focus:shadow-[inset_2px_2px_4px_#111317,inset_-2px_-2px_4px_#252A31] transition-all cursor-pointer"
+  const inputClass = "w-full bg-[#1E1E1E] border border-[#3E3E42] border-none rounded-sm py-2.5 px-4 text-xs font-semibold text-[#D4D4D4] placeholder-[#858585] focus:outline-none transition-all"
+  const selectClass = "w-full bg-[#1E1E1E] border border-[#3E3E42] text-xs font-bold text-[#CCCCCC] rounded-sm py-2.5 px-4 outline-none focus:border border-[#3E3E42] transition-all cursor-pointer"
 
   const renderTaskRow = (task: any) => {
     const isCompleted = task.status === 'Completed'
@@ -196,7 +196,7 @@ export default function TasksClient({
     return (
       <div 
         key={task.id} 
-        className={`flex items-center gap-4 p-4 mb-3.5 bg-[#1B1E23] rounded-2xl shadow-[4px_4px_8px_#111317,-4px_-4px_8px_#252A31] border border-[#111317]/10 group transition-all duration-300 ${
+        className={`flex items-center gap-4 p-4 mb-3.5 bg-[#1E1E1E] rounded-md border border-[#3E3E42] border border-[#111317]/10 group transition-all duration-300 ${
           isCompleted ? 'opacity-60' : ''
         }`}
       >
@@ -207,8 +207,8 @@ export default function TasksClient({
           disabled={!isAdminOrManager && currentUser.id !== task.counselorId}
           className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 cursor-pointer border-none transition-all duration-200 ${
             isCompleted 
-              ? 'bg-gradient-to-br from-[#1FAE73] to-[#158a5c] shadow-[2px_2px_6px_rgba(21,138,92,0.4)] text-white'
-              : 'bg-[#1B1E23] shadow-[inset_2.5px_2.5px_5px_#111317,inset_-2.5px_-2.5px_5px_#252A31] text-transparent hover:text-[#707C91]'
+              ? 'bg-gradient-to-br from-[#1FAE73] to-[#158a5c] border border-[#3E3E42] text-white'
+              : 'bg-[#1E1E1E] border border-[#3E3E42] text-transparent hover:text-[#858585]'
           }`}
           aria-label={isCompleted ? "Mark task as pending" : "Mark task as completed"}
         >
@@ -217,18 +217,18 @@ export default function TasksClient({
 
         {/* Task Details */}
         <div className="flex-1 min-w-0">
-          <p className={`text-xs font-bold text-[#F0F3F8] mb-1 leading-normal ${isCompleted ? 'line-through text-[#707C91]' : ''}`}>
+          <p className={`text-xs font-bold text-[#D4D4D4] mb-1 leading-normal ${isCompleted ? 'line-through text-[#858585]' : ''}`}>
             {task.description}
           </p>
-          <div className="flex flex-wrap items-center gap-2.5 text-[10px] text-[#AAB4C4] font-semibold">
+          <div className="flex flex-wrap items-center gap-2.5 text-[10px] text-[#CCCCCC] font-semibold">
             {task.lead && (
-              <span className="bg-[#4855E4]/8 text-[#333FC2] px-2.5 py-0.5 rounded-full font-bold">
+              <span className="bg-[#007ACC]/8 text-[#0062A3] px-2.5 py-0.5 rounded-full font-bold">
                 <Link href={`/dashboard/leads/${task.lead.id}`} className="hover:underline">
                   {task.lead.fullName}
                 </Link>
               </span>
             )}
-            <span className="flex items-center gap-1 text-[#707C91]">
+            <span className="flex items-center gap-1 text-[#858585]">
               <Clock className="w-3.5 h-3.5" />
               {formattedTime}
             </span>
@@ -238,7 +238,7 @@ export default function TasksClient({
         {/* Counselor Badge */}
         {counselorName && (
           <div 
-            className="w-6.5 h-6.5 rounded-lg bg-gradient-to-br from-[#6E79F2] to-[#333FC2] text-white flex items-center justify-center text-[8.5px] font-bold shadow-sm shrink-0"
+            className="w-6.5 h-6.5 rounded-sm bg-gradient-to-br from-[#007ACC] to-[#0062A3] text-white flex items-center justify-center text-[8.5px] font-bold shadow-sm shrink-0"
             title={`Assigned to ${counselorName}`}
           >
             {getInitials(counselorName)}
@@ -249,7 +249,7 @@ export default function TasksClient({
         {isAdminOrManager && (
           <button
             onClick={() => handleDelete(task.id)}
-            className="text-[#707C91] hover:text-[#E5484D] transition-colors shrink-0 p-1.5 rounded-lg opacity-0 group-hover:opacity-100 focus:opacity-100"
+            className="text-[#858585] hover:text-[#E5484D] transition-colors shrink-0 p-1.5 rounded-sm opacity-0 group-hover:opacity-100 focus:opacity-100"
             aria-label="Delete task"
           >
             <Trash2 className="w-4 h-4" />
@@ -265,8 +265,8 @@ export default function TasksClient({
       {/* Header controls */}
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-2xl font-bold text-[#F0F3F8] font-display">Tasks</h2>
-          <p className="text-xs text-[#AAB4C4]">Your team's follow-up agenda, organized by urgency.</p>
+          <h2 className="text-2xl font-bold text-[#D4D4D4] font-display">Tasks</h2>
+          <p className="text-xs text-[#CCCCCC]">Your team's follow-up agenda, organized by urgency.</p>
         </div>
         {isAdminOrManager && (
           <button 
@@ -274,7 +274,7 @@ export default function TasksClient({
               setErrorMsg('')
               setIsModalOpen(true)
             }}
-            className="flex items-center gap-1.5 px-5 py-3 bg-gradient-to-br from-[#6E79F2] to-[#333FC2] text-white text-xs font-bold rounded-xl shadow-md hover:shadow-[9px_9px_20px_rgba(51,63,194,0.35)] active:translate-y-0.5 transition-all duration-150"
+            className="flex items-center gap-1.5 px-5 py-3 bg-gradient-to-br from-[#007ACC] to-[#0062A3] text-white text-xs font-bold rounded-sm border border-[#3E3E42] hover:border-[#555555] active:translate-y-0.5 transition-all duration-150"
           >
             <Plus className="h-4.5 w-4.5" />
             New Task
@@ -299,13 +299,13 @@ export default function TasksClient({
 
         {/* 2. Today Section */}
         <div className="space-y-3">
-          <div className="flex items-center gap-2 text-xs font-bold text-[#4855E4] px-1">
-            <span className="w-2 h-2 rounded-full bg-[#4855E4]"></span>
+          <div className="flex items-center gap-2 text-xs font-bold text-[#007ACC] px-1">
+            <span className="w-2 h-2 rounded-full bg-[#007ACC]"></span>
             <span>Today</span>
-            <span className="text-[10px] bg-[#4855E4]/10 px-2 py-0.5 rounded-full">{todayTasks.length}</span>
+            <span className="text-[10px] bg-[#007ACC]/10 px-2 py-0.5 rounded-full">{todayTasks.length}</span>
           </div>
           {todayTasks.length === 0 ? (
-            <div className="neo-raised p-6 text-center text-xs font-bold text-[#707C91]">
+            <div className="neo-raised p-6 text-center text-xs font-bold text-[#858585]">
               No tasks scheduled for today.
             </div>
           ) : (
@@ -316,10 +316,10 @@ export default function TasksClient({
         {/* 3. Upcoming Section */}
         {upcomingTasks.length > 0 && (
           <div className="space-y-3">
-            <div className="flex items-center gap-2 text-xs font-bold text-[#12A8B5] px-1">
-              <span className="w-2 h-2 rounded-full bg-[#12A8B5]"></span>
+            <div className="flex items-center gap-2 text-xs font-bold text-[#4EC9B0] px-1">
+              <span className="w-2 h-2 rounded-full bg-[#4EC9B0]"></span>
               <span>Upcoming</span>
-              <span className="text-[10px] bg-[#12A8B5]/10 px-2 py-0.5 rounded-full">{upcomingTasks.length}</span>
+              <span className="text-[10px] bg-[#4EC9B0]/10 px-2 py-0.5 rounded-full">{upcomingTasks.length}</span>
             </div>
             <div>{upcomingTasks.map(renderTaskRow)}</div>
           </div>
@@ -338,7 +338,7 @@ export default function TasksClient({
         )}
 
         {activeTasks.length === 0 && (
-          <div className="neo-raised p-12 text-center text-xs font-bold text-[#707C91]">
+          <div className="neo-raised p-12 text-center text-xs font-bold text-[#858585]">
             No tasks found. Create a task to get started!
           </div>
         )}
@@ -346,13 +346,13 @@ export default function TasksClient({
 
       {/* Creation Modal (Portaled) */}
       {mounted && isModalOpen && createPortal(
-        <div className="fixed inset-0 bg-[#F0F3F8]/40 backdrop-blur-sm flex items-center justify-center z-[100] p-4">
-          <div className="relative z-10 max-w-md w-full bg-[#1B1E23] shadow-[0_12px_36px_rgba(32,38,56,0.15)] border border-[#111317]/20 rounded-2xl p-6 md:p-8 space-y-6 animate-in fade-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 bg-[#D4D4D4]/40 backdrop-blur-sm flex items-center justify-center z-[100] p-4">
+          <div className="relative z-10 max-w-md w-full bg-[#1E1E1E] border border-[#3E3E42] border border-[#111317]/20 rounded-md p-6 md:p-8 space-y-6 animate-in fade-in zoom-in-95 duration-200">
             <div className="flex justify-between items-center">
-              <h3 className="text-base font-bold text-[#F0F3F8] font-display">Assign Task</h3>
+              <h3 className="text-base font-bold text-[#D4D4D4] font-display">Assign Task</h3>
               <button 
                 onClick={() => setIsModalOpen(false)} 
-                className="p-1.5 rounded-xl bg-[#1B1E23] shadow-[3px_3px_6px_#111317,-3px_-3px_6px_#252A31] hover:shadow-[inset_2px_2px_4px_#111317,inset_-2px_-2px_4px_#252A31] text-[#AAB4C4] transition-all"
+                className="p-1.5 rounded-sm bg-[#1E1E1E] border border-[#3E3E42] hover:border-[#555555] text-[#CCCCCC] transition-all"
                 aria-label="Close task creation panel"
               >
                 <X className="h-4 w-4" />
@@ -360,7 +360,7 @@ export default function TasksClient({
             </div>
             
             {errorMsg && (
-              <div className="flex items-center gap-2 text-xs text-[#E5484D] bg-[#E5484D]/8 p-4 rounded-xl border border-[#E5484D]/10">
+              <div className="flex items-center gap-2 text-xs text-[#E5484D] bg-[#E5484D]/8 p-4 rounded-sm border border-[#E5484D]/10">
                 <AlertTriangle className="w-4 h-4 shrink-0" />
                 <span>{errorMsg}</span>
               </div>
@@ -368,7 +368,7 @@ export default function TasksClient({
 
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label className="block text-[10px] font-bold text-[#AAB4C4] uppercase tracking-wider mb-2">Description</label>
+                <label className="block text-[10px] font-bold text-[#CCCCCC] uppercase tracking-wider mb-2">Description</label>
                 <input 
                   required 
                   type="text" 
@@ -380,7 +380,7 @@ export default function TasksClient({
               </div>
               
               <div>
-                <label className="block text-[10px] font-bold text-[#AAB4C4] uppercase tracking-wider mb-2">Due Date</label>
+                <label className="block text-[10px] font-bold text-[#CCCCCC] uppercase tracking-wider mb-2">Due Date</label>
                 <input 
                   required 
                   type="datetime-local" 
@@ -391,7 +391,7 @@ export default function TasksClient({
               </div>
 
               <div>
-                <label className="block text-[10px] font-bold text-[#AAB4C4] uppercase tracking-wider mb-2">Assign To</label>
+                <label className="block text-[10px] font-bold text-[#CCCCCC] uppercase tracking-wider mb-2">Assign To</label>
                 <select 
                   value={formData.counselorId} 
                   onChange={e => setFormData({...formData, counselorId: e.target.value})} 
@@ -407,14 +407,14 @@ export default function TasksClient({
                 <button 
                   type="button" 
                   onClick={() => setIsModalOpen(false)} 
-                  className="px-5 py-2.5 rounded-xl bg-[#1B1E23] shadow-[3px_3px_6px_#111317,-3px_-3px_6px_#252A31] text-xs font-bold text-[#AAB4C4] hover:shadow-[inset_2px_2px_4px_#111317,inset_-2px_-2px_4px_#252A31] transition-all"
+                  className="px-5 py-2.5 rounded-sm bg-[#1E1E1E] border border-[#3E3E42] text-xs font-bold text-[#CCCCCC] hover:border-[#555555] transition-all"
                 >
                   Cancel
                 </button>
                 <button 
                   type="submit" 
                   disabled={isSubmitting} 
-                  className="px-5 py-2.5 bg-gradient-to-br from-[#6E79F2] to-[#333FC2] text-white text-xs font-bold rounded-xl shadow-md hover:shadow-lg disabled:opacity-50 transition-all flex items-center gap-1.5"
+                  className="px-5 py-2.5 bg-gradient-to-br from-[#007ACC] to-[#0062A3] text-white text-xs font-bold rounded-sm border border-[#3E3E42] hover:border border-[#3E3E42] disabled:opacity-50 transition-all flex items-center gap-1.5"
                 >
                   {isSubmitting && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                   <span>Assign</span>

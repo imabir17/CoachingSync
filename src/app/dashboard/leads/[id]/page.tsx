@@ -64,18 +64,18 @@ export default async function LeadDetailPage({ params }: { params: { id: string 
         <div className="flex items-center gap-4">
           <Link 
             href="/dashboard/leads" 
-            className="p-2.5 rounded-xl bg-[#1B1E23] shadow-[3px_3px_6px_#111317,-3px_-3px_6px_#252A31] hover:shadow-[inset_2px_2px_4px_#111317,inset_-2px_-2px_4px_#252A31] text-[#AAB4C4] hover:text-[#F0F3F8] transition-all"
+            className="p-2.5 rounded-sm bg-[#1E1E1E] border border-[#3E3E42] hover:border-[#555555] text-[#CCCCCC] hover:text-[#D4D4D4] transition-all"
             aria-label="Back to leads list"
           >
             <ArrowLeft className="h-5 w-5" />
           </Link>
           <div>
-            <h2 className="text-2xl font-bold text-[#F0F3F8] font-display">{lead.fullName}</h2>
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 mt-1.5 text-xs text-[#AAB4C4] font-semibold">
-              <span className="flex items-center gap-1.5"><Mail className="h-4 w-4 text-[#4855E4]" /> {lead.email || 'N/A'}</span>
+            <h2 className="text-2xl font-bold text-[#D4D4D4] font-display">{lead.fullName}</h2>
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 mt-1.5 text-xs text-[#CCCCCC] font-semibold">
+              <span className="flex items-center gap-1.5"><Mail className="h-4 w-4 text-[#007ACC]" /> {lead.email || 'N/A'}</span>
               <span className="opacity-40">•</span>
               <span className="flex items-center gap-1.5">
-                <Phone className="h-4 w-4 text-[#12A8B5]" /> {lead.phone || 'N/A'}
+                <Phone className="h-4 w-4 text-[#4EC9B0]" /> {lead.phone || 'N/A'}
                 {lead.phone && (() => {
                   let clean = lead.phone.replace(/\D/g, '')
                   if (clean.startsWith('01') && clean.length === 11) {
@@ -86,7 +86,7 @@ export default async function LeadDetailPage({ params }: { params: { id: string 
                       href={`https://wa.me/${clean}`} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="ml-1 p-1 bg-[#1B1E23] shadow-[2px_2px_4px_#111317,-2px_-2px_4px_#252A31] hover:shadow-[inset_1px_1px_2px_#111317,inset_-1px_-1px_2px_#252A31] rounded-lg text-[#25D366] transition-all inline-flex items-center justify-center shrink-0"
+                      className="ml-1 p-1 bg-[#1E1E1E] border border-[#3E3E42] hover:border-[#555555] rounded-sm text-[#25D366] transition-all inline-flex items-center justify-center shrink-0"
                       title="Message on WhatsApp"
                     >
                       <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">

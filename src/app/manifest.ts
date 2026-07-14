@@ -7,8 +7,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: 'Workspace for Study Abroad Consultancy Agency',
     start_url: '/dashboard',
     display: 'standalone',
-    background_color: '#1B1E23',
-    theme_color: '#4855E4',
+    background_color: '#1E1E1E',
+    theme_color: '#007ACC',
     icons: [
       {
         src: '/logo.jpg',

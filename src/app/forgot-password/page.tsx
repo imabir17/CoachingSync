@@ -10,21 +10,21 @@ export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('')
 
   return (
-    <div className="min-h-screen bg-[#1B1E23] flex items-center justify-center p-6 relative overflow-hidden font-sans">
+    <div className="min-h-screen bg-[#1E1E1E] flex items-center justify-center p-6 relative overflow-hidden font-sans">
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
         :root {
-          --bg: #1B1E23;
+          --bg: #1E1E1E;
           --shadow-dark: #111317;
           --shadow-light: #252A31;
-          --text-1: #F0F3F8;
-          --text-2: #AAB4C4;
-          --text-3: #707C91;
-          --accent: #4855E4;
-          --accent-light: #6E79F2;
-          --accent-dark: #333FC2;
-          --teal: #12A8B5;
+          --text-1: #D4D4D4;
+          --text-2: #CCCCCC;
+          --text-3: #858585;
+          --accent: #007ACC;
+          --accent-light: #007ACC;
+          --accent-dark: #0062A3;
+          --teal: #4EC9B0;
           --error: #E5484D;
         }
 
@@ -83,11 +83,11 @@ export default function ForgotPasswordPage() {
       <div className="orb orb1 pointer-events-none"></div>
       <div className="orb orb2 pointer-events-none"></div>
 
-      <div className="relative z-10 w-full max-w-[460px] rounded-[32px] bg-[#1B1E23] shadow-[24px_24px_50px_#111317,-18px_-18px_40px_#252A31] p-8 md:p-10 animate-in fade-in slide-in-from-bottom-6 duration-500">
+      <div className="relative z-10 w-full max-w-[460px] rounded-[32px] bg-[#1E1E1E] border border-[#3E3E42] p-8 md:p-10 animate-in fade-in slide-in-from-bottom-6 duration-500">
         
         {/* Logo */}
         <div className="flex justify-center mb-6">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#6E79F2] to-[#333FC2] shadow-[4px_4px_10px_#111317,-4px_4px_10px_#252A31] flex items-center justify-center">
+          <div className="w-10 h-10 rounded-sm bg-gradient-to-br from-[#007ACC] to-[#0062A3] border border-[#3E3E42] flex items-center justify-center">
             <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
               <path d="M2 12L22 4L14 22L11 14L2 12Z" fill="white"/>
             </svg>
@@ -95,8 +95,8 @@ export default function ForgotPasswordPage() {
         </div>
 
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold text-[#F0F3F8] mb-2">Forgot Password</h2>
-          <p className="text-xs text-[#AAB4C4]">
+          <h2 className="text-2xl font-bold text-[#D4D4D4] mb-2">Forgot Password</h2>
+          <p className="text-xs text-[#CCCCCC]">
             Enter your email to receive a secure password recovery link.
           </p>
         </div>
@@ -104,7 +104,7 @@ export default function ForgotPasswordPage() {
         <form action={formAction} className="space-y-5">
           {/* Error Message */}
           {state?.error && (
-            <div className="flex items-center gap-2 text-xs text-[#E5484D] bg-[#E5484D]/8 p-3.5 rounded-xl shadow-sm border border-[#E5484D]/10">
+            <div className="flex items-center gap-2 text-xs text-[#E5484D] bg-[#E5484D]/8 p-3.5 rounded-sm shadow-sm border border-[#E5484D]/10">
               <AlertCircle className="w-4.5 h-4.5 shrink-0" />
               <span>{state.error}</span>
             </div>
@@ -112,7 +112,7 @@ export default function ForgotPasswordPage() {
 
           {/* Success Message */}
           {state?.success && (
-            <div className="flex items-center gap-2 text-xs text-[#12A8B5] bg-[#12A8B5]/8 p-3.5 rounded-xl shadow-sm border border-[#12A8B5]/10">
+            <div className="flex items-center gap-2 text-xs text-[#4EC9B0] bg-[#4EC9B0]/8 p-3.5 rounded-sm shadow-sm border border-[#4EC9B0]/10">
               <Check className="w-4.5 h-4.5 shrink-0" />
               <span>{state.success}</span>
             </div>
@@ -120,11 +120,11 @@ export default function ForgotPasswordPage() {
 
           {/* Email input field */}
           <div>
-            <label htmlFor="email" className="block text-[10px] font-bold text-[#AAB4C4] uppercase tracking-wider mb-2">
+            <label htmlFor="email" className="block text-[10px] font-bold text-[#CCCCCC] uppercase tracking-wider mb-2">
               Email address
             </label>
-            <div className="rounded-xl p-1 pr-4 pl-4 bg-[#1B1E23] shadow-[inset_5px_5px_10px_#111317,inset_-5px_-5px_10px_#252A31] flex items-center gap-3 focus-within:shadow-[inset_6px_6px_12px_#111317,inset_-6px_-6px_12px_#252A31] transition-all">
-              <Mail className="w-4 h-4 text-[#707C91] shrink-0" />
+            <div className="rounded-sm p-1 pr-4 pl-4 bg-[#1E1E1E] border border-[#3E3E42] flex items-center gap-3 focus-within:border border-[#3E3E42] transition-all">
+              <Mail className="w-4 h-4 text-[#858585] shrink-0" />
               <input 
                 type="email" 
                 id="email" 
@@ -134,7 +134,7 @@ export default function ForgotPasswordPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="border-none bg-transparent outline-none w-full py-3.5 text-xs text-[#F0F3F8]"
+                className="border-none bg-transparent outline-none w-full py-3.5 text-xs text-[#D4D4D4]"
               />
             </div>
           </div>
@@ -142,7 +142,7 @@ export default function ForgotPasswordPage() {
           <button 
             type="submit" 
             disabled={isPending}
-            className={`w-full py-4 rounded-xl font-bold text-xs text-white bg-gradient-to-br from-[#6E79F2] to-[#333FC2] shadow-[7px_7px_16px_rgba(51,63,194,0.28),-6px_-6px_14px_rgba(255,255,255,0.7)] hover:shadow-[9px_9px_20px_rgba(51,63,194,0.34),-7px_-7px_16px_rgba(255,255,255,0.8)] active:translate-y-0.5 transition-all duration-150 flex items-center justify-center gap-2 ${
+            className={`w-full py-4 rounded-sm font-bold text-xs text-white bg-gradient-to-br from-[#007ACC] to-[#0062A3] border border-[#3E3E42] hover:border-[#555555] active:translate-y-0.5 transition-all duration-150 flex items-center justify-center gap-2 ${
               isPending ? 'opacity-85 pointer-events-none' : ''
             }`}
           >
@@ -152,7 +152,7 @@ export default function ForgotPasswordPage() {
         </form>
 
         <div className="text-center mt-8">
-          <Link href="/login" className="inline-flex items-center gap-1.5 text-xs font-bold text-[#4855E4] hover:text-[#333FC2] group transition-all">
+          <Link href="/login" className="inline-flex items-center gap-1.5 text-xs font-bold text-[#007ACC] hover:text-[#0062A3] group transition-all">
             <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform" />
             Back to Login
           </Link>

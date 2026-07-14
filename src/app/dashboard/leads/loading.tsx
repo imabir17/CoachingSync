@@ -3,24 +3,24 @@ export default function LeadsLoading() {
     <div className="space-y-6 animate-pulse pb-12">
       <div className="flex justify-between items-center">
         <div>
-          <div className="h-8 w-40 bg-neutral-800 rounded-lg mb-2"></div>
+          <div className="h-8 w-40 bg-neutral-800 rounded-sm mb-2"></div>
           <div className="h-4 w-60 bg-neutral-800/60 rounded-md"></div>
         </div>
-        <div className="h-10 w-32 bg-neutral-800 rounded-lg"></div>
+        <div className="h-10 w-32 bg-neutral-800 rounded-sm"></div>
       </div>
 
       {/* Filter Bar Skeleton */}
-      <div className="bg-neutral-900/40 border border-neutral-800/80 rounded-xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="h-10 w-full md:w-80 bg-neutral-800 rounded-lg"></div>
+      <div className="bg-neutral-900/40 border border-neutral-800/80 rounded-sm p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="h-10 w-full md:w-80 bg-neutral-800 rounded-sm"></div>
         <div className="flex flex-wrap gap-2">
           {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="h-10 w-28 bg-neutral-800 rounded-lg"></div>
+            <div key={i} className="h-10 w-28 bg-neutral-800 rounded-sm"></div>
           ))}
         </div>
       </div>
 
       {/* Table Skeleton */}
-      <div className="bg-neutral-900/50 border border-neutral-800/80 rounded-xl overflow-hidden shadow-sm">
+      <div className="bg-neutral-900/50 border border-neutral-800/80 rounded-sm overflow-hidden shadow-sm">
         <div className="border-b border-neutral-800 px-6 py-4 bg-neutral-900/30 flex justify-between">
           <div className="h-4 w-32 bg-neutral-800 rounded"></div>
           <div className="h-4 w-24 bg-neutral-800 rounded"></div>

@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   logoBox: {
     width: 40,
     height: 40,
-    backgroundColor: '#333FC2',
+    backgroundColor: '#0062A3',
     borderRadius: 8,
     marginRight: 12
   },
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
   grandTotalValue: {
     fontSize: 16,
     fontFamily: 'Helvetica-Bold',
-    color: '#333FC2'
+    color: '#0062A3'
   },
   footer: {
     marginTop: 80,

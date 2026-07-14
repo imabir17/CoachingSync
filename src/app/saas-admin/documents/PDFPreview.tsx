@@ -23,7 +23,7 @@ export default function PDFPreview({ activeTab, data }: PDFPreviewProps) {
         <PDFDownloadLink
           document={DocumentComponent}
           fileName={fileName}
-          className="flex items-center gap-2 bg-[#333FC2] hover:bg-[#28329B] text-white py-2 px-4 rounded-xl font-medium transition-colors"
+          className="flex items-center gap-2 bg-[#0062A3] hover:bg-[#28329B] text-white py-2 px-4 rounded-sm font-medium transition-colors"
         >
           {({ loading }) => (
             <>
@@ -34,7 +34,7 @@ export default function PDFPreview({ activeTab, data }: PDFPreviewProps) {
         </PDFDownloadLink>
       </div>
       
-      <div className="flex-1 w-full rounded-xl overflow-hidden border border-[#D1D5DB] shadow-inner bg-white">
+      <div className="flex-1 w-full rounded-sm overflow-hidden border border-[#D1D5DB] shadow-inner bg-white">
         <PDFViewer className="w-full h-full border-none" showToolbar={false}>
           {DocumentComponent}
         </PDFViewer>

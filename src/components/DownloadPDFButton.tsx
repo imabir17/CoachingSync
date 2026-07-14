@@ -120,7 +120,7 @@ export function DownloadPDFButton({ report, dateRange, filename }: DownloadPDFBu
     <button
       onClick={handleDownload}
       disabled={isGenerating}
-      className="flex items-center space-x-2 px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-neutral-300 hover:text-white rounded-lg transition-colors border border-neutral-700 disabled:opacity-50 text-sm font-medium"
+      className="flex items-center space-x-2 px-3 py-1.5 bg-neutral-800 hover:bg-neutral-700 text-neutral-300 hover:text-white rounded-sm transition-colors border border-neutral-700 disabled:opacity-50 text-sm font-medium"
       title="Download as PDF"
     >
       {isGenerating ? (

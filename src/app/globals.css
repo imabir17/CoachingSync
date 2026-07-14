@@ -9,18 +9,18 @@
 
 :root {
   color-scheme: light;
-  --bg: #1B1E23;
-  --bg-deep: #14161A;
+  --bg: #1E1E1E;
+  --bg-deep: #252526;
   --shadow-dark: #111317;
   --shadow-light: #252A31;
-  --text-1: #F0F3F8;
-  --text-2: #AAB4C4;
-  --text-3: #707C91;
-  --accent: #4855E4;
-  --accent-light: #6E79F2;
-  --accent-dark: #333FC2;
-  --teal: #12A8B5;
-  --coral: #FF7A52;
+  --text-1: #D4D4D4;
+  --text-2: #CCCCCC;
+  --text-3: #858585;
+  --accent: #007ACC;
+  --accent-light: #007ACC;
+  --accent-dark: #0062A3;
+  --teal: #4EC9B0;
+  --coral: #CE9178;
   --radius-lg: 28px;
   --radius-md: 18px;
   --radius-sm: 12px;

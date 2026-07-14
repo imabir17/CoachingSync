@@ -171,7 +171,7 @@ export default function SettingsClient({ initialStages, stageLeadCounts }: Setti
   return (
     <div className="space-y-6">
       {errorMsg && (
-        <div className="flex items-center gap-2 text-xs text-[#E5484D] bg-[#E5484D]/8 p-4 rounded-xl shadow-sm border border-[#E5484D]/10">
+        <div className="flex items-center gap-2 text-xs text-[#E5484D] bg-[#E5484D]/8 p-4 rounded-sm shadow-sm border border-[#E5484D]/10">
           <AlertTriangle className="w-4.5 h-4.5 shrink-0" />
           <span>{errorMsg}</span>
         </div>
@@ -182,7 +182,7 @@ export default function SettingsClient({ initialStages, stageLeadCounts }: Setti
         {/* Left Side: Pipeline customization */}
         <div className="md:col-span-2 space-y-6">
           <div className="neo-raised p-6">
-            <h3 className="text-base font-bold text-[#F0F3F8] mb-5">Customize Pipeline Stages</h3>
+            <h3 className="text-base font-bold text-[#D4D4D4] mb-5">Customize Pipeline Stages</h3>
 
             <div className="space-y-4">
               {stages.map((stage, index) => {
@@ -192,7 +192,7 @@ export default function SettingsClient({ initialStages, stageLeadCounts }: Setti
                 return (
                   <div 
                     key={stage.id} 
-                    className="flex items-center justify-between p-4 bg-[#1B1E23] shadow-[inset_2px_2px_4px_#111317,inset_-2px_-2px_4px_#252A31] rounded-xl hover:shadow-[3px_3px_6px_#111317,-3px_-3px_6px_#252A31] transition-all"
+                    className="flex items-center justify-between p-4 bg-[#1E1E1E] border border-[#3E3E42] rounded-sm hover:border-[#555555] transition-all"
                   >
                     <div className="flex-1 mr-4">
                       {isEditing ? (
@@ -201,18 +201,18 @@ export default function SettingsClient({ initialStages, stageLeadCounts }: Setti
                             type="text" 
                             value={editingName}
                             onChange={(e) => setEditingName(e.target.value)}
-                            className="bg-[#1B1E23] shadow-[inset_2px_2px_4px_#111317,inset_-2px_-2px_4px_#252A31] border-none rounded-lg px-3 py-1.5 text-xs font-semibold text-[#F0F3F8] focus:outline-none w-full max-w-[200px]"
+                            className="bg-[#1E1E1E] border border-[#3E3E42] border-none rounded-sm px-3 py-1.5 text-xs font-semibold text-[#D4D4D4] focus:outline-none w-full max-w-[200px]"
                           />
                           <button 
                             onClick={() => handleRenameStage(stage.id)}
-                            className="p-1.5 rounded-lg bg-[#1B1E23] shadow-[2px_2px_4px_#111317,-2px_-2px_4px_#252A31] text-emerald-600 hover:shadow-[inset_1px_1px_2px_#111317,inset_-1px_-1px_2px_#252A31]"
+                            className="p-1.5 rounded-sm bg-[#1E1E1E] border border-[#3E3E42] text-emerald-600 hover:border-[#555555]"
                             aria-label="Save new stage name"
                           >
                             <Check className="w-3.5 h-3.5" />
                           </button>
                           <button 
                             onClick={() => setEditingId(null)}
-                            className="p-1.5 rounded-lg bg-[#1B1E23] shadow-[2px_2px_4px_#111317,-2px_-2px_4px_#252A31] text-[#E5484D] hover:shadow-[inset_1px_1px_2px_#111317,inset_-1px_-1px_2px_#252A31]"
+                            className="p-1.5 rounded-sm bg-[#1E1E1E] border border-[#3E3E42] text-[#E5484D] hover:border-[#555555]"
                             aria-label="Cancel rename"
                           >
                             <X className="w-3.5 h-3.5" />
@@ -220,8 +220,8 @@ export default function SettingsClient({ initialStages, stageLeadCounts }: Setti
                         </div>
                       ) : (
                         <div className="flex items-center gap-3">
-                          <span className="text-xs font-bold text-[#F0F3F8]">{stage.name}</span>
-                          <span className="text-[10px] font-bold text-[#707C91] bg-[#14161A] px-2 py-0.5 rounded-full">
+                          <span className="text-xs font-bold text-[#D4D4D4]">{stage.name}</span>
+                          <span className="text-[10px] font-bold text-[#858585] bg-[#252526] px-2 py-0.5 rounded-full">
                             {leadCount} {leadCount === 1 ? 'lead' : 'leads'}
                           </span>
                         </div>
@@ -233,7 +233,7 @@ export default function SettingsClient({ initialStages, stageLeadCounts }: Setti
                       <button
                         onClick={() => handleMove(index, 'up')}
                         disabled={index === 0 || isSavingOrder}
-                        className={`p-2 rounded-lg bg-[#1B1E23] shadow-[2px_2px_4px_#111317,-2px_-2px_4px_#252A31] hover:shadow-[inset_1px_1px_2px_#111317,inset_-1px_-1px_2px_#252A31] transition-all text-[#AAB4C4] disabled:opacity-40 disabled:pointer-events-none`}
+                        className={`p-2 rounded-sm bg-[#1E1E1E] border border-[#3E3E42] hover:border-[#555555] transition-all text-[#CCCCCC] disabled:opacity-40 disabled:pointer-events-none`}
                         aria-label="Move stage up"
                       >
                         <ArrowUp className="w-3.5 h-3.5" />
@@ -243,7 +243,7 @@ export default function SettingsClient({ initialStages, stageLeadCounts }: Setti
                       <button
                         onClick={() => handleMove(index, 'down')}
                         disabled={index === stages.length - 1 || isSavingOrder}
-                        className={`p-2 rounded-lg bg-[#1B1E23] shadow-[2px_2px_4px_#111317,-2px_-2px_4px_#252A31] hover:shadow-[inset_1px_1px_2px_#111317,inset_-1px_-1px_2px_#252A31] transition-all text-[#AAB4C4] disabled:opacity-40 disabled:pointer-events-none`}
+                        className={`p-2 rounded-sm bg-[#1E1E1E] border border-[#3E3E42] hover:border-[#555555] transition-all text-[#CCCCCC] disabled:opacity-40 disabled:pointer-events-none`}
                         aria-label="Move stage down"
                       >
                         <ArrowDown className="w-3.5 h-3.5" />
@@ -256,7 +256,7 @@ export default function SettingsClient({ initialStages, stageLeadCounts }: Setti
                             setEditingId(stage.id)
                             setEditingName(stage.name)
                           }}
-                          className="p-2 rounded-lg bg-[#1B1E23] shadow-[2px_2px_4px_#111317,-2px_-2px_4px_#252A31] hover:shadow-[inset_1px_1px_2px_#111317,inset_-1px_-1px_2px_#252A31] text-[#4855E4]"
+                          className="p-2 rounded-sm bg-[#1E1E1E] border border-[#3E3E42] hover:border-[#555555] text-[#007ACC]"
                           aria-label="Edit stage name"
                         >
                           <Edit3 className="w-3.5 h-3.5" />
@@ -267,7 +267,7 @@ export default function SettingsClient({ initialStages, stageLeadCounts }: Setti
                       <button
                         onClick={() => initiateDelete(stage)}
                         disabled={stages.length <= 1}
-                        className="p-2 rounded-lg bg-[#1B1E23] shadow-[2px_2px_4px_#111317,-2px_-2px_4px_#252A31] hover:shadow-[inset_1px_1px_2px_#111317,inset_-1px_-1px_2px_#252A31] text-[#E5484D] disabled:opacity-40 disabled:pointer-events-none"
+                        className="p-2 rounded-sm bg-[#1E1E1E] border border-[#3E3E42] hover:border-[#555555] text-[#E5484D] disabled:opacity-40 disabled:pointer-events-none"
                         aria-label="Delete stage"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
@@ -285,12 +285,12 @@ export default function SettingsClient({ initialStages, stageLeadCounts }: Setti
                 placeholder="e.g. Visa Interview Scheduled" 
                 value={newStageName}
                 onChange={(e) => setNewStageName(e.target.value)}
-                className="flex-1 bg-[#1B1E23] shadow-[inset_2.5px_2.5px_5px_#111317,inset_-2.5px_-2.5px_5px_#252A31] border-none rounded-xl py-2.5 px-4 text-xs font-semibold text-[#F0F3F8] placeholder-[#707C91] focus:outline-none transition-all"
+                className="flex-1 bg-[#1E1E1E] border border-[#3E3E42] border-none rounded-sm py-2.5 px-4 text-xs font-semibold text-[#D4D4D4] placeholder-[#858585] focus:outline-none transition-all"
               />
               <button 
                 type="submit" 
                 disabled={isAdding || !newStageName.trim()}
-                className="p-2.5 rounded-xl bg-gradient-to-br from-[#6E79F2] to-[#333FC2] text-white shadow-md active:translate-y-0.5 disabled:opacity-50 disabled:pointer-events-none transition-all"
+                className="p-2.5 rounded-sm bg-gradient-to-br from-[#007ACC] to-[#0062A3] text-white border border-[#3E3E42] active:translate-y-0.5 disabled:opacity-50 disabled:pointer-events-none transition-all"
                 aria-label="Add stage"
               >
                 {isAdding ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
@@ -302,11 +302,11 @@ export default function SettingsClient({ initialStages, stageLeadCounts }: Setti
         {/* Right Side: Information panels */}
         <div className="space-y-6">
           <div className="neo-raised p-6">
-            <h3 className="text-sm font-bold text-[#F0F3F8] mb-3">Customization Rules</h3>
-            <p className="text-xs text-[#AAB4C4] leading-relaxed">
+            <h3 className="text-sm font-bold text-[#D4D4D4] mb-3">Customization Rules</h3>
+            <p className="text-xs text-[#CCCCCC] leading-relaxed">
               Custom pipeline stages allow you to adjust CoachingSync to match your consultancy's student recruitment flow.
             </p>
-            <ul className="list-disc list-inside text-xs text-[#AAB4C4] mt-3 space-y-2">
+            <ul className="list-disc list-inside text-xs text-[#CCCCCC] mt-3 space-y-2">
               <li>Changes reflect instantly across the Leads Filters and Kanban board.</li>
               <li>Reordering columns shifts card groupings on the pipeline view.</li>
               <li>Rename triggers database updates for all matching leads.</li>
@@ -318,23 +318,23 @@ export default function SettingsClient({ initialStages, stageLeadCounts }: Setti
       {/* Migration Deletion Modal Prompt Portaled to document.body */}
       {mounted && showDeleteModal && stageToDelete && createPortal(
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-          <div className="fixed inset-0 bg-[#F0F3F8]/40 backdrop-blur-sm" onClick={() => setShowDeleteModal(false)} />
+          <div className="fixed inset-0 bg-[#D4D4D4]/40 backdrop-blur-sm" onClick={() => setShowDeleteModal(false)} />
           
-          <div className="relative z-10 w-full max-w-md bg-[#1B1E23] shadow-[0_12px_36px_rgba(32,38,56,0.15)] border border-[#111317]/20 rounded-2xl p-6 md:p-8 space-y-6 animate-in fade-in zoom-in-95 duration-200">
+          <div className="relative z-10 w-full max-w-md bg-[#1E1E1E] border border-[#3E3E42] border border-[#111317]/20 rounded-md p-6 md:p-8 space-y-6 animate-in fade-in zoom-in-95 duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-[#E5484D]/10 flex items-center justify-center text-[#E5484D]">
+              <div className="w-10 h-10 rounded-sm bg-[#E5484D]/10 flex items-center justify-center text-[#E5484D]">
                 <AlertTriangle className="w-5 h-5" />
               </div>
-              <h3 className="text-base font-bold text-[#F0F3F8] font-display">Delete Stage: {stageToDelete.name}</h3>
+              <h3 className="text-base font-bold text-[#D4D4D4] font-display">Delete Stage: {stageToDelete.name}</h3>
             </div>
 
-            <div className="text-xs text-[#AAB4C4] space-y-3 leading-relaxed">
+            <div className="text-xs text-[#CCCCCC] space-y-3 leading-relaxed">
               <p>
-                Are you sure you want to delete the stage <span className="font-bold text-[#F0F3F8]">"{stageToDelete.name}"</span>?
+                Are you sure you want to delete the stage <span className="font-bold text-[#D4D4D4]">"{stageToDelete.name}"</span>?
               </p>
               
               {activeLeadsCount > 0 ? (
-                <div className="p-4 bg-[#FF7A52]/10 border border-[#FF7A52]/20 rounded-xl space-y-3 text-[#FF7A52]">
+                <div className="p-4 bg-[#CE9178]/10 border border-[#CE9178]/20 rounded-sm space-y-3 text-[#CE9178]">
                   <p className="font-bold">
                     Which stage would you like to move the {activeLeadsCount} active leads to before deleting.
                   </p>
@@ -343,7 +343,7 @@ export default function SettingsClient({ initialStages, stageLeadCounts }: Setti
                     <select
                       value={migrateTarget}
                       onChange={(e) => setMigrateTarget(e.target.value)}
-                      className="w-full bg-[#1B1E23] shadow-[3px_3px_6px_#111317,-3px_-3px_6px_#252A31] text-xs font-bold text-[#AAB4C4] rounded-xl py-2.5 px-4 outline-none transition-all cursor-pointer"
+                      className="w-full bg-[#1E1E1E] border border-[#3E3E42] text-xs font-bold text-[#CCCCCC] rounded-sm py-2.5 px-4 outline-none transition-all cursor-pointer"
                     >
                       {otherStages.map(s => (
                         <option key={s.id} value={s.name}>{s.name}</option>
@@ -360,7 +360,7 @@ export default function SettingsClient({ initialStages, stageLeadCounts }: Setti
               <button
                 type="button"
                 onClick={() => setShowDeleteModal(false)}
-                className="px-5 py-2.5 bg-[#1B1E23] shadow-[3px_3px_6px_#111317,-3px_-3px_6px_#252A31] text-xs font-bold text-[#AAB4C4] hover:shadow-[inset_2px_2px_4px_#111317,inset_-2px_-2px_4px_#252A31] transition-all rounded-xl"
+                className="px-5 py-2.5 bg-[#1E1E1E] border border-[#3E3E42] text-xs font-bold text-[#CCCCCC] hover:border-[#555555] transition-all rounded-sm"
               >
                 Cancel
               </button>
@@ -368,7 +368,7 @@ export default function SettingsClient({ initialStages, stageLeadCounts }: Setti
                 type="button"
                 onClick={handleDeleteConfirm}
                 disabled={isDeleting || (activeLeadsCount > 0 && !migrateTarget)}
-                className="px-5 py-2.5 bg-[#E5484D] text-white text-xs font-bold rounded-xl shadow-md hover:shadow-lg active:translate-y-0.5 disabled:opacity-50 transition-all flex items-center gap-1.5"
+                className="px-5 py-2.5 bg-[#E5484D] text-white text-xs font-bold rounded-sm border border-[#3E3E42] hover:border border-[#3E3E42] active:translate-y-0.5 disabled:opacity-50 transition-all flex items-center gap-1.5"
               >
                 {isDeleting && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
                 <span>Delete</span>

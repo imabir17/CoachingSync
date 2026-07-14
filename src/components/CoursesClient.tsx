@@ -80,14 +80,14 @@ export default function CoursesClient({ initialCourses }: { initialCourses: any[
     }
   }
 
-  const inputClass = "w-full bg-[#1E1E1E] border border-[#3C3C3C] rounded-xl py-2.5 px-4 text-xs font-semibold text-white placeholder-gray-500 focus:outline-none focus:border-[#007ACC] transition-all"
+  const inputClass = "w-full bg-[#1E1E1E] border border-[#3C3C3C] rounded-sm py-2.5 px-4 text-xs font-semibold text-white placeholder-gray-500 focus:outline-none focus:border-[#007ACC] transition-all"
   
   return (
     <div className="space-y-8">
       {/* Top Header */}
-      <div className="flex justify-between items-center bg-[#252526] p-6 rounded-2xl border border-[#3C3C3C] shadow-md">
+      <div className="flex justify-between items-center bg-[#252526] p-6 rounded-md border border-[#3C3C3C] border border-[#3E3E42]">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-[#21C285]/10 flex items-center justify-center text-[#21C285]">
+          <div className="w-10 h-10 rounded-sm bg-[#21C285]/10 flex items-center justify-center text-[#21C285]">
             <GraduationCap className="w-5 h-5" />
           </div>
           <div>
@@ -97,17 +97,17 @@ export default function CoursesClient({ initialCourses }: { initialCourses: any[
         </div>
         <button 
           onClick={() => setIsAddingCourse(!isAddingCourse)}
-          className="px-5 py-2.5 rounded-xl bg-[#0E639C] text-white text-xs font-bold shadow-md hover:bg-[#1177BB] active:translate-y-0.5 transition-all flex items-center gap-2"
+          className="px-5 py-2.5 rounded-sm bg-[#0E639C] text-white text-xs font-bold border border-[#3E3E42] hover:bg-[#1177BB] active:translate-y-0.5 transition-all flex items-center gap-2"
         >
           {isAddingCourse ? <><X className="w-4 h-4"/> Cancel</> : <><Plus className="w-4 h-4"/> New Course</>}
         </button>
       </div>
 
       {isAddingCourse && (
-        <form onSubmit={handleCreateCourse} className="bg-[#252526] p-6 rounded-2xl border border-[#3C3C3C] shadow-md animate-in fade-in slide-in-from-top-4 duration-300">
+        <form onSubmit={handleCreateCourse} className="bg-[#252526] p-6 rounded-md border border-[#3C3C3C] border border-[#3E3E42] animate-in fade-in slide-in-from-top-4 duration-300">
           <h3 className="text-base font-bold text-white mb-5">Create New Course</h3>
           {courseError && (
-            <div className="mb-4 flex items-center gap-2 text-xs text-[#E5484D] bg-[#E5484D]/10 p-3 rounded-lg">
+            <div className="mb-4 flex items-center gap-2 text-xs text-[#E5484D] bg-[#E5484D]/10 p-3 rounded-sm">
               <AlertTriangle className="w-4 h-4" /> {courseError}
             </div>
           )}
@@ -126,7 +126,7 @@ export default function CoursesClient({ initialCourses }: { initialCourses: any[
             </div>
           </div>
           <div className="flex justify-end">
-            <button type="submit" className="px-6 py-2.5 rounded-xl bg-[#0E639C] text-white text-xs font-bold shadow-md hover:bg-[#1177BB] transition-all">Save Course</button>
+            <button type="submit" className="px-6 py-2.5 rounded-sm bg-[#0E639C] text-white text-xs font-bold border border-[#3E3E42] hover:bg-[#1177BB] transition-all">Save Course</button>
           </div>
         </form>
       )}
@@ -134,7 +134,7 @@ export default function CoursesClient({ initialCourses }: { initialCourses: any[
       {/* Course List */}
       <div className="space-y-4">
         {courses.map(course => (
-          <div key={course.id} className="bg-[#252526] rounded-2xl border border-[#3C3C3C] shadow-md overflow-hidden">
+          <div key={course.id} className="bg-[#252526] rounded-md border border-[#3C3C3C] border border-[#3E3E42] overflow-hidden">
             {/* Course Header */}
             <div 
               className="p-5 flex items-center justify-between cursor-pointer hover:bg-[#2A2D2E] transition-colors"
@@ -166,14 +166,14 @@ export default function CoursesClient({ initialCourses }: { initialCourses: any[
                   </h4>
                   <button 
                     onClick={() => setIsAddingBatch(isAddingBatch === course.id ? null : course.id)}
-                    className="text-[10px] font-bold text-[#007ACC] hover:text-[#3399FF] bg-[#0E639C]/10 px-3 py-1.5 rounded-lg border border-[#0E639C]/20 transition-all"
+                    className="text-[10px] font-bold text-[#007ACC] hover:text-[#3399FF] bg-[#0E639C]/10 px-3 py-1.5 rounded-sm border border-[#0E639C]/20 transition-all"
                   >
                     + Add Batch
                   </button>
                 </div>
 
                 {isAddingBatch === course.id && (
-                  <form onSubmit={(e) => handleCreateBatch(e, course.id)} className="bg-[#252526] p-4 rounded-xl border border-[#3C3C3C] mb-4">
+                  <form onSubmit={(e) => handleCreateBatch(e, course.id)} className="bg-[#252526] p-4 rounded-sm border border-[#3C3C3C] mb-4">
                     {batchError && <div className="mb-3 text-[10px] text-[#E5484D] font-bold">{batchError}</div>}
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
                       <div>
@@ -198,20 +198,20 @@ export default function CoursesClient({ initialCourses }: { initialCourses: any[
                       </div>
                     </div>
                     <div className="flex justify-end gap-2">
-                      <button type="button" onClick={() => setIsAddingBatch(null)} className="px-4 py-2 bg-[#333333] text-white text-[10px] font-bold rounded-lg hover:bg-[#444]">Cancel</button>
-                      <button type="submit" className="px-4 py-2 bg-[#21C285] text-white text-[10px] font-bold rounded-lg shadow-md hover:bg-[#1ca671]">Save Batch</button>
+                      <button type="button" onClick={() => setIsAddingBatch(null)} className="px-4 py-2 bg-[#333333] text-white text-[10px] font-bold rounded-sm hover:bg-[#444]">Cancel</button>
+                      <button type="submit" className="px-4 py-2 bg-[#21C285] text-white text-[10px] font-bold rounded-sm border border-[#3E3E42] hover:bg-[#1ca671]">Save Batch</button>
                     </div>
                   </form>
                 )}
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                   {(!course.batches || course.batches.length === 0) ? (
-                    <div className="col-span-full py-6 text-center text-xs font-bold text-gray-500 border border-dashed border-[#3C3C3C] rounded-xl">
+                    <div className="col-span-full py-6 text-center text-xs font-bold text-gray-500 border border-dashed border-[#3C3C3C] rounded-sm">
                       No batches created yet.
                     </div>
                   ) : (
                     course.batches.map((batch: any) => (
-                      <div key={batch.id} className="bg-[#252526] border border-[#3C3C3C] p-4 rounded-xl flex flex-col justify-between">
+                      <div key={batch.id} className="bg-[#252526] border border-[#3C3C3C] p-4 rounded-sm flex flex-col justify-between">
                         <div>
                           <div className="flex justify-between items-start mb-2">
                             <h5 className="text-xs font-bold text-white">{batch.name}</h5>
@@ -219,7 +219,7 @@ export default function CoursesClient({ initialCourses }: { initialCourses: any[
                           </div>
                           {batch.schedule && (
                             <div className="flex items-center gap-1.5 text-[10px] text-gray-400 mb-2 font-semibold">
-                              <Calendar className="w-3 h-3 text-[#FF7A52]" /> {batch.schedule}
+                              <Calendar className="w-3 h-3 text-[#CE9178]" /> {batch.schedule}
                             </div>
                           )}
                           {(batch.startDate || batch.endDate) && (
@@ -239,7 +239,7 @@ export default function CoursesClient({ initialCourses }: { initialCourses: any[
         ))}
 
         {courses.length === 0 && (
-          <div className="text-center text-gray-500 py-12 border border-dashed border-[#3C3C3C] rounded-2xl font-bold text-sm bg-[#252526]">
+          <div className="text-center text-gray-500 py-12 border border-dashed border-[#3C3C3C] rounded-md font-bold text-sm bg-[#252526]">
             No courses available. Click "New Course" to create one.
           </div>
         )}

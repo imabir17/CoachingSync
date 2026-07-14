@@ -55,8 +55,8 @@ export default async function ReportsPage({
     <div className="space-y-8 pb-12 animate-in fade-in slide-in-from-bottom-4 duration-500 ease-out">
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-2xl font-bold text-[#F0F3F8] font-display">Counselor Performance Reports</h2>
-          <p className="text-xs text-[#AAB4C4]">Detailed metrics tracking counselor application progress and timelines.</p>
+          <h2 className="text-2xl font-bold text-[#D4D4D4] font-display">Counselor Performance Reports</h2>
+          <p className="text-xs text-[#CCCCCC]">Detailed metrics tracking counselor application progress and timelines.</p>
         </div>
       </div>
 
@@ -64,7 +64,7 @@ export default async function ReportsPage({
 
       {reports.length === 0 ? (
         <div className="neo-raised p-12 text-center">
-          <p className="text-xs font-bold text-[#707C91]">No data found for the selected time range and counselor.</p>
+          <p className="text-xs font-bold text-[#858585]">No data found for the selected time range and counselor.</p>
         </div>
       ) : (
         <div className="space-y-10">
@@ -72,13 +72,13 @@ export default async function ReportsPage({
             <div 
               key={report.counselorId} 
               id={`report-card-${report.counselorId}`} 
-              className="neo-raised overflow-hidden relative bg-[#1B1E23]"
+              className="neo-raised overflow-hidden relative bg-[#1E1E1E]"
             >
               {/* Report Card Header */}
-              <div className="p-6 border-b border-[#111317]/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#14161A]">
-                <h3 className="text-base font-bold text-[#F0F3F8] font-display">{report.counselorName}</h3>
+              <div className="p-6 border-b border-[#111317]/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-[#252526]">
+                <h3 className="text-base font-bold text-[#D4D4D4] font-display">{report.counselorName}</h3>
                 <div className="flex items-center gap-4">
-                  <div className="text-xs font-bold text-[#AAB4C4]">
+                  <div className="text-xs font-bold text-[#CCCCCC]">
                     {startDate.toLocaleDateString()} - {endDate.toLocaleDateString()}
                   </div>
                   <DownloadPDFButton 
@@ -92,34 +92,34 @@ export default async function ReportsPage({
               <div className="p-6 space-y-8">
                 {/* Metrics Breakdown Grid */}
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
-                  <div className="bg-[#1B1E23] shadow-[inset_2.5px_2.5px_5px_#111317,inset_-2.5px_-2.5px_5px_#252A31] border border-[#111317]/10 rounded-xl p-5 flex flex-col justify-center items-center text-center">
-                    <span className="text-[#707C91] text-[10px] font-bold mb-1 uppercase tracking-wider">Leads Handed</span>
-                    <span className="text-2xl font-black text-[#4855E4] font-display">{report.leadsHanded}</span>
-                    <span className="text-[9px] text-[#707C91] font-semibold mt-1.5 leading-tight">Assigned in period</span>
+                  <div className="bg-[#1E1E1E] border border-[#3E3E42] border border-[#111317]/10 rounded-sm p-5 flex flex-col justify-center items-center text-center">
+                    <span className="text-[#858585] text-[10px] font-bold mb-1 uppercase tracking-wider">Leads Handed</span>
+                    <span className="text-2xl font-black text-[#007ACC] font-display">{report.leadsHanded}</span>
+                    <span className="text-[9px] text-[#858585] font-semibold mt-1.5 leading-tight">Assigned in period</span>
                   </div>
                   
-                  <div className="bg-[#1B1E23] shadow-[inset_2.5px_2.5px_5px_#111317,inset_-2.5px_-2.5px_5px_#252A31] border border-[#111317]/10 rounded-xl p-5 flex flex-col justify-center items-center text-center">
-                    <span className="text-[#707C91] text-[10px] font-bold mb-1 uppercase tracking-wider">Leads Contacted</span>
-                    <span className="text-2xl font-black text-[#FF7A52] font-display">{report.leadsContacted}</span>
-                    <span className="text-[9px] text-[#707C91] font-semibold mt-1.5 leading-tight">First touch in period</span>
+                  <div className="bg-[#1E1E1E] border border-[#3E3E42] border border-[#111317]/10 rounded-sm p-5 flex flex-col justify-center items-center text-center">
+                    <span className="text-[#858585] text-[10px] font-bold mb-1 uppercase tracking-wider">Leads Contacted</span>
+                    <span className="text-2xl font-black text-[#CE9178] font-display">{report.leadsContacted}</span>
+                    <span className="text-[9px] text-[#858585] font-semibold mt-1.5 leading-tight">First touch in period</span>
                   </div>
 
-                  <div className="bg-[#1B1E23] shadow-[inset_2.5px_2.5px_5px_#111317,inset_-2.5px_-2.5px_5px_#252A31] border border-[#111317]/10 rounded-xl p-5 flex flex-col justify-center items-center text-center">
-                    <span className="text-[#707C91] text-[10px] font-bold mb-1 uppercase tracking-wider">Files Opened</span>
+                  <div className="bg-[#1E1E1E] border border-[#3E3E42] border border-[#111317]/10 rounded-sm p-5 flex flex-col justify-center items-center text-center">
+                    <span className="text-[#858585] text-[10px] font-bold mb-1 uppercase tracking-wider">Files Opened</span>
                     <span className="text-2xl font-black text-[#21C285] font-display">{report.filesOpened}</span>
-                    <span className="text-[9px] text-[#707C91] font-semibold mt-1.5 leading-tight">Opened in period</span>
+                    <span className="text-[9px] text-[#858585] font-semibold mt-1.5 leading-tight">Opened in period</span>
                   </div>
                   
-                  <div className="bg-[#1B1E23] shadow-[inset_2.5px_2.5px_5px_#111317,inset_-2.5px_-2.5px_5px_#252A31] border border-[#111317]/10 rounded-xl p-5 flex flex-col justify-center items-center text-center">
-                    <span className="text-[#707C91] text-[10px] font-bold mb-1 uppercase tracking-wider">Leads Created</span>
-                    <span className="text-2xl font-black text-[#12A8B5] font-display">{report.leadsCreated}</span>
-                    <span className="text-[9px] text-[#707C91] font-semibold mt-1.5 leading-tight">Generated by counselor</span>
+                  <div className="bg-[#1E1E1E] border border-[#3E3E42] border border-[#111317]/10 rounded-sm p-5 flex flex-col justify-center items-center text-center">
+                    <span className="text-[#858585] text-[10px] font-bold mb-1 uppercase tracking-wider">Leads Created</span>
+                    <span className="text-2xl font-black text-[#4EC9B0] font-display">{report.leadsCreated}</span>
+                    <span className="text-[9px] text-[#858585] font-semibold mt-1.5 leading-tight">Generated by counselor</span>
                   </div>
 
-                  <div className="bg-[#1B1E23] shadow-[inset_2.5px_2.5px_5px_#111317,inset_-2.5px_-2.5px_5px_#252A31] border border-[#111317]/10 rounded-xl p-5 flex flex-col justify-center items-center text-center">
-                    <span className="text-[#707C91] text-[10px] font-bold mb-1 uppercase tracking-wider">Active Pipeline</span>
-                    <span className="text-2xl font-black text-[#F0F3F8] font-display">{report.activePipeline}</span>
-                    <span className="text-[9px] text-[#707C91] font-semibold mt-1.5 leading-tight">Total currently assigned</span>
+                  <div className="bg-[#1E1E1E] border border-[#3E3E42] border border-[#111317]/10 rounded-sm p-5 flex flex-col justify-center items-center text-center">
+                    <span className="text-[#858585] text-[10px] font-bold mb-1 uppercase tracking-wider">Active Pipeline</span>
+                    <span className="text-2xl font-black text-[#D4D4D4] font-display">{report.activePipeline}</span>
+                    <span className="text-[9px] text-[#858585] font-semibold mt-1.5 leading-tight">Total currently assigned</span>
                   </div>
                 </div>
 
@@ -127,20 +127,20 @@ export default async function ReportsPage({
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                   {/* Table Breakdown */}
                   <div className="lg:col-span-1 neo-raised overflow-hidden">
-                    <div className="p-4 border-b border-[#111317]/20 bg-[#14161A]">
-                      <h4 className="text-xs font-bold text-[#F0F3F8]">Stage Breakdown</h4>
+                    <div className="p-4 border-b border-[#111317]/20 bg-[#252526]">
+                      <h4 className="text-xs font-bold text-[#D4D4D4]">Stage Breakdown</h4>
                     </div>
                     <div className="max-h-[380px] overflow-y-auto">
-                      <table className="w-full text-xs text-left text-[#AAB4C4] border-collapse">
+                      <table className="w-full text-xs text-left text-[#CCCCCC] border-collapse">
                         <tbody>
                           {report.stageBreakdown
                             .sort((a, b) => b.count - a.count)
                             .map((stage) => (
-                            <tr key={stage.stage} className="border-b border-[#111317]/20 hover:bg-[#14161A]/15 transition-colors">
-                              <td className="px-4 py-3 font-bold text-[#F0F3F8]">{stage.stage}</td>
+                            <tr key={stage.stage} className="border-b border-[#111317]/20 hover:bg-[#252526]/15 transition-colors">
+                              <td className="px-4 py-3 font-bold text-[#D4D4D4]">{stage.stage}</td>
                               <td className="px-4 py-3 text-right">
                                 <span className={`inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                                  stage.count > 0 ? 'bg-blue-500/10 text-blue-600' : 'text-[#707C91]'
+                                  stage.count > 0 ? 'bg-blue-500/10 text-blue-600' : 'text-[#858585]'
                                 }`}>
                                   {stage.count}
                                 </span>
