@@ -194,26 +194,26 @@ export default async function DashboardPage() {
       <div className="neo-raised p-8">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-base font-bold text-[#D4D4D4] flex items-center gap-2 font-display">
-            <BarChart2 className="h-5 w-5 text-[#007ACC]" /> Pipeline Snapshot
+            <BarChart2 className="h-5 w-5 text-[#007ACC]" /> Lead Stages Snapshot
           </h3>
-          <Link href="/dashboard/pipeline" className="text-xs font-bold text-[#007ACC] hover:underline flex items-center gap-1">
-            Open Board →
+          <Link href="/dashboard/leads" className="text-xs font-bold text-[#007ACC] hover:underline flex items-center gap-1">
+            View Leads →
           </Link>
         </div>
         <div className="space-y-5">
           {stagesCards.map(stage => {
             const percentage = totalLeads > 0 ? Math.round((stage.count / totalLeads) * 100) : 0
             return (
-              <Link key={stage.name} href={`/dashboard/pipeline`} className="block group">
+              <Link key={stage.name} href={`/dashboard/leads?stage=${encodeURIComponent(stage.name)}`} className="block group">
                 <div className="flex items-center gap-4">
                   <span className="w-24 text-xs font-bold text-[#CCCCCC] group-hover:text-[#D4D4D4] transition-colors truncate">{stage.name}</span>
                   <div className="flex-1 h-3.5 bg-[#1E1E1E] border border-[#3E3E42] rounded-full overflow-hidden">
                     <div 
                       className="h-full rounded-full transition-all duration-500 ease-out group-hover:brightness-105" 
                       style={{ 
-                        width: `${percentage}%`, 
-                        backgroundColor: stage.color,
-                        boxShadow: `0 0 8px ${stage.color}40`
+                      width: `${percentage}%`, 
+                      backgroundColor: stage.color,
+                      boxShadow: `0 0 8px ${stage.color}40`
                       }}
                     ></div>
                   </div>

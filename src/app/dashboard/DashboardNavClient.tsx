@@ -45,12 +45,7 @@ export default function DashboardNavClient({
       icon: CheckSquare,
       show: true,
     },
-    {
-      href: '/dashboard/pipeline',
-      label: 'Pipeline',
-      icon: Kanban,
-      show: true,
-    },
+
     {
       href: '/dashboard/reports',
       label: 'Reports',
