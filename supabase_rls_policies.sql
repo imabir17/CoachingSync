@@ -44,7 +44,9 @@ ALTER TABLE "User" ENABLE ROW LEVEL SECURITY;
 ALTER TABLE "Lead" ENABLE ROW LEVEL SECURITY;
 ALTER TABLE "Interaction" ENABLE ROW LEVEL SECURITY;
 ALTER TABLE "Task" ENABLE ROW LEVEL SECURITY;
-ALTER TABLE "Application" ENABLE ROW LEVEL SECURITY;
+ALTER TABLE "Course" ENABLE ROW LEVEL SECURITY;
+ALTER TABLE "Batch" ENABLE ROW LEVEL SECURITY;
+ALTER TABLE "BatchEnrollment" ENABLE ROW LEVEL SECURITY;
 
 -- 4. Clean up any existing policies
 DROP POLICY IF EXISTS "Users can view their own company" ON "Company";
@@ -54,7 +56,9 @@ DROP POLICY IF EXISTS "Super Admins can manage team members" ON "User";
 DROP POLICY IF EXISTS "Users can manage leads in their company" ON "Lead";
 DROP POLICY IF EXISTS "Users can manage interactions in their company" ON "Interaction";
 DROP POLICY IF EXISTS "Users can manage tasks in their company" ON "Task";
-DROP POLICY IF EXISTS "Users can manage applications in their company" ON "Application";
+DROP POLICY IF EXISTS "Users can manage courses in their company" ON "Course";
+DROP POLICY IF EXISTS "Users can manage batches in their company" ON "Batch";
+DROP POLICY IF EXISTS "Users can manage enrollments in their company" ON "BatchEnrollment";
 
 -- 5. "Company" table policies
 CREATE POLICY "Users can view their own company" ON "Company"
@@ -103,13 +107,29 @@ CREATE POLICY "Users can manage tasks in their company" ON "Task"
         )
     );
 
--- 10. "Application" table policies
-CREATE POLICY "Users can manage applications in their company" ON "Application"
+-- 10. "Course" table policies
+CREATE POLICY "Users can manage courses in their company" ON "Course"
+    FOR ALL TO authenticated
+    USING ("companyId" = get_my_company_id());
+
+-- 11. "Batch" table policies
+CREATE POLICY "Users can manage batches in their company" ON "Batch"
+    FOR ALL TO authenticated
+    USING (
+        EXISTS (
+            SELECT 1 FROM "Course"
+            WHERE "Course".id = "Batch"."courseId"
+              AND "Course"."companyId" = get_my_company_id()
+        )
+    );
+
+-- 12. "BatchEnrollment" table policies
+CREATE POLICY "Users can manage enrollments in their company" ON "BatchEnrollment"
     FOR ALL TO authenticated
     USING (
         EXISTS (
             SELECT 1 FROM "Lead"
-            WHERE "Lead".id = "Application"."leadId"
+            WHERE "Lead".id = "BatchEnrollment"."leadId"
               AND "Lead"."companyId" = get_my_company_id()
         )
     );
