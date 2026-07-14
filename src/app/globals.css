@@ -9,13 +9,13 @@
 
 :root {
   color-scheme: light;
-  --bg: #E7ECF3;
-  --bg-deep: #DCE3ED;
-  --shadow-dark: #AEB9C9;
-  --shadow-light: #FFFFFF;
-  --text-1: #202638;
-  --text-2: #5C6478;
-  --text-3: #8891A3;
+  --bg: #1B1E23;
+  --bg-deep: #14161A;
+  --shadow-dark: #111317;
+  --shadow-light: #252A31;
+  --text-1: #F0F3F8;
+  --text-2: #AAB4C4;
+  --text-3: #707C91;
   --accent: #4855E4;
   --accent-light: #6E79F2;
   --accent-dark: #333FC2;

@@ -105,8 +105,8 @@ export default async function LeadsPage({
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 ease-out pb-12">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-[#202638] font-display">Leads Pipeline</h2>
-          <p className="text-xs text-[#5C6478] mt-1">Manage and track your prospective student recruitment.</p>
+          <h2 className="text-2xl font-bold text-[#F0F3F8] font-display">Leads Pipeline</h2>
+          <p className="text-xs text-[#AAB4C4] mt-1">Manage and track your prospective student recruitment.</p>
         </div>
         <Link 
           href="/dashboard/leads/new" 

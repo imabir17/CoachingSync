@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Times-Roman',
     fontSize: 10,
     lineHeight: 1.6,
-    color: '#202638'
+    color: '#F0F3F8'
   },
   header: {
     flexDirection: 'row',

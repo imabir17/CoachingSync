@@ -10,17 +10,17 @@ export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('')
 
   return (
-    <div className="min-h-screen bg-[#E7ECF3] flex items-center justify-center p-6 relative overflow-hidden font-sans">
+    <div className="min-h-screen bg-[#1B1E23] flex items-center justify-center p-6 relative overflow-hidden font-sans">
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
         :root {
-          --bg: #E7ECF3;
-          --shadow-dark: #AEB9C9;
-          --shadow-light: #FFFFFF;
-          --text-1: #202638;
-          --text-2: #5C6478;
-          --text-3: #8891A3;
+          --bg: #1B1E23;
+          --shadow-dark: #111317;
+          --shadow-light: #252A31;
+          --text-1: #F0F3F8;
+          --text-2: #AAB4C4;
+          --text-3: #707C91;
           --accent: #4855E4;
           --accent-light: #6E79F2;
           --accent-dark: #333FC2;
@@ -83,11 +83,11 @@ export default function ForgotPasswordPage() {
       <div className="orb orb1 pointer-events-none"></div>
       <div className="orb orb2 pointer-events-none"></div>
 
-      <div className="relative z-10 w-full max-w-[460px] rounded-[32px] bg-[#E7ECF3] shadow-[24px_24px_50px_#AEB9C9,-18px_-18px_40px_#FFFFFF] p-8 md:p-10 animate-in fade-in slide-in-from-bottom-6 duration-500">
+      <div className="relative z-10 w-full max-w-[460px] rounded-[32px] bg-[#1B1E23] shadow-[24px_24px_50px_#111317,-18px_-18px_40px_#252A31] p-8 md:p-10 animate-in fade-in slide-in-from-bottom-6 duration-500">
         
         {/* Logo */}
         <div className="flex justify-center mb-6">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#6E79F2] to-[#333FC2] shadow-[4px_4px_10px_#AEB9C9,-4px_4px_10px_#FFFFFF] flex items-center justify-center">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#6E79F2] to-[#333FC2] shadow-[4px_4px_10px_#111317,-4px_4px_10px_#252A31] flex items-center justify-center">
             <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
               <path d="M2 12L22 4L14 22L11 14L2 12Z" fill="white"/>
             </svg>
@@ -95,8 +95,8 @@ export default function ForgotPasswordPage() {
         </div>
 
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold text-[#202638] mb-2">Forgot Password</h2>
-          <p className="text-xs text-[#5C6478]">
+          <h2 className="text-2xl font-bold text-[#F0F3F8] mb-2">Forgot Password</h2>
+          <p className="text-xs text-[#AAB4C4]">
             Enter your email to receive a secure password recovery link.
           </p>
         </div>
@@ -120,11 +120,11 @@ export default function ForgotPasswordPage() {
 
           {/* Email input field */}
           <div>
-            <label htmlFor="email" className="block text-[10px] font-bold text-[#5C6478] uppercase tracking-wider mb-2">
+            <label htmlFor="email" className="block text-[10px] font-bold text-[#AAB4C4] uppercase tracking-wider mb-2">
               Email address
             </label>
-            <div className="rounded-xl p-1 pr-4 pl-4 bg-[#E7ECF3] shadow-[inset_5px_5px_10px_#AEB9C9,inset_-5px_-5px_10px_#FFFFFF] flex items-center gap-3 focus-within:shadow-[inset_6px_6px_12px_#AEB9C9,inset_-6px_-6px_12px_#FFFFFF] transition-all">
-              <Mail className="w-4 h-4 text-[#8891A3] shrink-0" />
+            <div className="rounded-xl p-1 pr-4 pl-4 bg-[#1B1E23] shadow-[inset_5px_5px_10px_#111317,inset_-5px_-5px_10px_#252A31] flex items-center gap-3 focus-within:shadow-[inset_6px_6px_12px_#111317,inset_-6px_-6px_12px_#252A31] transition-all">
+              <Mail className="w-4 h-4 text-[#707C91] shrink-0" />
               <input 
                 type="email" 
                 id="email" 
@@ -134,7 +134,7 @@ export default function ForgotPasswordPage() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="border-none bg-transparent outline-none w-full py-3.5 text-xs text-[#202638]"
+                className="border-none bg-transparent outline-none w-full py-3.5 text-xs text-[#F0F3F8]"
               />
             </div>
           </div>

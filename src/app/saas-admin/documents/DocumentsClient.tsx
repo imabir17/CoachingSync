@@ -52,7 +52,7 @@ export default function DocumentsClient() {
       {/* Left Column - Controls */}
       <div className="w-full lg:w-[400px] flex flex-col gap-6 overflow-y-auto pr-2">
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-[#E5E7EB]">
-          <h2 className="text-xl font-bold mb-6 text-[#202638]">Document Details</h2>
+          <h2 className="text-xl font-bold mb-6 text-[#F0F3F8]">Document Details</h2>
           
           <div className="flex gap-2 mb-6 p-1 bg-[#F3F4F6] rounded-xl">
             <button

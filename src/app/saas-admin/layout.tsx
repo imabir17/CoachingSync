@@ -19,7 +19,7 @@ export default async function SaasAdminLayout({
   // e.g., if (user.email !== 'owner@CoachingSync.com') redirect('/dashboard')
 
   return (
-    <div className="min-h-screen bg-[#F8F9FA] text-[#202638] font-sans">
+    <div className="min-h-screen bg-[#F8F9FA] text-[#F0F3F8] font-sans">
       <header className="bg-white border-b border-[#E5E7EB] px-6 py-4 flex items-center justify-between shadow-sm sticky top-0 z-10">
         <div className="flex items-center gap-4">
           <Link href="/dashboard" className="text-[#6B7280] hover:text-[#374151] transition-colors">
