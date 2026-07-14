@@ -10,11 +10,12 @@ export const metadata = {
   title: 'Course Details | CoachingSync',
 }
 
-export default async function CourseDetailPage({ params }: { params: { id: string } }) {
+export default async function CourseDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const user = await getUserSession()
   if (!user) redirect('/login')
 
-  const { data: course, error } = await getCourseByIdAction(params.id)
+  const resolvedParams = await params
+  const { data: course, error } = await getCourseByIdAction(resolvedParams.id)
 
   if (error || !course) {
     return (
