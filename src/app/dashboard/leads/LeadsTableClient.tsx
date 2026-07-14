@@ -16,9 +16,9 @@ const leadsFetcher = async ([, paramsString]: [string, string]) => {
   const stage = params.get('stage') || ''
   const rating = params.get('rating') || ''
   const counselorId = params.get('counselorId') || ''
-  const country = params.get('country') || ''
-  const englishTest = params.get('englishTest') || ''
   const source = params.get('source') || ''
+  const courseId = params.get('courseId') || ''
+  const batchId = params.get('batchId') || ''
 
   const supabase = createClient()
   
@@ -50,14 +50,37 @@ const leadsFetcher = async ([, paramsString]: [string, string]) => {
   if (rating) {
     query = query.eq('rating', rating)
   }
-  if (country) {
-    query = query.eq('preferredCountry', country)
-  }
-  if (englishTest) {
-    query = query.eq('englishTestType', englishTest)
-  }
   if (source) {
     query = query.eq('source', source)
+  }
+
+  if (batchId) {
+    const { data: enrollments } = await supabase
+      .from('BatchEnrollment')
+      .select('leadId')
+      .eq('batchId', batchId)
+    
+    const leadIds = enrollments?.map(e => e.leadId) || []
+    query = query.in('id', leadIds.length > 0 ? leadIds : ['none-found-matching-batch'])
+  } else if (courseId) {
+    const { data: courseBatches } = await supabase
+      .from('Batch')
+      .select('id')
+      .eq('courseId', courseId)
+    
+    const batchIds = courseBatches?.map(b => b.id) || []
+    
+    if (batchIds.length > 0) {
+      const { data: enrollments } = await supabase
+        .from('BatchEnrollment')
+        .select('leadId')
+        .in('batchId', batchIds)
+      
+      const leadIds = enrollments?.map(e => e.leadId) || []
+      query = query.in('id', leadIds.length > 0 ? leadIds : ['none-found-matching-course'])
+    } else {
+      query = query.in('id', ['none-found-matching-course'])
+    }
   }
   
   if (q) {
