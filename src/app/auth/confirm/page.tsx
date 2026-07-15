@@ -3,7 +3,7 @@
 import { useEffect, useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/utils/supabase/client'
-import { ShieldCheck, ShieldAlert, Loader2, RefreshCw } from 'lucide-react'
+import { ShieldCheck, ShieldAlert, Loader2 } from 'lucide-react'
 
 function ConfirmPageContent() {
   const router = useRouter()
@@ -47,14 +47,14 @@ function ConfirmPageContent() {
   }, [searchParams, router])
 
   return (
-    <div className="w-full max-w-[420px] bg-[#1E1E1E] border border-[#3E3E42] rounded-[32px] p-8 md:p-10 text-center space-y-6 animate-in fade-in duration-300 relative z-10">
+    <div className="w-full max-w-[420px] bg-[#F2EFE6] border border-[rgba(22,36,31,0.13)] rounded-[32px] p-8 md:p-10 text-center space-y-6 animate-in fade-in duration-300 relative z-10 text-[#16241F] shadow-2xl">
       {status === 'verifying' && (
         <div className="space-y-5">
-          <div className="w-16 h-16 rounded-md bg-[#1E1E1E] border border-[#3E3E42] flex items-center justify-center mx-auto text-[#007ACC]">
+          <div className="w-16 h-16 rounded-full bg-[#F2EFE6] border border-[rgba(22,36,31,0.13)] flex items-center justify-center mx-auto text-[#E3A72F]">
             <Loader2 className="h-8 w-8 animate-spin" />
           </div>
-          <h2 className="text-xl font-bold text-[#D4D4D4] font-display">Verifying Link</h2>
-          <p className="text-[#CCCCCC] text-xs font-semibold leading-relaxed">
+          <h2 className="text-xl font-bold text-[#16241F] font-display">Verifying Link</h2>
+          <p className="text-[#3A4B44] text-xs font-semibold leading-relaxed">
             Please wait a moment while we verify your secure access token...
           </p>
         </div>
@@ -62,11 +62,11 @@ function ConfirmPageContent() {
 
       {status === 'success' && (
         <div className="space-y-5">
-          <div className="w-16 h-16 rounded-md bg-[#1E1E1E] border border-[#3E3E42] flex items-center justify-center mx-auto text-[#4EC9B0]">
+          <div className="w-16 h-16 rounded-full bg-[#5FA779]/10 border border-[#5FA779]/20 flex items-center justify-center mx-auto text-[#5FA779]">
             <ShieldCheck className="h-8 w-8 animate-bounce" />
           </div>
-          <h2 className="text-xl font-bold text-[#D4D4D4] font-display">Verified Successfully</h2>
-          <p className="text-[#CCCCCC] text-xs font-semibold leading-relaxed">
+          <h2 className="text-xl font-bold text-[#16241F] font-display">Verified Successfully</h2>
+          <p className="text-[#3A4B44] text-xs font-semibold leading-relaxed">
             Secure session established. Redirecting you to your workspace destination...
           </p>
         </div>
@@ -74,16 +74,16 @@ function ConfirmPageContent() {
 
       {status === 'error' && (
         <div className="space-y-5">
-          <div className="w-16 h-16 rounded-md bg-[#1E1E1E] border border-[#3E3E42] flex items-center justify-center mx-auto text-[#E5484D]">
+          <div className="w-16 h-16 rounded-full bg-[#D6584A]/10 border border-[#D6584A]/20 flex items-center justify-center mx-auto text-[#D6584A]">
             <ShieldAlert className="h-8 w-8" />
           </div>
-          <h2 className="text-xl font-bold text-[#D4D4D4] font-display">Verification Failed</h2>
-          <p className="text-[#E5484D] text-xs font-bold leading-relaxed">
+          <h2 className="text-xl font-bold text-[#16241F] font-display">Verification Failed</h2>
+          <p className="text-[#D6584A] text-xs font-bold leading-relaxed">
             {errorMessage || 'The verification link is invalid or has expired.'}
           </p>
           <button 
             onClick={() => router.replace('/login')}
-            className="w-full py-4 bg-gradient-to-br from-[#007ACC] to-[#0062A3] text-white text-xs font-bold rounded-sm border border-[#3E3E42] hover:border border-[#3E3E42] active:translate-y-0.5 transition-all"
+            className="w-full py-4 bg-[#E3A72F] hover:bg-[#C4880E] text-[#16241F] text-xs font-bold rounded-md border border-[rgba(22,36,31,0.13)] active:translate-y-0.5 transition-all shadow-sm"
           >
             Go to Login
           </button>
@@ -95,43 +95,44 @@ function ConfirmPageContent() {
 
 export default function AuthConfirmPage() {
   return (
-    <div className="min-h-screen bg-[#1E1E1E] flex flex-col justify-center items-center p-6 text-[#D4D4D4] relative overflow-hidden font-sans">
+    <div className="min-h-screen bg-[#F3F1E8] flex flex-col justify-center items-center p-6 text-[#16241F] relative overflow-hidden font-sans">
       <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
 
         :root {
-          --bg: #1E1E1E;
-          --shadow-dark: #111317;
-          --shadow-light: #252A31;
-          --text-1: #D4D4D4;
-          --text-2: #CCCCCC;
-          --accent: #007ACC;
-          --teal: #4EC9B0;
+          --bg: #F3F1E8;
+          --ink-900: #16241F;
+          --paper: #F3F1E8;
+          --chalk: #F2EFE6;
+          --gold: #E3A72F;
+          --gold-deep: #C4880E;
+          --green: #5FA779;
+          --red: #D6584A;
         }
 
         body {
           background: var(--bg);
-          color: var(--text-1);
-          font-family: 'Plus Jakarta Sans', sans-serif;
+          color: var(--ink-900);
+          font-family: 'IBM Plex Sans', sans-serif;
         }
 
         h2 { 
-          font-family: 'Space Grotesk', sans-serif; 
+          font-family: 'Archivo', sans-serif; 
           letter-spacing: -0.02em; 
         }
 
         .orb {
           position: absolute;
           border-radius: 50%;
-          filter: blur(70px);
-          opacity: .35;
+          filter: blur(75px);
+          opacity: .18;
           z-index: 0;
         }
 
         .orb1 {
           width: 350px;
           height: 350px;
-          background: var(--accent);
+          background: var(--gold);
           top: -100px;
           left: -80px;
           animation: drift 15s ease-in-out infinite;
@@ -140,7 +141,7 @@ export default function AuthConfirmPage() {
         .orb2 {
           width: 300px;
           height: 300px;
-          background: var(--teal);
+          background: var(--green);
           bottom: -100px;
           right: -80px;
           animation: drift 18s ease-in-out infinite reverse;
@@ -157,11 +158,11 @@ export default function AuthConfirmPage() {
       <div className="orb orb2 pointer-events-none"></div>
 
       <Suspense fallback={
-        <div className="w-full max-w-[420px] bg-[#1E1E1E] border border-[#3E3E42] rounded-[32px] p-8 md:p-10 text-center space-y-5 animate-in fade-in duration-200 relative z-10">
-          <div className="w-16 h-16 rounded-md bg-[#1E1E1E] border border-[#3E3E42] flex items-center justify-center mx-auto text-[#007ACC]">
+        <div className="w-full max-w-[420px] bg-[#F2EFE6] border border-[rgba(22,36,31,0.13)] rounded-[32px] p-8 md:p-10 text-center space-y-5 animate-in fade-in duration-200 relative z-10 shadow-2xl">
+          <div className="w-16 h-16 rounded-full bg-[#F2EFE6] border border-[rgba(22,36,31,0.13)] flex items-center justify-center mx-auto text-[#E3A72F]">
             <Loader2 className="h-8 w-8 animate-spin" />
           </div>
-          <h2 className="text-xl font-bold text-[#D4D4D4] font-display">Loading Verification...</h2>
+          <h2 className="text-xl font-bold text-[#16241F] font-display">Loading Verification...</h2>
         </div>
       }>
         <ConfirmPageContent />

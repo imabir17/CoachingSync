@@ -54,7 +54,7 @@ export default function SignupPage() {
         email,
         password,
         options: {
-          emailRedirectTo: `${siteUrl}/onboarding/complete`,
+          emailRedirectTo: `${siteUrl}/auth/confirm?next=/onboarding/complete`,
           data: { 
             fullName, 
             pendingCompanyName: companyName 
