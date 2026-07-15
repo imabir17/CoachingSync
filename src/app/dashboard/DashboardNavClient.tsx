@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { LayoutDashboard, Users, UserSquare, LogOut, CheckSquare, BarChart, Menu, X, Settings, Kanban, BookOpen, CreditCard } from 'lucide-react'
+import { LayoutDashboard, Users, UserSquare, LogOut, CheckSquare, BarChart, Menu, X, Settings, Kanban, BookOpen, CreditCard, Calendar } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -45,7 +45,18 @@ export default function DashboardNavClient({
       icon: CheckSquare,
       show: true,
     },
-
+    {
+      href: '/dashboard/courses',
+      label: 'Courses',
+      icon: BookOpen,
+      show: isAdminOrManager,
+    },
+    {
+      href: '/dashboard/schedule',
+      label: 'Schedule',
+      icon: Calendar,
+      show: true,
+    },
     {
       href: '/dashboard/reports',
       label: 'Reports',
@@ -68,12 +79,6 @@ export default function DashboardNavClient({
       href: '/dashboard/settings',
       label: 'Settings',
       icon: Settings,
-      show: isAdminOrManager,
-    },
-    {
-      href: '/dashboard/courses',
-      label: 'Courses',
-      icon: BookOpen,
       show: isAdminOrManager,
     },
   ]

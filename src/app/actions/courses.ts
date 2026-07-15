@@ -144,6 +144,7 @@ export async function getCourseByIdAction(id: string) {
 
   const batchIds = batches?.map(b => b.id) || []
   let enrolledLeads: any[] = []
+  const enrollmentsMap = new Map<string, number>()
 
   if (batchIds.length > 0) {
     const { data: enrollments } = await supabase
@@ -160,6 +161,10 @@ export async function getCourseByIdAction(id: string) {
         seen.add(lead.id)
         return true
       })
+
+    for (const e of (enrollments || [])) {
+      enrollmentsMap.set(e.batchId, (enrollmentsMap.get(e.batchId) || 0) + 1)
+    }
   }
 
   const result = {
@@ -167,7 +172,8 @@ export async function getCourseByIdAction(id: string) {
     inCharge: course.inChargeId ? staffMap.get(course.inChargeId) || null : null,
     batches: (batches || []).map(b => ({
       ...b,
-      instructor: b.instructorId ? staffMap.get(b.instructorId) || null : null
+      instructor: b.instructorId ? staffMap.get(b.instructorId) || null : null,
+      enrollmentCount: enrollmentsMap.get(b.id) || 0
     })),
     enrolledStudents: enrolledLeads
   }

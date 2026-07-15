@@ -28,10 +28,24 @@ interface SettingsClientProps {
 
 export default function SettingsClient({ initialStages, stageLeadCounts }: SettingsClientProps) {
   const [mounted, setMounted] = useState(false)
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark')
   
   useEffect(() => {
     setMounted(true)
+    const savedTheme = localStorage.getItem('theme') as 'dark' | 'light' || 'dark'
+    setTheme(savedTheme)
   }, [])
+
+  const handleThemeChange = (newTheme: 'dark' | 'light') => {
+    setTheme(newTheme)
+    localStorage.setItem('theme', newTheme)
+    document.documentElement.setAttribute('data-theme', newTheme)
+    if (newTheme === 'light') {
+      document.documentElement.classList.add('light')
+    } else {
+      document.documentElement.classList.remove('light')
+    }
+  }
 
   const [stages, setStages] = useState<PipelineStage[]>(initialStages)
   const [newStageName, setNewStageName] = useState('')
@@ -311,6 +325,38 @@ export default function SettingsClient({ initialStages, stageLeadCounts }: Setti
               <li>Reordering columns shifts card groupings on the pipeline view.</li>
               <li>Rename triggers database updates for all matching leads.</li>
             </ul>
+          </div>
+
+          {/* Workspace Theme Panel */}
+          <div className="neo-raised p-6">
+            <h3 className="text-sm font-bold text-[#D4D4D4] mb-3">Workspace Theme</h3>
+            <p className="text-xs text-[#CCCCCC] leading-relaxed mb-4">
+              Select your preferred dashboard appearance theme.
+            </p>
+            <div className="grid grid-cols-2 gap-3">
+              <button
+                type="button"
+                onClick={() => handleThemeChange('dark')}
+                className={`py-3 text-xs font-bold rounded-sm border transition-all ${
+                  theme === 'dark'
+                    ? 'border-[#007ACC] bg-[#007ACC]/5 text-white'
+                    : 'border-[var(--line)] bg-[#1E1E1E] text-[#CCCCCC] hover:border-[#555555]'
+                }`}
+              >
+                Dark (Default)
+              </button>
+              <button
+                type="button"
+                onClick={() => handleThemeChange('light')}
+                className={`py-3 text-xs font-bold rounded-sm border transition-all ${
+                  theme === 'light'
+                    ? 'border-[#E3A72F] bg-[#E3A72F]/5 text-white'
+                    : 'border-[var(--line)] bg-[#1E1E1E] text-[#CCCCCC] hover:border-[#555555]'
+                }`}
+              >
+                Light
+              </button>
+            </div>
           </div>
         </div>
       </div>

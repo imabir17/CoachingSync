@@ -8,9 +8,10 @@
 }
 
 :root {
-  color-scheme: light;
+  color-scheme: dark;
   --bg: #1E1E1E;
   --bg-deep: #252526;
+  --card: #252526;
   --shadow-dark: #111317;
   --shadow-light: #252A31;
   --text-1: #D4D4D4;
@@ -21,11 +22,30 @@
   --accent-dark: #0062A3;
   --teal: #4EC9B0;
   --coral: #CE9178;
+  --line: #3E3E42;
   --radius-lg: 28px;
   --radius-md: 18px;
   --radius-sm: 12px;
   --dist: 9px;
   --blur: 18px;
+}
+
+html.light, [data-theme='light'] {
+  color-scheme: light;
+  --bg: #F7F6F0;
+  --bg-deep: #F2EFE6;
+  --card: #FFFFFF;
+  --shadow-dark: rgba(22, 36, 31, 0.08);
+  --shadow-light: rgba(255, 255, 255, 0.6);
+  --text-1: #16241F;
+  --text-2: #324B41;
+  --text-3: #6C7A72;
+  --accent: #E3A72F;
+  --accent-light: #E3A72F;
+  --accent-dark: #C4880E;
+  --teal: #5FA779;
+  --coral: #D6584A;
+  --line: #E5E2D6;
 }
 
 body {
@@ -51,55 +71,55 @@ body {
  
 ::-webkit-scrollbar-thumb {
   background: var(--bg-deep);
-  border: 1px solid #3E3E42;
+  border: 1px solid var(--line);
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3E3E42;
+  background: var(--line);
 }
 
 /* Flat UI helper utility classes (formerly Neomorphic) */
 .neo-raised {
   background: var(--bg);
   border-radius: var(--radius-sm);
-  border: 1px solid #3E3E42;
+  border: 1px solid var(--line);
 }
 
 .neo-raised-lg {
   background: var(--bg);
   border-radius: var(--radius-md);
-  border: 1px solid #3E3E42;
+  border: 1px solid var(--line);
 }
 
 .neo-pressed {
   background: var(--bg-deep);
   border-radius: var(--radius-sm);
-  border: 1px solid #3E3E42;
+  border: 1px solid var(--line);
 }
 
 .neo-pressed-input {
   background: var(--bg-deep);
   border-radius: var(--radius-sm);
-  border: 1px solid #3E3E42;
+  border: 1px solid var(--line);
 }
 
 .neo-flat {
   background: var(--bg);
   border-radius: var(--radius-sm);
-  border: 1px solid #3E3E42;
+  border: 1px solid var(--line);
 }
 
 .neo-inline {
   background: var(--bg);
   border-radius: 999px;
-  border: 1px solid #3E3E42;
+  border: 1px solid var(--line);
 }
 
 .neo-inline-pressed {
   background: var(--bg-deep);
   border-radius: 999px;
-  border: 1px solid #3E3E42;
+  border: 1px solid var(--line);
 }
 
 @keyframes slide-in-from-bottom-4 {
@@ -123,3 +143,30 @@ body {
 .slide-in-from-bottom-4 {
   animation-name: slide-in-from-bottom-4;
 }
+
+/* Theme Overrides for hardcoded Tailwind colors to support dynamic light mode */
+.bg-\[\#1E1E1E\] {
+  background-color: var(--bg) !important;
+}
+.bg-\[\#252526\] {
+  background-color: var(--card) !important;
+}
+.border-\[\#3E3E42\] {
+  border-color: var(--line) !important;
+}
+.text-\[\#D4D4D4\] {
+  color: var(--text-1) !important;
+}
+.text-\[\#CCCCCC\] {
+  color: var(--text-2) !important;
+}
+.text-\[\#858585\] {
+  color: var(--text-3) !important;
+}
+.border-b-\[\#111317\]\/20 {
+  border-bottom-color: var(--line) !important;
+}
+.border-r-\[\#111317\]\/20 {
+  border-right-color: var(--line) !important;
+}
+

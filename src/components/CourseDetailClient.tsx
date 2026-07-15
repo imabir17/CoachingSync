@@ -171,50 +171,68 @@ export default function CourseDetailClient({ course, staff }: { course: any, sta
             </form>
           )}
 
-          <div className="divide-y divide-[#3E3E42]">
+          <div className="divide-y divide-[var(--line)]">
             {batches.length === 0 ? (
-              <div className="p-8 text-center text-xs text-[#858585]">
+              <div className="p-8 text-center text-xs text-[var(--text-3)]">
                 No batches created for this course yet.
               </div>
             ) : (
-              batches.map(batch => (
-                <div key={batch.id} className="p-5 hover:bg-[#1E1E1E] transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                  <div>
-                    <h4 className="text-sm font-medium text-[#D4D4D4] flex items-center gap-2 mb-1">
-                      {batch.name}
-                      {batch.capacity && <span className="px-1.5 py-0.5 rounded-sm bg-[#333333] text-[9px] text-[#858585] font-semibold">CAP: {batch.capacity}</span>}
-                    </h4>
-                    
-                    <div className="flex flex-wrap items-center gap-3 mt-2 text-[10px] text-[#858585]">
-                      <span className="flex items-center gap-1.5">
-                        <Clock className="w-3.5 h-3.5 text-[#007ACC]" />
+              batches.map(batch => {
+                const filled = batch.enrollmentCount || 0
+                const capacity = batch.capacity || 20
+                const percentage = Math.min(100, Math.round((filled / capacity) * 100))
+                
+                // Color mapping: green, gold, red
+                let barColor = 'bg-[#5FA779]' // Green
+                if (percentage >= 90) {
+                  barColor = 'bg-[#D6584A]' // Red
+                } else if (percentage >= 75) {
+                  barColor = 'bg-[#E3A72F]' // Gold
+                }
+
+                return (
+                  <div key={batch.id} className="p-5 hover:bg-[var(--bg-deep)] transition-colors flex items-center justify-between gap-6">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-sm font-semibold text-[var(--text-1)]">{batch.name}</span>
+                        {batch.instructor && (
+                          <span className="text-[10px] text-[var(--text-3)] font-medium">
+                            · Instructor: {batch.instructor.fullName}
+                          </span>
+                        )}
+                      </div>
+                      
+                      <div className="text-[11px] text-[var(--text-3)] mb-2.5">
                         {batch.startDate ? new Date(batch.startDate).toLocaleDateString() : 'TBD'} 
                         {' - '} 
                         {batch.endDate ? new Date(batch.endDate).toLocaleDateString() : 'TBD'}
-                      </span>
-                      
-                      {batch.instructor && (
-                        <>
-                          <span className="text-[#3E3E42]">|</span>
-                          <span className="flex items-center gap-1.5">
-                            <User className="w-3.5 h-3.5 text-[#CE9178]" />
-                            {batch.instructor.fullName}
-                          </span>
-                        </>
-                      )}
+                      </div>
+
+                      {/* Progress bar */}
+                      <div className="w-full max-w-[200px] h-1.5 bg-[var(--line)] rounded-full overflow-hidden">
+                        <div 
+                          className={`h-full ${barColor} rounded-full transition-all`} 
+                          style={{ width: `${percentage}%` }}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-6 shrink-0">
+                      <div className="text-right">
+                        <div className="font-mono text-sm font-bold text-[var(--text-1)]">{filled} / {capacity}</div>
+                        <div className="text-[10px] text-[var(--text-3)] mt-0.5">seats filled</div>
+                      </div>
+
+                      <Link 
+                        href={`/dashboard/batches/${batch.id}`} 
+                        className="px-3 py-1.5 border border-[var(--line)] text-[var(--text-2)] hover:text-[var(--text-1)] hover:bg-[var(--bg-deep)] rounded-sm text-[10px] font-medium transition-colors"
+                      >
+                        Manage Batch →
+                      </Link>
                     </div>
                   </div>
-                  
-                  <div>
-                    <Link 
-                      href={`/dashboard/batches/${batch.id}`} 
-                      className="px-3 py-1.5 border border-[#3E3E42] text-[#CCCCCC] hover:text-white hover:bg-[#333333] rounded-sm text-[10px] font-medium transition-colors inline-block"
-                    >
-                      Manage Batch →
-                    </Link>
-                  </div>
-                </div>
-              ))
+                )
+              })
             )}
           </div>
 
