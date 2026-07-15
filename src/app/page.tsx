@@ -1,4 +1,4 @@
-// Force redeploy trigger
+// Dev branch check: Force redeploy trigger 1
 import { getUserSession } from '@/lib/auth'
 import LandingPageClient from './LandingPageClient'
 
