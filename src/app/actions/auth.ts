@@ -194,6 +194,33 @@ export async function provisionCompany() {
   })
   if (userErr) throw userErr
 
+  const { data: branch, error: branchErr } = await admin
+    .from('Branch')
+    .insert({
+      companyId: company.id,
+      name: 'Main Branch',
+      isDefault: true,
+    })
+    .select()
+    .single()
+  if (branchErr) throw branchErr
+
+  const { data: freePlan, error: planErr } = await admin
+    .from('Plan')
+    .select('id')
+    .eq('name', 'Free')
+    .single()
+  if (planErr) throw planErr
+
+  const { error: subErr } = await admin.from('Subscription').insert({
+    branchId: branch.id,
+    companyId: company.id,
+    planId: freePlan.id,
+    status: 'active',
+    currentPeriodEnd: null,
+  })
+  if (subErr) throw subErr
+
   await admin.from('ActivityLog').insert({
     companyId: company.id,
     actorId: user.id,

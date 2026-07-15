@@ -124,6 +124,9 @@ export async function createLead(prevState: any, formData: FormData) {
     .single()
 
   if (createError || !newLead) {
+    if (createError?.message?.includes('Monthly lead limit reached')) {
+      return { error: "You've hit your plan's monthly lead limit. Upgrade your subscription to add more leads." }
+    }
     return { error: 'Failed to create lead: ' + createError?.message }
   }
 

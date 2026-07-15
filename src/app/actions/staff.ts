@@ -77,6 +77,48 @@ export async function createInvite(email: string, role: 'Manager' | 'Counselor')
     }
   }
 
+  // Check user limit under the subscription plan
+  const { data: sub } = await supabase
+    .from('Subscription')
+    .select(`
+      overrideUserLimit,
+      Plan (
+        userLimit
+      )
+    `)
+    .eq('companyId', me.companyId)
+    .maybeSingle()
+
+  if (sub) {
+    const userLimit = sub.overrideUserLimit !== null 
+      ? sub.overrideUserLimit 
+      : ((sub.Plan as any)?.userLimit ?? null)
+
+    if (userLimit !== null && userLimit !== -1) {
+      // Count existing active/deactivated users
+      const { count: userCount, error: userCountErr } = await supabase
+        .from('User')
+        .select('*', { count: 'exact', head: true })
+        .eq('companyId', me.companyId)
+      
+      if (userCountErr) throw userCountErr
+
+      // Count active pending invites
+      const { count: inviteCount, error: inviteCountErr } = await supabase
+        .from('Invite')
+        .select('*', { count: 'exact', head: true })
+        .eq('companyId', me.companyId)
+        .eq('status', 'Pending')
+        .gt('expiresAt', new Date().toISOString())
+
+      if (inviteCountErr) throw inviteCountErr
+
+      if ((userCount ?? 0) + (inviteCount ?? 0) >= userLimit) {
+        throw new Error(`User seat limit of ${userLimit} reached for your plan. Please upgrade your subscription to invite more team members.`)
+      }
+    }
+  }
+
   const { data: invite, error } = await supabase.from('Invite').insert({
     companyId: me.companyId,
     email,
