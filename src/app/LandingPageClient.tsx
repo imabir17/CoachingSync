@@ -5,6 +5,7 @@ import Link from 'next/link'
 
 export default function LandingPageClient({ isLoggedIn }: { isLoggedIn: boolean }) {
   const [cycle, setCycle] = useState<'monthly' | 'yearly'>('monthly')
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   return (
     <div className="min-h-screen bg-[#F3F1E8] text-[#16241F] font-sans overflow-x-hidden antialiased">
@@ -820,16 +821,104 @@ export default function LandingPageClient({ isLoggedIn }: { isLoggedIn: boolean 
           font-size: 11.5px;
         }
 
+        /* Mobile Menu Button & Drawer */
+        .mobile-toggle {
+          display: none;
+          background: transparent;
+          border: none;
+          color: var(--ink-900);
+          padding: 8px;
+          cursor: pointer;
+          outline: none;
+        }
+
+        .mobile-drawer {
+          position: fixed;
+          top: 61px; /* Height of nav header */
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: var(--paper);
+          z-index: 40;
+          padding: 40px 28px;
+          display: flex;
+          flex-direction: column;
+          gap: 24px;
+          border-top: 1px solid var(--line-light);
+          transform: translateY(-100%);
+          opacity: 0;
+          pointer-events: none;
+          transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+        }
+
+        .mobile-drawer.open {
+          transform: translateY(0);
+          opacity: 1;
+          pointer-events: auto;
+        }
+
+        .mobile-drawer-links {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+        }
+
+        .mobile-drawer-links a {
+          font-family: 'Archivo', sans-serif;
+          font-size: 22px;
+          font-weight: 700;
+          color: var(--ink-900);
+        }
+
+        .mobile-drawer .mobile-ctas {
+          margin-top: auto;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          padding-bottom: 40px;
+        }
+
+        .mobile-drawer .mobile-ctas .btn {
+          width: 100%;
+          padding: 16px;
+          font-size: 16px;
+        }
+
         /* ---------- RESPONSIVE ---------- */
         @media (max-width: 900px) {
           .nav-links {
-            display: none;
+            display: none !important;
+          }
+          .nav-cta {
+            display: none !important;
+          }
+          .mobile-toggle {
+            display: block !important;
           }
           .hero-grid {
             grid-template-columns: 1fr;
+            text-align: center;
+            gap: 40px;
+          }
+          .hero h1 {
+            margin: 0 auto;
+          }
+          .hero-sub {
+            margin-left: auto;
+            margin-right: auto;
+          }
+          .hero-ctas {
+            justify-content: center;
+          }
+          .hero-stats {
+            justify-content: center;
           }
           .board-frame {
             margin-top: 8px;
+            max-width: 540px;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
           }
           .lead-pill {
             display: none;
@@ -837,11 +926,16 @@ export default function LandingPageClient({ isLoggedIn }: { isLoggedIn: boolean 
           .funnel-row {
             grid-template-columns: 1fr 1fr;
           }
+          .funnel-step::after {
+            display: none !important;
+          }
           .features-grid {
             grid-template-columns: 1fr 1fr;
           }
           .pricing-grid {
             grid-template-columns: 1fr;
+            max-width: 450px;
+            margin: 0 auto;
           }
           .board {
             grid-template-columns: 34px repeat(5, 1fr);
@@ -867,6 +961,36 @@ export default function LandingPageClient({ isLoggedIn }: { isLoggedIn: boolean 
           .time-label {
             font-size: 8px !important;
           }
+          .slot.filled {
+            padding: 4px 6px !important;
+          }
+          .slot.filled b {
+            font-size: 9px !important;
+            line-height: 1.1;
+          }
+          .slot.filled span {
+            display: none !important;
+          }
+          .board-caption {
+            font-size: 11px;
+          }
+        }
+
+        @media (max-width: 400px) {
+          .board-frame {
+            padding: 12px;
+          }
+          .board {
+            grid-template-columns: 24px repeat(5, minmax(36px, 1fr));
+            gap: 4px;
+          }
+          .day-label {
+            font-size: 9px !important;
+          }
+          .time-label {
+            font-size: 7.5px !important;
+            padding-right: 3px !important;
+          }
         }
       `}</style>
 
@@ -891,6 +1015,52 @@ export default function LandingPageClient({ isLoggedIn }: { isLoggedIn: boolean 
                   Log in
                 </Link>
                 <Link href="/signup" className="btn btn-primary">
+                  Start free
+                </Link>
+              </>
+            )}
+          </div>
+
+          {/* Hamburger button for mobile */}
+          <button 
+            className="mobile-toggle"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle navigation menu"
+          >
+            {isMobileMenuOpen ? (
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            ) : (
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+            )}
+          </button>
+        </div>
+
+        {/* Mobile Navigation Drawer */}
+        <div className={`mobile-drawer ${isMobileMenuOpen ? 'open' : ''}`}>
+          <nav className="mobile-drawer-links">
+            <a href="#features" onClick={() => setIsMobileMenuOpen(false)}>Features</a>
+            <a href="#funnel" onClick={() => setIsMobileMenuOpen(false)}>How it works</a>
+            <a href="#pricing" onClick={() => setIsMobileMenuOpen(false)}>Pricing</a>
+          </nav>
+          
+          <div className="mobile-ctas">
+            {isLoggedIn ? (
+              <Link href="/dashboard" onClick={() => setIsMobileMenuOpen(false)} className="btn btn-primary">
+                Go to Dashboard
+              </Link>
+            ) : (
+              <>
+                <Link href="/login" onClick={() => setIsMobileMenuOpen(false)} className="btn btn-ghost-dark">
+                  Log in
+                </Link>
+                <Link href="/signup" onClick={() => setIsMobileMenuOpen(false)} className="btn btn-primary">
                   Start free
                 </Link>
               </>
