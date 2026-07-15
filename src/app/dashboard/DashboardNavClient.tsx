@@ -187,36 +187,6 @@ export default function DashboardNavClient({
         </nav>
       </div>
       
-      {/* Plan widget */}
-      <div className="mx-4 mb-4 p-4 rounded-md bg-[#243830] border border-[rgba(242,239,230,0.1)] text-[#F2EFE6]">
-        <div className="flex justify-between items-center mb-2">
-          <span className="text-xs font-semibold">{planName} Plan</span>
-          <span className="text-[9px] font-mono font-bold bg-[#E3A72F] text-[#16241F] px-1.5 py-0.5 rounded-full">
-            {currentSeats}/{maxSeats ?? '∞'} SEATS
-          </span>
-        </div>
-        
-        {maxLeads && (
-          <>
-            <div className="w-full h-1 bg-[rgba(242,239,230,0.12)] rounded-full overflow-hidden mb-2">
-              <div 
-                className="h-full bg-[#E3A72F] rounded-full transition-all" 
-                style={{ width: `${Math.min(100, Math.round((currentLeads / maxLeads) * 100))}%` }}
-              />
-            </div>
-            <div className="text-[10px] text-[rgba(242,239,230,0.5)] font-mono">
-              {currentLeads} / {maxLeads} leads used this month
-            </div>
-          </>
-        )}
-        
-        <Link 
-          href="/dashboard/billing"
-          className="mt-3 block text-center text-[10px] font-bold bg-[rgba(242,239,230,0.08)] hover:bg-[rgba(242,239,230,0.14)] text-[#F2EFE6] py-1.5 rounded-sm transition-all"
-        >
-          Upgrade plan
-        </Link>
-      </div>
 
       {/* Profile & Logout card */}
       <div className="p-4 border-t border-[rgba(242,239,230,0.14)] shrink-0">
