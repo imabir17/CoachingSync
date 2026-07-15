@@ -48,9 +48,7 @@ export default function SignupPage() {
     try {
       const supabase = createClient()
       
-      let siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
-      siteUrl = siteUrl.includes('http') ? siteUrl : `https://${siteUrl}`
-      siteUrl = siteUrl.replace(/\/$/, '')
+      const siteUrl = window.location.origin
 
       const { data, error: signupError } = await supabase.auth.signUp({
         email,

@@ -4,6 +4,7 @@ import { createClient as createServerClient } from '@/utils/supabase/server'
 import { getUserSession } from '@/lib/auth'
 import { revalidatePath } from 'next/cache'
 import { createAdminClient } from '@/utils/supabase/admin'
+import { headers } from 'next/headers'
 
 export async function createStaff(formData: FormData) {
   const user = await getUserSession()
@@ -21,9 +22,10 @@ export async function createStaff(formData: FormData) {
   try {
     const invite = await createInvite(email, role)
     
-    let siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
-    siteUrl = siteUrl.includes('http') ? siteUrl : `https://${siteUrl}`
-    siteUrl = siteUrl.replace(/\/$/, '')
+    const headersList = await headers()
+    const host = headersList.get('host') || 'localhost:3000'
+    const protocol = host.includes('localhost') ? 'http' : 'https'
+    const siteUrl = `${protocol}://${host}`
     const inviteLink = `${siteUrl}/invite/accept?token=${invite.token}`
 
     console.log(`[STAFF INVITE CREATED] Email: ${email}, Link: ${inviteLink}`)

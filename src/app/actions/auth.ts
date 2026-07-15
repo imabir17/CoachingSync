@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation'
 import { createClient as createServerClient } from '@/utils/supabase/server'
 import { createClient as createSupabaseAdminClient } from '@supabase/supabase-js'
 import { createAdminClient } from '@/utils/supabase/admin'
+import { headers } from 'next/headers'
 
 export async function login(prevState: any, formData: FormData) {
   const email = formData.get('email') as string
@@ -116,9 +117,10 @@ export async function resetPassword(prevState: any, formData: FormData) {
   }
 
   const supabase = await createServerClient()
-  let siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? process.env.NEXT_PUBLIC_VERCEL_URL ?? 'http://localhost:3000'
-  siteUrl = siteUrl.includes('http') ? siteUrl : `https://${siteUrl}`
-  siteUrl = siteUrl.replace(/\/$/, '')
+  const headersList = await headers()
+  const host = headersList.get('host') || 'localhost:3000'
+  const protocol = host.includes('localhost') ? 'http' : 'https'
+  const siteUrl = `${protocol}://${host}`
 
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: `${siteUrl}/update-password`,
