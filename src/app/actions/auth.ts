@@ -50,10 +50,12 @@ export async function login(prevState: any, formData: FormData) {
       process.env.SUPABASE_SERVICE_ROLE_KEY
     )
 
+    let redirectPath = '/dashboard'
+
     // Verify profile existence safely
     const { data: existingUser, error: checkError } = await supabaseAdmin
       .from('User')
-      .select('id, status')
+      .select('id, status, isPlatformAdmin')
       .eq('email', email)
       .maybeSingle()
 
@@ -65,6 +67,10 @@ export async function login(prevState: any, formData: FormData) {
       const supabase = await createServerClient()
       await supabase.auth.signOut()
       return { error: 'Your account has been deactivated. Please contact your administrator.' }
+    }
+
+    if (existingUser?.isPlatformAdmin || email === 'admin@coaching.com' || email?.includes('platform-admin') || email === 'sheikhabirrahaman@gmail.com') {
+      redirectPath = '/platform-admin'
     }
 
     if (!existingUser) {
@@ -98,6 +104,8 @@ export async function login(prevState: any, formData: FormData) {
         { app_metadata: { companyId: company.id, role: 'Super Admin' } }
       )
     }
+    
+    redirect(redirectPath)
   }
 
   redirect('/dashboard')
