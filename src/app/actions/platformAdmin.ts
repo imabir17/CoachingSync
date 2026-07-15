@@ -110,16 +110,16 @@ export async function updateSubscriptionOverride(
     isCustom: overrides.isCustom,
   }
 
-  // If changing plan name to custom
-  if (overrides.planName === 'Custom') {
-    const { data: customPlan } = await admin
+  // If changing plan name
+  if (overrides.planName) {
+    const { data: targetPlan } = await admin
       .from('Plan')
       .select('id')
-      .eq('name', 'Custom')
+      .eq('name', overrides.planName)
       .single()
 
-    if (customPlan) {
-      updatePayload.planId = customPlan.id
+    if (targetPlan) {
+      updatePayload.planId = targetPlan.id
     }
   }
 

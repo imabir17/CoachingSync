@@ -144,26 +144,28 @@ export default function PlatformAdminClient({ initialData }: PlatformAdminProps)
     setMessage(null)
     const overrideUserLimit = userLimitInput.trim() === '' ? null : Number(userLimitInput)
     const overrideLeadLimit = leadLimitInput.trim() === '' ? null : Number(leadLimitInput)
+    const targetPlanName = isCustomPlanInput ? 'Custom' : 'Free'
     
     try {
       await updateSubscriptionOverride(sub.id, {
         overrideUserLimit,
         overrideLeadLimit,
         isCustom: isCustomInput,
-        planName: isCustomPlanInput ? 'Custom' : undefined
+        planName: targetPlanName
       })
       
       setMessage({ text: 'Subscription overrides updated successfully.', type: 'success' })
       
       setSubscriptions(subscriptions.map(s => {
         if (s.id === sub.id) {
+          const targetPlan = initialData.plans.find(p => p.name === targetPlanName)
           return {
             ...s,
             overrideUserLimit,
             overrideLeadLimit,
             isCustom: isCustomInput,
-            planId: isCustomPlanInput ? initialData.plans.find(p => p.name === 'Custom')?.id || s.planId : s.planId,
-            Plan: isCustomPlanInput ? initialData.plans.find(p => p.name === 'Custom') || s.Plan : s.Plan
+            planId: targetPlan?.id || s.planId,
+            Plan: targetPlan || s.Plan
           }
         }
         return s
