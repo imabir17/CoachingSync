@@ -67,7 +67,7 @@ export async function getBillingDetails() {
   const supabase = await createClient()
 
   // Get subscription, plan, branch, and payments
-  const { data: sub } = await supabase
+  const { data: sub, error: subErr } = await supabase
     .from('Subscription')
     .select(`
       *,
@@ -76,12 +76,22 @@ export async function getBillingDetails() {
     .eq('companyId', user.companyId)
     .maybeSingle()
 
-  const { data: branches } = await supabase
+  if (subErr) {
+    console.error('[BILLING ERROR] getBillingDetails subscription error:', subErr)
+    throw new Error(`Database error fetching subscription details: ${subErr.message}`)
+  }
+
+  const { data: branches, error: branchErr } = await supabase
     .from('Branch')
     .select('*')
     .eq('companyId', user.companyId)
 
-  const { data: payments } = await supabase
+  if (branchErr) {
+    console.error('[BILLING ERROR] getBillingDetails branches error:', branchErr)
+    throw new Error(`Database error fetching branches: ${branchErr.message}`)
+  }
+
+  const { data: payments, error: payErr } = await supabase
     .from('Payment')
     .select(`
       *,
@@ -90,16 +100,31 @@ export async function getBillingDetails() {
     .eq('companyId', user.companyId)
     .order('createdAt', { ascending: false })
 
-  const { data: plans } = await supabase
+  if (payErr) {
+    console.error('[BILLING ERROR] getBillingDetails payments error:', payErr)
+    throw new Error(`Database error fetching payments: ${payErr.message}`)
+  }
+
+  const { data: plans, error: plansErr } = await supabase
     .from('Plan')
     .select('*')
     .eq('isActive', true)
     .eq('isPublic', true)
 
-  const { data: paymentMethods } = await supabase
+  if (plansErr) {
+    console.error('[BILLING ERROR] getBillingDetails plans error:', plansErr)
+    throw new Error(`Database error fetching plans: ${plansErr.message}`)
+  }
+
+  const { data: paymentMethods, error: pmErr } = await supabase
     .from('PaymentMethodConfig')
     .select('*')
     .eq('isActive', true)
+
+  if (pmErr) {
+    console.error('[BILLING ERROR] getBillingDetails payment methods error:', pmErr)
+    throw new Error(`Database error fetching payment methods: ${pmErr.message}`)
+  }
 
   return {
     subscription: sub ? {
