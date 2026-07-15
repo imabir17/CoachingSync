@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS "User" (
     "email" TEXT UNIQUE NOT NULL,
     "fullName" TEXT NOT NULL,
     "role" TEXT NOT NULL DEFAULT 'Counselor',
-    "password" TEXT NOT NULL, -- Used as a placeholder / local fallback
+    "status" TEXT NOT NULL DEFAULT 'Active',
     "companyId" TEXT NOT NULL REFERENCES "Company"("id") ON DELETE CASCADE,
     "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
     "updatedAt" TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
@@ -185,7 +185,39 @@ CREATE TRIGGER update_batchenrollment_updated_at
     FOR EACH ROW
     EXECUTE FUNCTION update_updated_at_column();
 
--- 10. Add Indexes for performance
+-- 10. Create "Invite" table
+CREATE TABLE IF NOT EXISTS "Invite" (
+    "id" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,
+    "companyId" TEXT NOT NULL REFERENCES "Company"("id") ON DELETE CASCADE,
+    "email" TEXT NOT NULL,
+    "role" TEXT NOT NULL DEFAULT 'Counselor',
+    "token" TEXT UNIQUE NOT NULL DEFAULT gen_random_uuid()::text,
+    "invitedById" TEXT REFERENCES "User"("id") ON DELETE SET NULL,
+    "status" TEXT NOT NULL DEFAULT 'Pending',
+    "expiresAt" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT (timezone('utc'::text, now()) + interval '7 days'),
+    "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    "updatedAt" TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+DROP TRIGGER IF EXISTS update_invite_updated_at ON "Invite";
+CREATE TRIGGER update_invite_updated_at
+    BEFORE UPDATE ON "Invite"
+    FOR EACH ROW
+    EXECUTE FUNCTION update_updated_at_column();
+
+-- 11. Create "ActivityLog" table
+CREATE TABLE IF NOT EXISTS "ActivityLog" (
+    "id" TEXT PRIMARY KEY DEFAULT gen_random_uuid()::text,
+    "companyId" TEXT NOT NULL REFERENCES "Company"("id") ON DELETE CASCADE,
+    "actorId" TEXT REFERENCES "User"("id") ON DELETE SET NULL,
+    "action" TEXT NOT NULL,
+    "entityType" TEXT,
+    "entityId" TEXT,
+    "metadata" JSONB,
+    "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- 12. Add Indexes for performance
 CREATE INDEX IF NOT EXISTS idx_user_company ON "User"("companyId");
 CREATE INDEX IF NOT EXISTS idx_lead_company ON "Lead"("companyId");
 CREATE INDEX IF NOT EXISTS idx_lead_assigned ON "Lead"("assignedCounselorId");
@@ -196,3 +228,6 @@ CREATE INDEX IF NOT EXISTS idx_course_company ON "Course"("companyId");
 CREATE INDEX IF NOT EXISTS idx_batch_course ON "Batch"("courseId");
 CREATE INDEX IF NOT EXISTS idx_enrollment_lead ON "BatchEnrollment"("leadId");
 CREATE INDEX IF NOT EXISTS idx_enrollment_batch ON "BatchEnrollment"("batchId");
+CREATE INDEX IF NOT EXISTS idx_invite_company ON "Invite"("companyId");
+CREATE INDEX IF NOT EXISTS idx_invite_token ON "Invite"("token");
+CREATE INDEX IF NOT EXISTS idx_activitylog_company ON "ActivityLog"("companyId");

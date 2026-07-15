@@ -39,6 +39,10 @@ export async function getUserSession() {
   if (dbError || !dbUser) {
     return null
   }
+
+  if (dbUser.status === 'Deactivated') {
+    return null
+  }
   
   return dbUser
 }

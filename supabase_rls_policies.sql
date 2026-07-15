@@ -12,8 +12,8 @@ RETURNS text AS $$
             RETURN cid;
         END IF;
 
-        -- Fall back to database query if JWT is missing the claim
-        SELECT "companyId" INTO cid FROM "User" WHERE id = auth.uid()::text;
+        -- Fall back to database query if JWT is missing the claim (check status = 'Active')
+        SELECT "companyId" INTO cid FROM "User" WHERE id = auth.uid()::text AND status = 'Active';
         RETURN cid;
     END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
@@ -30,10 +30,10 @@ RETURNS boolean AS $$
             RETURN u_role = 'Super Admin';
         END IF;
 
-        -- Fall back to database query
+        -- Fall back to database query (check status = 'Active')
         RETURN EXISTS (
             SELECT 1 FROM "User" 
-            WHERE id = auth.uid()::text AND role = 'Super Admin'
+            WHERE id = auth.uid()::text AND role = 'Super Admin' AND status = 'Active'
         );
     END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
@@ -47,6 +47,8 @@ ALTER TABLE "Task" ENABLE ROW LEVEL SECURITY;
 ALTER TABLE "Course" ENABLE ROW LEVEL SECURITY;
 ALTER TABLE "Batch" ENABLE ROW LEVEL SECURITY;
 ALTER TABLE "BatchEnrollment" ENABLE ROW LEVEL SECURITY;
+ALTER TABLE "Invite" ENABLE ROW LEVEL SECURITY;
+ALTER TABLE "ActivityLog" ENABLE ROW LEVEL SECURITY;
 
 -- 4. Clean up any existing policies
 DROP POLICY IF EXISTS "Users can view their own company" ON "Company";
@@ -133,3 +135,21 @@ CREATE POLICY "Users can manage enrollments in their company" ON "BatchEnrollmen
               AND "Lead"."companyId" = get_my_company_id()
         )
     );
+
+-- 13. "Invite" table policies
+DROP POLICY IF EXISTS "Super Admins and Managers can manage invites" ON "Invite";
+CREATE POLICY "Super Admins and Managers can manage invites" ON "Invite"
+    FOR ALL TO authenticated
+    USING (
+        "companyId" = get_my_company_id()
+        AND (is_super_admin() OR EXISTS (
+            SELECT 1 FROM "User" 
+            WHERE id = auth.uid()::text AND role = 'Manager' AND status = 'Active'
+        ))
+    );
+
+-- 14. "ActivityLog" table policies
+DROP POLICY IF EXISTS "Company members can read activity log" ON "ActivityLog";
+CREATE POLICY "Company members can read activity log" ON "ActivityLog"
+    FOR SELECT TO authenticated
+    USING ("companyId" = get_my_company_id());

@@ -365,7 +365,7 @@ export default function LoginPage() {
 
 
           <p className="signup-note text-center mt-6 text-xs text-[#858585]">
-            New agency? <a href="mailto:CoachingSync@gmail.com" className="font-bold text-[#007ACC] hover:text-[#0062A3]">Request access</a>
+            New agency? <Link href="/signup" className="font-bold text-[#007ACC] hover:text-[#0062A3]">Create an account</Link>
           </p>
           
           <div className="flex justify-center items-center gap-4 mt-8 text-[10px] text-[#858585]">
