@@ -24,11 +24,6 @@ export default async function CoursesPage() {
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 ease-out pb-12">
-      <div>
-        <h1 className="text-2xl font-bold text-white font-display mb-2">Courses & Batches</h1>
-        <p className="text-xs text-gray-400">Manage courses and schedule batches for your students.</p>
-      </div>
-
       <CoursesClient initialCourses={courses || []} staff={staff} />
     </div>
   )

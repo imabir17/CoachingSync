@@ -139,20 +139,6 @@ export default async function LeadsPage({
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 ease-out pb-12">
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl font-bold text-[#D4D4D4] font-display">Leads Pipeline</h2>
-          <p className="text-xs text-[#CCCCCC] mt-1">Manage and track your prospective student recruitment.</p>
-        </div>
-        <Link 
-          href="/dashboard/leads/new" 
-          className="flex items-center gap-1.5 px-5 py-3 bg-gradient-to-br from-[#007ACC] to-[#0062A3] text-white text-xs font-bold rounded-sm border border-[#3E3E42] hover:border-[#555555] active:translate-y-0.5 transition-all duration-150"
-        >
-          <Plus className="h-4.5 w-4.5" />
-          Add New Lead
-        </Link>
-      </div>
-
       <div className="space-y-6">
         <LeadFilters 
           isAdminOrManager={isAdminOrManager} 

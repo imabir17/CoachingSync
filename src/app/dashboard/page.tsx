@@ -143,12 +143,6 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-500 ease-out pb-12">
-      {/* Title */}
-      <div>
-        <h2 className="text-2xl font-bold text-[#D4D4D4] font-display">Dashboard</h2>
-        <p className="text-xs text-[#858585] mt-1">Real-time overview of your coaching operations.</p>
-      </div>
-
       {/* ─── Primary Metrics Row ─── */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
         {/* Total Leads */}
