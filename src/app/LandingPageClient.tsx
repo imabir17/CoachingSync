@@ -46,6 +46,17 @@ export default function LandingPageClient({ isLoggedIn }: { isLoggedIn: boolean 
           line-height: 1.05;
         }
 
+        p {
+          margin: 0;
+        }
+
+        .wrap {
+          max-width: 1180px;
+          width: 100%;
+          margin: 0 auto;
+          padding: 0 28px;
+        }
+
         .eyebrow {
           font-family: 'IBM Plex Mono', monospace;
           font-size: 12.5px;
