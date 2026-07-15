@@ -3,7 +3,7 @@
 import { useState, useRef } from 'react'
 import { createClient } from '@/utils/supabase/client'
 import Link from 'next/link'
-import { Mail, Lock, Eye, EyeOff, Check, X, AlertCircle, Building, User } from 'lucide-react'
+import { Mail, Lock, Eye, EyeOff, Check, AlertCircle, Building, User } from 'lucide-react'
 
 export default function SignupPage() {
   const [companyName, setCompanyName] = useState('')
@@ -77,82 +77,48 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#1E1E1E] flex items-center justify-center p-6 relative overflow-hidden font-sans">
+    <div className="min-h-screen bg-[#F3F1E8] flex items-center justify-center p-6 relative overflow-hidden font-sans">
       <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
         :root {
-          --bg: #1E1E1E;
-          --bg-deep: #252526;
-          --shadow-dark: #111317;
-          --shadow-light: #252A31;
-          --text-1: #D4D4D4;
-          --text-2: #CCCCCC;
-          --text-3: #858585;
-          --accent: #007ACC;
-          --accent-light: #007ACC;
-          --accent-dark: #0062A3;
-          --teal: #4EC9B0;
-          --coral: #CE9178;
-          --error: #E5484D;
+          --ink-900: #16241F;
+          --ink-700: #243830;
+          --ink-600: #324B41;
+          --paper: #F3F1E8;
+          --paper-dim: #E7E4D6;
+          --chalk: #F2EFE6;
+          --gold: #E3A72F;
+          --gold-deep: #C4880E;
+          --green: #5FA779;
+          --red: #D6584A;
+          --line-light: rgba(22,36,31,0.13);
+          --text-body-light: #3A4B44;
         }
 
         body {
-          background: var(--bg);
-          color: var(--text-1);
-          font-family: 'Plus Jakarta Sans', sans-serif;
+          background: var(--paper);
+          color: var(--ink-900);
+          font-family: 'IBM Plex Sans', sans-serif;
         }
 
         h1, h2, h3 { 
-          font-family: 'Space Grotesk', sans-serif; 
-          letter-spacing: -0.02em; 
+          font-family: 'Archivo', sans-serif; 
+          letter-spacing: -0.01em; 
+          line-height: 1.1;
         }
 
-        /* Ambient Orbs */
-        .orb {
-          position: absolute;
-          border-radius: 50%;
-          filter: blur(70px);
-          opacity: .3;
-          z-index: 0;
-        }
-
-        .orb1 {
-          width: 380px;
-          height: 380px;
-          background: var(--accent);
-          top: -120px;
-          left: -100px;
-          animation: drift 14s ease-in-out infinite;
-        }
-
-        .orb2 {
-          width: 320px;
-          height: 320px;
-          background: var(--teal);
-          bottom: -100px;
-          right: -80px;
-          animation: drift 16s ease-in-out infinite reverse;
-        }
-
-        @keyframes drift {
-          0%, 100% { transform: translate(0,0); }
-          50% { transform: translate(30px,-24px); }
-        }
-
-        /* Neomorphic Primitives */
-        .neo-raised {
-          background: var(--bg);
-          box-shadow: 9px 9px 18px var(--shadow-dark), -9px -9px 18px var(--shadow-light);
+        .mono { 
+          font-family: 'IBM Plex Mono', monospace; 
         }
 
         @keyframes bob {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-10px); }
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-8px); }
         }
 
         .animate-bob-1 { animation: bob 5s ease-in-out infinite; }
-        .animate-bob-2 { animation: bob 5s ease-in-out infinite 1.6s; }
+        .animate-bob-2 { animation: bob 5s ease-in-out infinite 1.4s; }
 
         @keyframes spin {
           to { transform: rotate(360deg); }
@@ -163,31 +129,25 @@ export default function SignupPage() {
         }
       `}</style>
 
-      {/* Background drifting orbs */}
-      <div className="orb orb1 pointer-events-none"></div>
-      <div className="orb orb2 pointer-events-none"></div>
-
       {/* Main container shell */}
-      <div className="relative z-10 w-full max-w-[920px] grid grid-cols-1 md:grid-cols-2 rounded-[32px] bg-[#1E1E1E] border border-[#3E3E42] overflow-hidden animate-in fade-in slide-in-from-bottom-6 duration-500">
+      <div className="relative z-10 w-full max-w-[920px] grid grid-cols-1 md:grid-cols-2 rounded-[24px] bg-[#F2EFE6] border border-[rgba(22,36,31,0.13)] overflow-hidden shadow-2xl animate-in fade-in slide-in-from-bottom-6 duration-500">
         
         {/* LEFT PANEL: Branding & Visuals */}
-        <div className="hidden md:flex p-12 bg-gradient-to-br from-[#EEF2F8] to-[#252526] flex-col justify-between relative">
+        <div className="hidden md:flex p-12 bg-[#16241F] flex-col justify-between relative text-[#F2EFE6]">
           <div>
-            <div className="flex items-center gap-2.5 font-bold text-[#D4D4D4] text-lg">
-              <div className="w-9 h-9 rounded-[11px] bg-gradient-to-br from-[#007ACC] to-[#0062A3] border border-[#3E3E42] flex items-center justify-center">
-                <svg className="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none">
-                  <path d="M2 12L22 4L14 22L11 14L2 12Z" fill="white"/>
-                </svg>
+            <div className="flex items-center gap-2.5 font-bold text-[#F2EFE6] text-lg">
+              <div className="w-9 h-9 rounded-[8px] bg-[#E3A72F] flex items-center justify-center">
+                <span className="dot" style={{ width: '9px', height: '9px', borderRadius: '2px', background: '#16241F', transform: 'rotate(45deg)' }}></span>
               </div>
               CoachingSync
             </div>
             
             <div className="mt-10">
-              <h2 className="text-[26px] font-bold text-[#D4D4D4] leading-[1.25] mb-3.5">
-                Launch your agency's CRM in seconds.
+              <h2 className="text-[26px] font-bold text-[#F2EFE6] leading-[1.25] mb-3.5">
+                Launch your center's workspace.
               </h2>
-              <p className="text-xs text-[#CCCCCC] max-w-[280px] leading-relaxed">
-                Empower your managers and counselors, simplify applicant tracking, and accelerate student enrollments.
+              <p className="text-xs text-[rgba(242,239,230,0.72)] max-w-[280px] leading-relaxed">
+                Empower your managers and counselors, simplify lead tracking, and accelerate student enrollments.
               </p>
             </div>
           </div>
@@ -198,57 +158,56 @@ export default function SignupPage() {
               ref={cardRef}
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
-              className="w-56 h-36 rounded-md bg-[#1E1E1E] relative transform-style-preserve-3d border border-[#3E3E42] transition-transform duration-100 ease-out p-4 pointer-events-auto"
+              className="w-56 h-36 rounded-[12px] bg-[#243830] border border-[rgba(242,239,230,0.1)] relative transform-style-preserve-3d transition-transform duration-100 ease-out p-4 pointer-events-auto shadow-xl"
               style={{
                 transform: `rotateY(${tilt.x}deg) rotateX(${tilt.y}deg) translateZ(0)`
               }}
             >
               {/* Inner depth layer */}
-              <div className="absolute inset-2.5 rounded-[14px] bg-gradient-to-br from-[#EEF2F7] to-[#DEE5EF] border border-[#3E3E42] pointer-events-none"></div>
+              <div className="absolute inset-2.5 rounded-[8px] bg-gradient-to-br from-[#F2EFE6] to-[#E7E4D6] border border-[rgba(22,36,31,0.1)] pointer-events-none"></div>
 
-              <div className="relative z-10 h-full flex flex-col transform translate-z-[24px]">
+              <div className="relative z-10 h-full flex flex-col transform translate-z-[24px] text-[#16241F]">
                 <div className="flex justify-between items-center">
-                  <span className="text-[9px] font-mono text-[#858585]">NEW CO.</span>
-                  <span className="text-[8px] font-bold px-2 py-0.5 rounded-full text-white bg-gradient-to-br from-[#007ACC] to-[#0062A3]">
-                    SETUP
+                  <span className="text-[9px] font-mono text-[#324B41]">LEAD #4092</span>
+                  <span className="text-[8px] font-bold px-2 py-0.5 rounded-full text-[#16241F] bg-[#5FA779]">
+                    HOT
                   </span>
                 </div>
                 
-                <div className="font-bold text-[14px] text-[#D4D4D4] mt-4">{companyName || 'Your Agency'}</div>
-                <div className="text-[10px] text-[#858585] mt-0.5">{fullName || 'Super Admin User'}</div>
+                <div className="font-bold text-[14px] text-[#16241F] mt-4">Rafi Ahmed</div>
+                <div className="text-[10px] text-[#324B41] mt-0.5">Spoken English · HSC</div>
                 
                 <div className="mt-auto flex gap-2">
-                  <span className="text-[9px] font-semibold px-2 py-0.5 rounded-full text-[#CCCCCC] bg-[#1E1E1E] border border-[#3E3E42]">Active</span>
-                  <span className="text-[9px] font-semibold px-2 py-0.5 rounded-full text-[#CCCCCC] bg-[#1E1E1E] border border-[#3E3E42]">1 Company</span>
+                  <span className="text-[9px] font-semibold px-2 py-0.5 rounded-full text-[#16241F] bg-[rgba(22,36,31,0.06)]">Rating ★★★★★</span>
                 </div>
               </div>
             </div>
 
             {/* Float tags */}
-            <div className="absolute top-2 right-2 bg-[#1E1E1E] px-3 py-2 rounded-sm flex items-center gap-1.5 text-[11px] font-bold text-[#D4D4D4] border border-[#3E3E42] animate-bob-1">
-              <Check className="w-3.5 h-3.5 text-[#4EC9B0]" /> Unlimited Leads
+            <div className="absolute top-2 right-2 bg-[#243830] text-[#E7E4D6] px-3 py-2 rounded-md flex items-center gap-1.5 text-[11px] font-bold border border-[rgba(242,239,230,0.1)] animate-bob-1">
+              <Check className="w-3.5 h-3.5 text-[#5FA779]" /> Hot Lead
             </div>
-            <div className="absolute bottom-6 -left-2 bg-[#1E1E1E] px-3 py-2 rounded-sm flex items-center gap-1.5 text-[11px] font-bold text-[#D4D4D4] border border-[#3E3E42] animate-bob-2">
-              <Building className="w-3.5 h-3.5 text-[#CE9178]" /> Isolated Tenant
+            <div className="absolute bottom-6 -left-2 bg-[#243830] text-[#E7E4D6] px-3 py-2 rounded-md flex items-center gap-1.5 text-[11px] font-bold border border-[rgba(242,239,230,0.1)] animate-bob-2">
+              <AlertCircle className="w-3.5 h-3.5 text-[#E3A72F]" /> Callback
             </div>
           </div>
 
-          <div className="text-[11px] text-[#858585] font-semibold">
-            © {new Date().getFullYear()} CoachingSync · Student Recruitment CRM
+          <div className="text-[11px] text-[rgba(242,239,230,0.4)] font-semibold">
+            © {new Date().getFullYear()} CoachingSync · Center Management System
           </div>
         </div>
 
         {/* RIGHT PANEL: Form Inputs */}
-        <div className="p-8 md:p-12 flex flex-col justify-center bg-[#1E1E1E]">
+        <div className="p-8 md:p-12 flex flex-col justify-center bg-[#F2EFE6] text-[#16241F]">
           <div className="mb-8">
-            <span className="text-[10px] font-bold font-mono text-[#4EC9B0] tracking-widest block mb-2">GET STARTED</span>
-            <h1 className="text-2xl font-bold text-[#D4D4D4] mb-1">Create your workspace</h1>
-            <p className="text-xs text-[#CCCCCC]">Register your company and admin account.</p>
+            <span className="text-[10px] font-bold font-mono text-[#C4880E] tracking-widest block mb-2">GET STARTED</span>
+            <h1 className="text-2xl font-bold text-[#16241F] mb-1">Create your workspace</h1>
+            <p className="text-xs text-[#3A4B44]">Register your coaching center today.</p>
           </div>
 
           {/* Success Message Box */}
           {success && (
-            <div className="flex items-start gap-2.5 text-xs text-[#4EC9B0] bg-[#4EC9B0]/8 p-3 rounded-sm mb-6 shadow-sm border border-[#4EC9B0]/10">
+            <div className="flex items-start gap-2.5 text-xs text-[#5FA779] bg-[#5FA779]/10 p-3.5 rounded-md mb-6 border border-[#5FA779]/20 shadow-sm">
               <Check className="w-4 h-4 shrink-0 mt-0.5" />
               <span>{success}</span>
             </div>
@@ -256,7 +215,7 @@ export default function SignupPage() {
 
           {/* Error Message Box */}
           {error && (
-            <div className="flex items-center gap-2.5 text-xs text-[#E5484D] bg-[#E5484D]/8 p-3 rounded-sm mb-6 shadow-sm border border-[#E5484D]/10">
+            <div className="flex items-center gap-2.5 text-xs text-[#D6584A] bg-[#D6584A]/10 p-3.5 rounded-md mb-6 border border-[#D6584A]/20">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{error}</span>
             </div>
@@ -264,85 +223,83 @@ export default function SignupPage() {
 
           {!success && (
             <form onSubmit={handleSignup} className="space-y-4">
-              {/* Company Name Field */}
+              {/* Coaching Center Name Field */}
               <div>
-                <label htmlFor="companyName" className="block text-xs font-bold text-[#CCCCCC] mb-2">
-                  Company / Agency Name
+                <label htmlFor="companyName" className="block text-xs font-bold text-[#3A4B44] mb-2">
+                  Coaching Center Name
                 </label>
-                <div className="rounded-sm p-1 pr-4 pl-4 bg-[#1E1E1E] border border-[#3E3E42] flex items-center gap-3 focus-within:border border-[#3E3E42] transition-all">
-                  <Building className="w-4 h-4 text-[#858585] shrink-0" />
+                <div className="rounded-md p-1 pr-4 pl-4 bg-[#FFF] border border-[rgba(22,36,31,0.13)] flex items-center gap-3 focus-within:border-[#E3A72F] transition-all">
+                  <Building className="w-4 h-4 text-[#324B41] shrink-0" />
                   <input 
                     type="text" 
                     id="companyName" 
-                    placeholder="E.g. Global Education Consultants" 
+                    placeholder="E.g. Apex Academy" 
                     required
                     value={companyName}
                     onChange={(e) => setCompanyName(e.target.value)}
-                    className="border-none bg-transparent outline-none w-full py-3.5 text-base text-[#D4D4D4]"
+                    className="border-none bg-transparent outline-none w-full py-3.5 text-base text-[#16241F]"
                   />
                 </div>
               </div>
 
               {/* Full Name Field */}
               <div>
-                <label htmlFor="fullName" className="block text-xs font-bold text-[#CCCCCC] mb-2">
+                <label htmlFor="fullName" className="block text-xs font-bold text-[#3A4B44] mb-2">
                   Your Full Name
                 </label>
-                <div className="rounded-sm p-1 pr-4 pl-4 bg-[#1E1E1E] border border-[#3E3E42] flex items-center gap-3 focus-within:border border-[#3E3E42] transition-all">
-                  <User className="w-4 h-4 text-[#858585] shrink-0" />
+                <div className="rounded-md p-1 pr-4 pl-4 bg-[#FFF] border border-[rgba(22,36,31,0.13)] flex items-center gap-3 focus-within:border-[#E3A72F] transition-all">
+                  <User className="w-4 h-4 text-[#324B41] shrink-0" />
                   <input 
                     type="text" 
                     id="fullName" 
-                    placeholder="E.g. Fahim Shahriar" 
+                    placeholder="E.g. Rafi Ahmed" 
                     required
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    className="border-none bg-transparent outline-none w-full py-3.5 text-base text-[#D4D4D4]"
+                    className="border-none bg-transparent outline-none w-full py-3.5 text-base text-[#16241F]"
                   />
                 </div>
               </div>
 
               {/* Email Field */}
               <div>
-                <label htmlFor="email" className="block text-xs font-bold text-[#CCCCCC] mb-2">
-                  Work Email address
+                <label htmlFor="email" className="block text-xs font-bold text-[#3A4B44] mb-2">
+                  Email address
                 </label>
-                <div className="rounded-sm p-1 pr-4 pl-4 bg-[#1E1E1E] border border-[#3E3E42] flex items-center gap-3 focus-within:border border-[#3E3E42] transition-all">
-                  <Mail className="w-4 h-4 text-[#858585] shrink-0" />
+                <div className="rounded-md p-1 pr-4 pl-4 bg-[#FFF] border border-[rgba(22,36,31,0.13)] flex items-center gap-3 focus-within:border-[#E3A72F] transition-all">
+                  <Mail className="w-4 h-4 text-[#324B41] shrink-0" />
                   <input 
                     type="email" 
                     id="email" 
-                    placeholder="you@agency.com" 
-                    autoComplete="email" 
+                    placeholder="you@coaching.com" 
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="border-none bg-transparent outline-none w-full py-3.5 text-base text-[#D4D4D4]"
+                    className="border-none bg-transparent outline-none w-full py-3.5 text-base text-[#16241F]"
                   />
                 </div>
               </div>
 
               {/* Password Field */}
               <div>
-                <label htmlFor="password" className="block text-xs font-bold text-[#CCCCCC] mb-2">
-                  Create Password
+                <label htmlFor="password" className="block text-xs font-bold text-[#3A4B44] mb-2">
+                  Password
                 </label>
-                <div className="rounded-sm p-1 pr-3 pl-4 bg-[#1E1E1E] border border-[#3E3E42] flex items-center gap-3 focus-within:border border-[#3E3E42] transition-all">
-                  <Lock className="w-4 h-4 text-[#858585] shrink-0" />
+                <div className="rounded-md p-1 pr-3 pl-4 bg-[#FFF] border border-[rgba(22,36,31,0.13)] flex items-center gap-3 focus-within:border-[#E3A72F] transition-all">
+                  <Lock className="w-4 h-4 text-[#324B41] shrink-0" />
                   <input 
                     type={showPassword ? 'text' : 'password'} 
                     id="password" 
-                    placeholder="Minimum 6 characters" 
-                    autoComplete="new-password" 
+                    placeholder="••••••••" 
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="border-none bg-transparent outline-none w-full py-3.5 text-base text-[#D4D4D4]"
+                    className="border-none bg-transparent outline-none w-full py-3.5 text-base text-[#16241F]"
                   />
                   <button 
                     type="button" 
                     onClick={() => setShowPassword(!showPassword)}
-                    className="p-1 text-[#858585] hover:text-[#D4D4D4] transition-colors"
+                    className="p-1 text-[#324B41] hover:text-[#16241F] transition-colors"
                   >
                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
@@ -353,24 +310,24 @@ export default function SignupPage() {
               <button 
                 type="submit" 
                 disabled={isPending}
-                className={`w-full py-4 rounded-sm font-bold text-xs text-white bg-gradient-to-br from-[#007ACC] to-[#0062A3] border border-[#3E3E42] hover:border-[#555555] active:translate-y-0.5 transition-all duration-150 flex items-center justify-center gap-2 ${
+                className={`w-full py-4 rounded-md font-bold text-xs text-[#16241F] bg-[#E3A72F] hover:bg-[#C4880E] active:translate-y-0.5 transition-all duration-150 flex items-center justify-center gap-2 shadow-sm ${
                   isPending ? 'opacity-85 pointer-events-none' : ''
                 }`}
               >
-                {isPending && <span className="w-4 h-4 rounded-full border-2 border-white/40 border-t-white animate-spin-custom"></span>}
+                {isPending && <span className="w-4 h-4 rounded-full border-2 border-[#16241F]/40 border-t-[#16241F] animate-spin-custom"></span>}
                 <span>{isPending ? 'Creating Account...' : 'Create Account'}</span>
               </button>
             </form>
           )}
 
-          <p className="signup-note text-center mt-6 text-xs text-[#858585]">
-            Already have an account? <Link href="/login" className="font-bold text-[#007ACC] hover:text-[#0062A3]">Sign in</Link>
+          <p className="signup-note text-center mt-6 text-xs text-[#324B41]">
+            Already have an account? <Link href="/login" className="font-bold text-[#C4880E] hover:underline">Sign in</Link>
           </p>
           
-          <div className="flex justify-center items-center gap-4 mt-8 text-[10px] text-[#858585]">
-            <Link href="/privacy" className="hover:text-[#007ACC] transition-colors">Privacy Policy</Link>
+          <div className="flex justify-center items-center gap-4 mt-8 text-[10px] text-[#324B41]">
+            <Link href="/privacy" className="hover:underline transition-colors">Privacy Policy</Link>
             <span>•</span>
-            <Link href="/terms" className="hover:text-[#007ACC] transition-colors">Terms & Conditions</Link>
+            <Link href="/terms" className="hover:underline transition-colors">Terms & Conditions</Link>
           </div>
         </div>
 
