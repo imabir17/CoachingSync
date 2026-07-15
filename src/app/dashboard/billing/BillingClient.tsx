@@ -154,7 +154,7 @@ export default function BillingClient({ initialData }: BillingProps) {
             <div>
               <span className="text-[10px] font-bold font-mono text-[#CE9178] tracking-widest block mb-1">CURRENT PLAN</span>
               <h3 className="text-xl font-bold text-white font-display">
-                {subscription?.plan?.name ?? 'Free Tier'}
+                {subscription?.effectivePlanName ?? subscription?.plan?.name ?? 'Free'}
               </h3>
             </div>
             {subscription && (
@@ -167,8 +167,14 @@ export default function BillingClient({ initialData }: BillingProps) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 border-t border-[#3E3E42]">
             <div>
               <span className="text-[10px] text-[#858585] block uppercase font-mono">Billing Cycle</span>
-              <span className="text-sm font-semibold text-white mt-1 block">
-                {subscription?.plan?.billingCycle === 'free' ? 'Always Free' : subscription?.plan?.billingCycle ?? 'None'}
+              <span className="text-sm font-semibold text-white mt-1 block capitalize">
+                {subscription?.plan?.billingCycle === 'free'
+                  ? 'Always Free'
+                  : subscription?.plan?.billingCycle === 'monthly'
+                  ? 'Monthly'
+                  : subscription?.plan?.billingCycle === 'yearly'
+                  ? 'Yearly'
+                  : (subscription?.plan?.billingCycle ?? 'None')}
               </span>
             </div>
             <div>

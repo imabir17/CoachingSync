@@ -43,7 +43,8 @@ export async function confirmPayment(paymentId: string) {
   const endDate = new Date()
   endDate.setMonth(startDate.getMonth() + periodLength)
 
-  // Update subscription
+  // Update subscription — update all rows for this company to ensure no stale Free row
+  // remains if self-healing created duplicates. The latest row will be what getBillingDetails returns.
   const { error: subErr } = await admin
     .from('Subscription')
     .update({
@@ -54,9 +55,10 @@ export async function confirmPayment(paymentId: string) {
       graceEndsAt: null,
       setupFeePaid: payment.includesSetupFee ? true : undefined,
     })
-    .eq('id', payment.subscriptionId)
+    .eq('companyId', payment.companyId)
 
   if (subErr) throw subErr
+
 
   // Update payment status
   const { error: payErr } = await admin

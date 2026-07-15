@@ -137,6 +137,7 @@ export async function getBillingDetails() {
   const supabase = await createClient()
 
   // Get subscription, plan, branch, and payments
+  // Order by status (active first) then most recent to handle multiple rows gracefully
   let { data: sub, error: subErr } = await supabase
     .from('Subscription')
     .select(`
@@ -144,6 +145,8 @@ export async function getBillingDetails() {
       Plan (*)
     `)
     .eq('companyId', user.companyId)
+    .order('createdAt', { ascending: false })
+    .limit(1)
     .maybeSingle()
 
   if (subErr) {
@@ -183,7 +186,6 @@ export async function getBillingDetails() {
   const { data: plans, error: plansErr } = await supabase
     .from('Plan')
     .select('*')
-    .eq('isActive', true)
     .eq('isPublic', true)
 
   if (plansErr) {
@@ -201,14 +203,18 @@ export async function getBillingDetails() {
     throw new Error(`Database error fetching payment methods: ${pmErr.message}`)
   }
 
+  const subPlan = (sub as any)?.Plan
+
   return {
     subscription: sub ? {
       ...sub,
-      plan: (sub as any).Plan
+      plan: subPlan,
+      // Convenience: if isCustom flag set and plan is still 'Free', use override display name
+      effectivePlanName: sub.isCustom ? 'Custom' : (subPlan?.name ?? 'Free'),
     } : null,
     branches: branches || [],
     payments: payments || [],
-    plans: plans || [],
+    plans: (plans || []).filter((p: any) => p.billingCycle !== 'free' && p.billingCycle !== 'custom'),
     paymentMethods: paymentMethods || [],
   }
 }
