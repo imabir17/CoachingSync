@@ -1,4 +1,4 @@
--- SQL migration script to set up billing, branches, plans and payments
+-- SQL migration script to set up billing, branches, plans and payments (idempotent version)
 
 -- 1. Create Plans table
 CREATE TABLE IF NOT EXISTS "Plan" (
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS "Subscription" (
   "updatedAt" TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
-CREATE UNIQUE INDEX IF NOT EXISTS idx_subscription_branch ON "Subscription"("branchId");
+CREATE INDEX IF NOT EXISTS idx_subscription_branch ON "Subscription"("branchId");
 CREATE INDEX IF NOT EXISTS idx_subscription_company ON "Subscription"("companyId");
 CREATE INDEX IF NOT EXISTS idx_subscription_status_period ON "Subscription"("status", "currentPeriodEnd");
 
@@ -187,14 +187,34 @@ CREATE POLICY "Company members read their own payments" ON "Payment"
 FOR SELECT TO authenticated USING ("companyId" = get_my_company_id());
 
 -- 12. Update RLS policies for existing tables to block writes if suspended
--- Drop ALL write policies
+-- Drop ALL potential policies to avoid conflict
 DROP POLICY IF EXISTS "Users can manage leads in their company" ON "Lead";
+DROP POLICY IF EXISTS "Company members select leads" ON "Lead";
+DROP POLICY IF EXISTS "Company members write leads" ON "Lead";
+
 DROP POLICY IF EXISTS "Users can manage interactions in their company" ON "Interaction";
+DROP POLICY IF EXISTS "Company members select interactions" ON "Interaction";
+DROP POLICY IF EXISTS "Company members write interactions" ON "Interaction";
+
 DROP POLICY IF EXISTS "Users can manage tasks in their company" ON "Task";
+DROP POLICY IF EXISTS "Company members select tasks" ON "Task";
+DROP POLICY IF EXISTS "Company members write tasks" ON "Task";
+
 DROP POLICY IF EXISTS "Users can manage courses in their company" ON "Course";
+DROP POLICY IF EXISTS "Company members select courses" ON "Course";
+DROP POLICY IF EXISTS "Company members write courses" ON "Course";
+
 DROP POLICY IF EXISTS "Users can manage batches in their company" ON "Batch";
+DROP POLICY IF EXISTS "Company members select batches" ON "Batch";
+DROP POLICY IF EXISTS "Company members write batches" ON "Batch";
+
 DROP POLICY IF EXISTS "Users can manage enrollments in their company" ON "BatchEnrollment";
+DROP POLICY IF EXISTS "Company members select enrollments" ON "BatchEnrollment";
+DROP POLICY IF EXISTS "Company members write enrollments" ON "BatchEnrollment";
+
 DROP POLICY IF EXISTS "Super Admins and Managers can manage invites" ON "Invite";
+DROP POLICY IF EXISTS "Company members select invites" ON "Invite";
+DROP POLICY IF EXISTS "Admins manage invites" ON "Invite";
 
 -- Re-create Split SELECT vs WRITE policies
 -- Lead
