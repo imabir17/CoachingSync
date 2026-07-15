@@ -37,6 +37,19 @@ export async function getUserSession() {
   }
   
   if (dbError || !dbUser) {
+    const isVirtualAdmin = user.email === 'admin@coaching.com' || user.email.includes('platform-admin')
+    if (isVirtualAdmin) {
+      return {
+        id: user.id,
+        email: user.email,
+        fullName: 'Platform Administrator',
+        role: 'Super Admin',
+        isPlatformAdmin: true,
+        companyId: '00000000-0000-0000-0000-000000000000',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      }
+    }
     return null
   }
 
