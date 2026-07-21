@@ -15,6 +15,7 @@ function AcceptInviteForm() {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
   const [checkingInvite, setCheckingInvite] = useState(true)
   const [inviteError, setInviteError] = useState('')
@@ -348,7 +349,7 @@ function AcceptInviteForm() {
                 <div className="rounded-md p-1 pr-3 pl-4 bg-[#FFF] border border-[rgba(22,36,31,0.13)] flex items-center gap-3 focus-within:border-[#E3A72F] transition-all">
                   <Lock className="w-4 h-4 text-[#324B41] shrink-0" />
                   <input 
-                    type={showPassword ? 'text' : 'password'} 
+                    type={showConfirmPassword ? 'text' : 'password'} 
                     id="confirmPassword" 
                     placeholder="Repeat password" 
                     autoComplete="new-password" 
@@ -357,6 +358,14 @@ function AcceptInviteForm() {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     className="border-none bg-transparent outline-none w-full py-3.5 text-base text-[#16241F]"
                   />
+                  <button 
+                    type="button" 
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="p-1 text-[#324B41] hover:text-[#16241F] transition-colors"
+                    aria-label={showConfirmPassword ? 'Hide confirmed password' : 'Show confirmed password'}
+                  >
+                    {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
                 </div>
               </div>
 

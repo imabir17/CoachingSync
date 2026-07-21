@@ -35,9 +35,13 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser()
 
   const isLoginPage = request.nextUrl.pathname.startsWith('/login')
-  const isDashboardPage = request.nextUrl.pathname.startsWith('/dashboard')
+  const isProtectedPage =
+    request.nextUrl.pathname.startsWith('/dashboard') ||
+    request.nextUrl.pathname.startsWith('/platform-admin') ||
+    request.nextUrl.pathname.startsWith('/saas-admin') ||
+    request.nextUrl.pathname.startsWith('/onboarding')
 
-  if (!user && isDashboardPage) {
+  if (!user && isProtectedPage) {
     // no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone()
     url.pathname = '/login'
@@ -48,16 +52,28 @@ export async function updateSession(request: NextRequest) {
     // Only query database when visiting the login page with an active auth session
     const { data: dbUser } = await supabase
       .from('User')
-      .select('id')
+      .select('id, isPlatformAdmin')
       .eq('email', user.email)
       .maybeSingle()
 
     if (dbUser) {
       const url = request.nextUrl.clone()
-      url.pathname = '/dashboard'
+      url.pathname = dbUser.isPlatformAdmin ? '/platform-admin' : '/dashboard'
       return NextResponse.redirect(url)
     } else {
-      // Logged in via Supabase Auth but no DB profile exists. Force sign-out to clean the session.
+      // Logged in via Supabase Auth but no DB profile exists.
+      // Platform admins never have a DB row — don't sign them out.
+      const isPlatformAdmin =
+        user.email === 'admin@coaching.com' ||
+        user.email?.includes('platform-admin')
+
+      if (isPlatformAdmin) {
+        const url = request.nextUrl.clone()
+        url.pathname = '/platform-admin'
+        return NextResponse.redirect(url)
+      }
+
+      // For all other users without a DB profile, force sign-out to clean the session.
       await supabase.auth.signOut()
     }
   }
